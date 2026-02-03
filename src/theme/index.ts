@@ -9,6 +9,7 @@ const colors = {
   textOnBackground: "#000000",
   textHint: "#888888",
   border: "#dddddd",
+  input: "#F4F4F9",
 };
 
 const spacing = {
