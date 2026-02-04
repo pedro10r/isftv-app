@@ -44,7 +44,11 @@ export function Login() {
             secureTextEntry
           />
 
-          <TouchableOpacity style={styles.forgetPasswordButton}>
+          <TouchableOpacity
+            onPress={() => {}}
+            activeOpacity={0.6}
+            style={styles.forgetPasswordButton}
+          >
             <View style={styles.decoration}>
               <Text style={styles.forgetPasswordButtonText}>
                 {strings.forgotPasswordButtonText}
@@ -60,6 +64,7 @@ export function Login() {
             <TouchableOpacity
               style={styles.button}
               onPress={handleSubmit(onSubmit)}
+              activeOpacity={0.6}
             >
               <Text style={styles.buttonText}>{strings.signInTitle}</Text>
             </TouchableOpacity>
@@ -73,6 +78,7 @@ export function Login() {
           <TouchableOpacity
             style={styles.biometryButton}
             onPress={handleBiometricLogin}
+            activeOpacity={0.6}
           >
             <View style={styles.decoration}>
               <Text style={styles.biometryButtonText}>
