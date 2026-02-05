@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
 
-import { theme } from "@theme";
 import { TextInput } from "@components/TextInput";
+import { Button } from "@components/Button";
 
 import { useLogin } from "./hooks";
 import { styles } from "./styles";
@@ -57,20 +57,15 @@ export function Login() {
           </TouchableOpacity>
         </View>
 
-        {isLoading ? (
-          <ActivityIndicator size="large" color={theme.colors.primary} />
-        ) : (
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={handleSubmit(onSubmit)}
-              activeOpacity={0.6}
-            >
-              <Text style={styles.buttonText}>{strings.signInTitle}</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        <View style={styles.buttonContainer}>
+          <Button
+            label={strings.signInTitle}
+            onPress={handleSubmit(onSubmit)}
+            loading={isLoading}
+          />
+        </View>
       </View>
+
       <View style={styles.footer}>
         <Text style={styles.text}>{strings.or}</Text>
 

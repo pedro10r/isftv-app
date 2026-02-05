@@ -1,4 +1,3 @@
-import React from "react";
 import {
   View,
   TextInput as RNTextInput,
@@ -26,6 +25,7 @@ export function TextInput<TFieldValues extends FieldValues>({
   return (
     <View>
       {fieldName && <Text style={styles.fieldName}>{fieldName}</Text>}
+
       <Controller
         control={control}
         name={name}
