@@ -1,11 +1,11 @@
 import { useAuthStore } from "@store/authStore";
 import { useEffect, useState } from "react";
+import { Alert } from "react-native";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import * as LocalAuthentication from "expo-local-authentication";
-import { Alert } from "react-native";
 
 const loginSchema = z.object({
   email: z.string().email("E-mail inválido").nonempty("O e-mail é obrigatório"),
@@ -13,6 +13,11 @@ const loginSchema = z.object({
 });
 
 type LoginFormValues = z.infer<typeof loginSchema>;
+
+const fakeData = {
+  email: "user@email.com",
+  password: "123123",
+};
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,20 +39,27 @@ export const useLogin = () => {
   const onSubmit = async (data: LoginFormValues) => {
     try {
       setIsLoading(true);
+
       await new Promise((resolve) => setTimeout(resolve, 1500));
 
-      const fakeResponse = {
-        token: "token-jwt-manual-123",
-        user: {
-          name: "Usuário Teste",
-          email: data.email,
-        },
-      };
+      if (
+        data.email === fakeData.email &&
+        data.password === fakeData.password
+      ) {
+        const fakeResponse = {
+          token: "token-jwt-manual-123",
+          user: {
+            name: "Usuário Teste",
+            email: data.email,
+          },
+        };
 
-      login(fakeResponse.user, fakeResponse.token);
+        return login(fakeResponse.user, fakeResponse.token);
+      }
+      return Alert.alert("Erro de Login", "E-mail ou senha incorretos.");
     } catch (error) {
       console.error(error);
-      Alert.alert("Erro", "Não foi possível fazer login.");
+      Alert.alert("Erro", "Ocorreu um problema ao tentar fazer login.");
     } finally {
       setIsLoading(false);
     }
