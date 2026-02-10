@@ -3,7 +3,7 @@ export const strings = {
     title: "Criar conta",
     subtitle: "Preencha os campos abaixo para criar sua conta.",
     nameLabel: "Nome",
-    namePlaceholder: "Usuário Exemplo",
+    namePlaceholder: "Nome completo",
     emailLabel: "Email",
     emailPlaceholder: "email@exemplo.com",
     passwordLabel: "Senha",

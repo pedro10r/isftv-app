@@ -49,6 +49,7 @@ export function Login() {
             <SimpleButton
               label={strings.login.buttonForgot}
               onPress={() => {}}
+              size="small"
             />
           </View>
         </View>

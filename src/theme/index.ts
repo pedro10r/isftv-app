@@ -32,6 +32,7 @@ const typography = {
     h2: 24,
     h3: 20,
     body: 16,
+    regular: 14,
     caption: 12,
   },
   fontFamily: {
