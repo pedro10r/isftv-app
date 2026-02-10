@@ -1,4 +1,4 @@
-package com.pedrorocha.athleteapp
+package com.pedrorocha.isftvapp
 
 import android.app.Application
 import android.content.res.Configuration

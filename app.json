@@ -1,16 +1,28 @@
 {
   "expo": {
-    "name": "athlete-app",
-    "slug": "athlete-app",
+    "name": "isFTV",
+    "slug": "isftv-app",
     "version": "1.0.0",
-    "scheme": "athleteapp",
-    "android": {
-      "package": "com.pedrorocha.athleteapp"
-    },
-    "ios": {
-      "bundleIdentifier": "com.pedrorocha.athleteapp"
-    },
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "scheme": "isftv-app",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pedrorocha.isftvapp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.pedrorocha.isftvapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
     "plugins": [
       [
         "expo-local-authentication",

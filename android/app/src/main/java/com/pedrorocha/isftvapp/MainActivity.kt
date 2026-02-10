@@ -1,4 +1,4 @@
-package com.pedrorocha.athleteapp
+package com.pedrorocha.isftvapp
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build
