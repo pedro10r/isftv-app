@@ -1,12 +1,12 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 
-import { TextInput } from "@components/TextInput";
-import { Button } from "@components/Button";
+import { FormTemplate } from "@templates/FormTemplate";
+import { Button, SimpleButton, TextInput } from "@components";
 
 import { useLogin } from "./hooks";
-import { styles } from "./styles";
 import { strings } from "./strings";
+import { styles } from "./styles";
 
 export function Login() {
   const {
@@ -20,8 +20,8 @@ export function Login() {
   } = useLogin();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.content}>
+    <FormTemplate>
+      <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{strings.login.title}</Text>
           <Text style={styles.subtitle}>{strings.login.subtitle}</Text>
@@ -45,17 +45,12 @@ export function Login() {
             secureTextEntry
           />
 
-          <TouchableOpacity
-            onPress={() => {}}
-            activeOpacity={0.6}
-            style={styles.forgetPasswordButton}
-          >
-            <View style={styles.decoration}>
-              <Text style={styles.forgetPasswordButtonText}>
-                {strings.login.buttonForgot}
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <View style={styles.forgetPasswordButtonContainer}>
+            <SimpleButton
+              label={strings.login.buttonForgot}
+              onPress={() => {}}
+            />
+          </View>
         </View>
 
         <View style={styles.buttonContainer}>
@@ -67,33 +62,23 @@ export function Login() {
         </View>
 
         {isBiometricSupported && (
-          <TouchableOpacity
-            style={styles.biometryButton}
-            onPress={handleBiometricLogin}
-            activeOpacity={0.6}
-          >
-            <View style={styles.decoration}>
-              <Text style={styles.biometryButtonText}>
-                {strings.login.buttonBiometrics}
-              </Text>
-            </View>
-          </TouchableOpacity>
+          <View style={styles.biometryButtonContainer}>
+            <SimpleButton
+              label={strings.login.buttonBiometrics}
+              onPress={handleBiometricLogin}
+            />
+          </View>
         )}
       </View>
 
       <View style={styles.footer}>
         <Text style={styles.text}>{strings.login.dontHaveAccount}</Text>
 
-        <TouchableOpacity
-          style={styles.signUpButton}
+        <SimpleButton
+          label={strings.login.signUp}
           onPress={handleSignUpNavigation}
-          activeOpacity={0.6}
-        >
-          <View style={styles.decoration}>
-            <Text style={styles.signUpButtonText}>{strings.login.signUp}</Text>
-          </View>
-        </TouchableOpacity>
+        />
       </View>
-    </View>
+    </FormTemplate>
   );
 }

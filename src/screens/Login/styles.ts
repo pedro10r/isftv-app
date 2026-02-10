@@ -6,22 +6,17 @@ const { colors, typography, spacing, radii } = theme;
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
-    paddingHorizontal: spacing.l,
-  },
-  content: {
-    flex: 1,
     justifyContent: "center",
     gap: spacing.l,
   },
   header: {
     alignItems: "center",
     marginBottom: spacing.xl,
+    gap: spacing.s,
   },
   title: {
-    fontSize: typography.fontSizes.h2,
+    fontSize: typography.fontSizes.h1,
     fontFamily: typography.fontFamily.medium,
-    marginBottom: spacing.s,
   },
   subtitle: {
     fontSize: typography.fontSizes.caption,
@@ -36,7 +31,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     gap: spacing.m,
   },
-  forgetPasswordButton: {
+  forgetPasswordButtonContainer: {
     alignSelf: "flex-end",
   },
   forgetPasswordButtonText: {
@@ -71,7 +66,7 @@ export const styles = StyleSheet.create({
     gap: spacing.xs,
     marginBottom: spacing.l,
   },
-  biometryButton: {
+  biometryButtonContainer: {
     width: "100%",
     alignItems: "center",
   },

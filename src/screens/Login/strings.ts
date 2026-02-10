@@ -2,7 +2,7 @@ export const strings = {
   // Strings used in index.tsx
   login: {
     title: "Login",
-    subtitle: "Bem-vindo ao Athlete App.",
+    subtitle: "Bem-vindo ao isFTV App.",
     emailLabel: "E-mail",
     emailPlaceholder: "email@exemplo.com",
     passwordLabel: "Senha",
