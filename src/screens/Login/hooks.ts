@@ -1,100 +1,116 @@
-import { useAuthStore } from "@store/authStore";
 import { useEffect, useState } from "react";
 import { Alert } from "react-native";
-
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 import * as LocalAuthentication from "expo-local-authentication";
 
-const loginSchema = z.object({
-  email: z.string().email("E-mail inválido").nonempty("O e-mail é obrigatório"),
-  password: z.string().min(6, "A senha precisa ter no mínimo 6 caracteres"),
-});
-
-type LoginFormValues = z.infer<typeof loginSchema>;
-
-const fakeData = {
-  email: "user@email.com",
-  password: "123123",
-};
+import { storage } from "@lib/storage";
+import { useAuthStore } from "@store/authStore";
+import { AUTH_STORAGE_KEYS, AUTH_FAKE_DATA } from "@constants/auth";
+import { LoginFormValues, loginSchema } from "./schemas";
+import { strings } from "./strings";
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
 
   const login = useAuthStore((state) => state.login);
+
   const { control, handleSubmit } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
 
-  // Check for hardware support when assembling the screen
+  // Check for hardware support when assembling the hook.
   useEffect(() => {
     (async () => {
       const compatible = await LocalAuthentication.hasHardwareAsync();
-      setIsBiometricSupported(compatible);
+      const hasRecords = await LocalAuthentication.isEnrolledAsync();
+      setIsBiometricSupported(compatible && hasRecords);
     })();
   }, []);
 
+  // MANUAL LOGIN (Email and Password).
   const onSubmit = async (data: LoginFormValues) => {
     try {
       setIsLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      // API call simulation.
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
       if (
-        data.email === fakeData.email &&
-        data.password === fakeData.password
+        data.email !== AUTH_FAKE_DATA.TEST_EMAIL ||
+        data.password !== AUTH_FAKE_DATA.TEST_PASSWORD
       ) {
-        const fakeResponse = {
-          token: "token-jwt-manual-123",
-          user: {
-            name: "Usuário Teste",
-            email: data.email,
-          },
-        };
-
-        return login(fakeResponse.user, fakeResponse.token);
+        // Chaves atualizadas para o novo formato estruturado
+        return Alert.alert(strings.auth.errorTitle, strings.auth.errorMessage);
       }
-      return Alert.alert("Erro de Login", "E-mail ou senha incorretos.");
+
+      const user = {
+        name: AUTH_FAKE_DATA.DEFAULT_USER_NAME,
+        email: data.email,
+      };
+
+      const token = AUTH_FAKE_DATA.DEFAULT_TOKEN;
+
+      // SAVES TO MMKV: Since it's synchronous, it doesn't need await
+      // The data will be encrypted as configured in storage/index.ts.
+      storage.set(
+        AUTH_STORAGE_KEYS.USER_SESSION,
+        JSON.stringify({ user, token }),
+      );
+
+      return login(user, token);
     } catch (error) {
-      console.error(error);
-      Alert.alert("Erro", "Ocorreu um problema ao tentar fazer login.");
+      Alert.alert(strings.auth.errorTitle, strings.auth.genericError);
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Login function with Biometry
+  // LOGIN WITH BIOMETRICS.
   const handleBiometricLogin = async () => {
     try {
+      // 1. Hardware validation.
       const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-
       if (!isEnrolled) {
         return Alert.alert(
-          "Ops",
-          "Nenhuma biometria cadastrada neste aparelho.",
+          strings.auth.biometrics.notEnrolledTitle,
+          strings.auth.biometrics.notEnrolledMessage,
         );
       }
 
+      // 2. Calls the sensor (Face ID/Fingerprint)
+      // If the simulator fails, the "Try Again" button keeps the code locked here.
       const auth = await LocalAuthentication.authenticateAsync({
-        promptMessage: "Acesse com sua biometria",
-        fallbackLabel: "Usar senha",
+        promptMessage: strings.auth.biometrics.prompt,
+        fallbackLabel: strings.auth.biometrics.fallback,
+        disableDeviceFallback: false,
       });
 
-      if (auth.success) {
-        Alert.alert("Sucesso", "Biometria confirmada!");
+      // 3. Early Return: If the user cancels or all attempts fail.
+      if (!auth.success) return;
 
-        login(
-          {
-            name: "Usuário Biometria",
-            email: "biometria@teste.com",
-          },
-          "token-jwt-biometrico-999",
+      // 4. Retrieve data from MMKV (Synchronous).
+      const savedSession = storage.getString(AUTH_STORAGE_KEYS.USER_SESSION);
+
+      if (!savedSession) {
+        return Alert.alert(
+          strings.auth.config.requiredTitle,
+          strings.auth.config.requiredMessage,
         );
       }
+
+      // 5. Complete the login with the actual data retrieved from the encrypted storage.
+      const { user, token } = JSON.parse(savedSession);
+      login(user, token);
+
+      Alert.alert(
+        strings.auth.success.title,
+        strings.auth.success.welcome(user.name),
+      );
     } catch (error) {
-      Alert.alert("Erro", "Falha na autenticação biométrica");
+      console.error(error);
+      Alert.alert(strings.auth.errorTitle, strings.auth.biometrics.failure);
     }
   };
 

@@ -1,7 +1,13 @@
 import { MMKV } from "react-native-mmkv";
 import { StateStorage } from "zustand/middleware";
 
-const storage = new MMKV();
+// Expo automatically loads variables that begin with EXPO_PUBLIC_
+const encryptionKey = process.env.EXPO_PUBLIC_STORAGE_ENCRYPTION_KEY;
+
+export const storage = new MMKV({
+  id: "user-storage",
+  encryptionKey: encryptionKey,
+});
 
 export const mmkvStorageAdapter: StateStorage = {
   setItem: (name, value) => {

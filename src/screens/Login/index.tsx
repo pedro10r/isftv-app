@@ -22,25 +22,25 @@ export function Login() {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.header}>
-          <Text style={styles.title}>{strings.signInTitle}</Text>
-          <Text style={styles.subtitle}>{strings.signInSubtitle}</Text>
+          <Text style={styles.title}>{strings.login.title}</Text>
+          <Text style={styles.subtitle}>{strings.login.subtitle}</Text>
         </View>
 
         <View style={styles.inputContainer}>
           <TextInput
-            fieldName={strings.emailFieldName}
+            fieldName={strings.login.emailLabel}
             control={control}
             name="email"
-            placeholder={strings.emailPlaceholder}
+            placeholder={strings.login.emailPlaceholder}
             keyboardType="email-address"
             autoCapitalize="none"
           />
 
           <TextInput
-            fieldName={strings.passwordFieldName}
+            fieldName={strings.login.passwordLabel}
             control={control}
             name="password"
-            placeholder={strings.passwordPlaceholder}
+            placeholder={strings.login.passwordPlaceholder}
             secureTextEntry
           />
 
@@ -51,7 +51,7 @@ export function Login() {
           >
             <View style={styles.decoration}>
               <Text style={styles.forgetPasswordButtonText}>
-                {strings.forgotPasswordButtonText}
+                {strings.login.buttonForgot}
               </Text>
             </View>
           </TouchableOpacity>
@@ -59,17 +59,17 @@ export function Login() {
 
         <View style={styles.buttonContainer}>
           <Button
-            label={strings.signInTitle}
+            label={strings.login.buttonSubmit}
             onPress={handleSubmit(onSubmit)}
             loading={isLoading}
           />
         </View>
       </View>
 
-      <View style={styles.footer}>
-        <Text style={styles.text}>{strings.or}</Text>
+      {isBiometricSupported && (
+        <View style={styles.footer}>
+          <Text style={styles.text}>{strings.login.divider}</Text>
 
-        {isBiometricSupported && (
           <TouchableOpacity
             style={styles.biometryButton}
             onPress={handleBiometricLogin}
@@ -77,12 +77,12 @@ export function Login() {
           >
             <View style={styles.decoration}>
               <Text style={styles.biometryButtonText}>
-                {strings.signInWithBiometrics}
+                {strings.login.buttonBiometrics}
               </Text>
             </View>
           </TouchableOpacity>
-        )}
-      </View>
+        </View>
+      )}
     </View>
   );
 }

@@ -17,7 +17,8 @@
         {
           "faceIDPermission": "Permitir o uso do Face ID para autenticação rápida."
         }
-      ]
+      ],
+      "expo-secure-store"
     ]
   }
 }
