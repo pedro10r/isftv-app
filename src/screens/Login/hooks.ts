@@ -9,6 +9,8 @@ import { useAuthStore } from "@store/authStore";
 import { AUTH_STORAGE_KEYS, AUTH_FAKE_DATA } from "@constants/auth";
 import { LoginFormValues, loginSchema } from "./schemas";
 import { strings } from "./strings";
+import { useNavigation } from "@react-navigation/native";
+import { NAV } from "@navigation/routes";
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +21,8 @@ export const useLogin = () => {
   const { control, handleSubmit } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
   });
+
+  const { navigate } = useNavigation();
 
   // Check for hardware support when assembling the hook.
   useEffect(() => {
@@ -114,6 +118,12 @@ export const useLogin = () => {
     }
   };
 
+  const handleSignUpNavigation = () => {
+    navigate(NAV.ROOT.AUTH_STACK, {
+      screen: NAV.AUTH_STACK.REGISTER,
+    });
+  };
+
   return {
     control,
     handleSubmit,
@@ -121,5 +131,6 @@ export const useLogin = () => {
     isLoading,
     isBiometricSupported,
     handleBiometricLogin,
+    handleSignUpNavigation,
   };
 };

@@ -20,7 +20,7 @@ export type TabParamList = {
 
 export type RootStackParamList = {
   MainTabs: NavigatorScreenParams<TabParamList>;
-  AuthStack: undefined;
+  AuthStack: NavigatorScreenParams<AuthStackParamList>;
 };
 
 declare global {

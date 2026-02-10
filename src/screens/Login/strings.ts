@@ -9,8 +9,9 @@ export const strings = {
     passwordPlaceholder: "••••••••",
     buttonSubmit: "Entrar",
     buttonForgot: "Esqueci minha senha",
-    divider: "Ou",
+    dontHaveAccount: "Não tem uma conta?",
     buttonBiometrics: "Entrar com Biometria",
+    signUp: "Cadastrar-se",
   },
 
   // Strings used in hooks.ts

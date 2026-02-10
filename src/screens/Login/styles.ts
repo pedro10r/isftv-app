@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     color: colors.textOnBackground,
-    fontFamily: typography.fontFamily.medium,
+    fontFamily: typography.fontFamily.light,
   },
   inputContainer: {
     width: "100%",
@@ -65,16 +65,22 @@ export const styles = StyleSheet.create({
     fontFamily: typography.fontFamily.medium,
   },
   footer: {
-    alignItems: "center",
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "center",
+    gap: spacing.xs,
     marginBottom: spacing.l,
-    gap: spacing.m,
   },
   biometryButton: {
     width: "100%",
     alignItems: "center",
-    marginBottom: spacing.m,
   },
+  signUpButton: {},
   biometryButtonText: {
+    color: colors.primary,
+    fontFamily: typography.fontFamily.regular,
+  },
+  signUpButtonText: {
     color: colors.primary,
     fontFamily: typography.fontFamily.regular,
   },

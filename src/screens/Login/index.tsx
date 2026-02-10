@@ -16,6 +16,7 @@ export function Login() {
     isLoading,
     isBiometricSupported,
     handleBiometricLogin,
+    handleSignUpNavigation,
   } = useLogin();
 
   return (
@@ -64,12 +65,8 @@ export function Login() {
             loading={isLoading}
           />
         </View>
-      </View>
 
-      {isBiometricSupported && (
-        <View style={styles.footer}>
-          <Text style={styles.text}>{strings.login.divider}</Text>
-
+        {isBiometricSupported && (
           <TouchableOpacity
             style={styles.biometryButton}
             onPress={handleBiometricLogin}
@@ -81,8 +78,22 @@ export function Login() {
               </Text>
             </View>
           </TouchableOpacity>
-        </View>
-      )}
+        )}
+      </View>
+
+      <View style={styles.footer}>
+        <Text style={styles.text}>{strings.login.dontHaveAccount}</Text>
+
+        <TouchableOpacity
+          style={styles.signUpButton}
+          onPress={handleSignUpNavigation}
+          activeOpacity={0.6}
+        >
+          <View style={styles.decoration}>
+            <Text style={styles.signUpButtonText}>{strings.login.signUp}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
