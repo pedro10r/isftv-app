@@ -12,4 +12,11 @@ export const strings = {
     buttonLogin: "Login",
     alreadyHaveAccount: "Já tem uma conta?",
   },
+
+  auth: {
+    errorTitle: "Erro no Cadastro",
+    errorMessage: "Não foi possível criar sua conta. Tente novamente.",
+    successTitle: "Sucesso",
+    successMessage: "Conta criada com sucesso!",
+  },
 };

@@ -3,14 +3,16 @@ import { Alert } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as LocalAuthentication from "expo-local-authentication";
+import { useNavigation } from "@react-navigation/native";
 
+import { NAV } from "@navigation/routes";
+import { AUTH_STORAGE_KEYS } from "@constants/auth";
 import { storage } from "@lib/storage";
+import { verifyToken } from "@lib/jwt";
 import { useAuthStore } from "@store/authStore";
-import { AUTH_STORAGE_KEYS, AUTH_FAKE_DATA } from "@constants/auth";
+
 import { LoginFormValues, loginSchema } from "./schemas";
 import { strings } from "./strings";
-import { useNavigation } from "@react-navigation/native";
-import { NAV } from "@navigation/routes";
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,30 +40,21 @@ export const useLogin = () => {
     try {
       setIsLoading(true);
 
-      // API call simulation.
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      if (
-        data.email !== AUTH_FAKE_DATA.TEST_EMAIL ||
-        data.password !== AUTH_FAKE_DATA.TEST_PASSWORD
-      ) {
-        // Chaves atualizadas para o novo formato estruturado
+      const savedSession = storage.getString(AUTH_STORAGE_KEYS.USER_SESSION);
+
+      if (!savedSession) {
         return Alert.alert(strings.auth.errorTitle, strings.auth.errorMessage);
       }
 
-      const user = {
-        name: AUTH_FAKE_DATA.DEFAULT_USER_NAME,
-        email: data.email,
-      };
+      const { user, token } = JSON.parse(savedSession);
 
-      const token = AUTH_FAKE_DATA.DEFAULT_TOKEN;
+      const isValidToken = verifyToken(token);
 
-      // SAVES TO MMKV: Since it's synchronous, it doesn't need await
-      // The data will be encrypted as configured in storage/index.ts.
-      storage.set(
-        AUTH_STORAGE_KEYS.USER_SESSION,
-        JSON.stringify({ user, token }),
-      );
+      if (user.email !== data.email || !isValidToken) {
+        return Alert.alert(strings.auth.errorTitle, strings.auth.errorMessage);
+      }
 
       return login(user, token);
     } catch (error) {

@@ -9,7 +9,7 @@ import { strings } from "./strings";
 import { styles } from "./styles";
 
 export function Register() {
-  const { control, handleSubmit, onSubmit, handleGoBack } = useRegister();
+  const { control, handleSubmit, onSubmit, handleGoBack, isLoading } = useRegister();
 
   return (
     <FormTemplate>
@@ -59,7 +59,7 @@ export function Register() {
           <Button
             label={strings.register.title}
             onPress={handleSubmit(onSubmit)}
-            loading={false}
+            loading={isLoading}
           />
         </View>
       </View>
