@@ -12,14 +12,4 @@ export const styles = StyleSheet.create({
     color: theme.colors.textPrimary,
     fontSize: theme.typography.fontSizes.h2,
   },
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 60,
-    alignItems: "center",
-    marginTop: 16,
-    borderWidth: 1,
-    borderColor: "#007AFF",
-    borderRadius: 8,
-    backgroundColor: "#FFFFFF",
-  },
 });

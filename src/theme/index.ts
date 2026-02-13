@@ -1,15 +1,18 @@
 const colors = {
   primary: "#6200ee",
-  primaryVariant: "#3700b3",
+  primaryDark: "#3700b3",
   secondary: "#03dac6",
+  error: "#b00020",
   background: "#ffffff",
   surface: "#ffffff",
-  error: "#b00020",
-  textOnPrimary: "#ffffff",
-  textOnBackground: "#000000",
-  textHint: "#888888",
-  border: "#dddddd",
+  surfaceDark: "#1C1C1E",
+  surfaceDarkVariant: "#3A3A3C",
   input: "#F4F4F9",
+  border: "#dddddd",
+  textPrimary: "#000000",
+  textSecondary: "#888888",
+  white: "#ffffff",
+  black: "#000000",
 };
 
 const spacing = {
@@ -17,13 +20,15 @@ const spacing = {
   s: 8,
   m: 16,
   l: 24,
-  xl: 40,
+  xl: 32,
+  xxl: 40,
 };
 
 const radii = {
   s: 4,
   m: 8,
   l: 16,
+  xl: 24,
 };
 
 const typography = {

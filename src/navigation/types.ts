@@ -8,6 +8,10 @@ export type ProfileStackParamList = {
   Profile: undefined;
 };
 
+export type ChampionshipsStackParamList = {
+  Championships: undefined;
+};
+
 export type AuthStackParamList = {
   Login: undefined;
   Register: undefined;
@@ -15,6 +19,7 @@ export type AuthStackParamList = {
 
 export type TabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList>;
+  ChampionshipsStack: NavigatorScreenParams<ChampionshipsStackParamList>;
   ProfileStack: NavigatorScreenParams<ProfileStackParamList>;
 };
 

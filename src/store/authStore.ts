@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { mmkvStorageAdapter, storage } from "@lib/storage";
-import { AUTH_STORAGE_KEYS } from "@constants/auth";
+import { mmkvStorageAdapter } from "@lib/storage";
 
 interface User {
   name: string;
@@ -22,7 +21,6 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       login: (user, token) => set({ user, token }),
       logout: () => {
-        storage.delete(AUTH_STORAGE_KEYS.USER_SESSION);
         set({ user: null, token: null });
       },
     }),

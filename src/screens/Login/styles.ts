@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
   },
   header: {
     alignItems: "center",
-    marginBottom: spacing.xl,
+    marginBottom: spacing.xxl,
     gap: spacing.s,
   },
   title: {
@@ -21,10 +21,10 @@ export const styles = StyleSheet.create({
   subtitle: {
     fontSize: typography.fontSizes.caption,
     fontFamily: typography.fontFamily.light,
-    color: colors.textHint,
+    color: colors.textSecondary,
   },
   text: {
-    color: colors.textOnBackground,
+    color: colors.textPrimary,
     fontFamily: typography.fontFamily.light,
   },
   inputContainer: {
@@ -56,7 +56,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   buttonText: {
-    color: colors.textOnPrimary,
+    color: colors.white,
     fontFamily: typography.fontFamily.medium,
   },
   footer: {

@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     marginBottom: spacing.s,
     fontSize: typography.fontSizes.caption,
     fontFamily: typography.fontFamily.light,
-    color: colors.textOnBackground,
+    color: colors.textPrimary,
   },
   input: {
     borderRadius: radii.m,

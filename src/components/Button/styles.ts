@@ -1,7 +1,7 @@
 import { theme } from "@theme";
 import { StyleSheet } from "react-native";
 
-const { colors, spacing, radii, typography } = theme;
+const { colors, radii, typography } = theme;
 
 export const styles = StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   label: {
-    color: colors.textOnPrimary,
+    color: colors.white,
     fontFamily: typography.fontFamily.medium,
   },
 });

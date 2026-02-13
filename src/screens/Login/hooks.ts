@@ -76,8 +76,7 @@ export const useLogin = () => {
         );
       }
 
-      // 2. Calls the sensor (Face ID/Fingerprint)
-      // If the simulator fails, the "Try Again" button keeps the code locked here.
+      // 2. Calls the sensor (Face ID/Fingerprint).
       const auth = await LocalAuthentication.authenticateAsync({
         promptMessage: strings.auth.biometrics.prompt,
         fallbackLabel: strings.auth.biometrics.fallback,
@@ -97,8 +96,15 @@ export const useLogin = () => {
         );
       }
 
-      // 5. Complete the login with the actual data retrieved from the encrypted storage.
+      // 5. Validate token before login.
       const { user, token } = JSON.parse(savedSession);
+      const isValidToken = verifyToken(token);
+
+      if (!isValidToken) {
+        return Alert.alert(strings.auth.errorTitle, strings.auth.errorMessage);
+      }
+
+      // 6. Complete the login with the validated data.
       login(user, token);
 
       Alert.alert(

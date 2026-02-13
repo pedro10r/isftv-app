@@ -1,6 +1,6 @@
 import JWT from "expo-jwt";
 
-const SECRET_KEY = process.env.EXPO_PUBLIC_JWT_SECRET;
+const SECRET_KEY = process.env.EXPO_PUBLIC_STORAGE_ENCRYPTION_KEY;
 
 export interface JWTPayload {
   email: string;
