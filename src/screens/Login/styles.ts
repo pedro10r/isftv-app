@@ -70,7 +70,6 @@ export const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
-  signUpButton: {},
   biometryButtonText: {
     color: colors.primary,
     fontFamily: typography.fontFamily.regular,

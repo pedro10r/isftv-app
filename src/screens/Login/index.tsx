@@ -17,6 +17,7 @@ export function Login() {
     isBiometricSupported,
     handleBiometricLogin,
     handleSignUpNavigation,
+    handleForgotPasswordNavigation,
   } = useLogin();
 
   return (
@@ -48,7 +49,7 @@ export function Login() {
           <View style={styles.forgetPasswordButtonContainer}>
             <SimpleButton
               label={strings.login.buttonForgot}
-              onPress={() => {}}
+              onPress={handleForgotPasswordNavigation}
               size="small"
             />
           </View>

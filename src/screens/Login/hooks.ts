@@ -123,6 +123,12 @@ export const useLogin = () => {
     });
   };
 
+  const handleForgotPasswordNavigation = () => {
+    navigate(NAV.ROOT.AUTH_STACK, {
+      screen: NAV.AUTH_STACK.FORGOT_PASSWORD,
+    });
+  };
+
   return {
     control,
     handleSubmit,
@@ -131,5 +137,6 @@ export const useLogin = () => {
     isBiometricSupported,
     handleBiometricLogin,
     handleSignUpNavigation,
+    handleForgotPasswordNavigation,
   };
 };

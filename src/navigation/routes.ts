@@ -20,5 +20,6 @@ export const NAV = {
   AUTH_STACK: {
     LOGIN: "Login",
     REGISTER: "Register",
+    FORGOT_PASSWORD: "ForgotPassword",
   },
 } as const;
