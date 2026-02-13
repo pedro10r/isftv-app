@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-import { FormTemplate } from "@templates/FormTemplate";
-import { Button, SimpleButton, TextInput } from "@components";
+import { FormTemplate } from "@components/templates";
+import { Button, SimpleButton, TextInput } from "@components/atoms";
 
 import { useLogin } from "./hooks";
 import { strings } from "./strings";

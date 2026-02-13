@@ -5,7 +5,7 @@ import { NAV } from "@navigation/routes";
 import { HomeStackNavigation } from "@navigation/stacks/HomeStackNavigation";
 import { ProfileStackNavigation } from "@navigation/stacks/ProfileStackNavigation";
 import { ChampionshipsStackNavigation } from "@navigation/stacks/ChampionshipsStackNavigation";
-import { FloatingTabBar } from "@components/FloatingTabBar";
+import { FloatingTabBar } from "@components/organisms/FloatingTabBar";
 
 const { Navigator, Screen } = createBottomTabNavigator<TabParamList>();
 

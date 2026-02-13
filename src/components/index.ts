@@ -1,3 +1,4 @@
-export { Button } from "./Button";
-export { TextInput } from "./TextInput";
-export { SimpleButton } from "./SimpleButton";
+export * from "./atoms";
+export * from "./molecules";
+export * from "./organisms";
+export * from "./templates";
