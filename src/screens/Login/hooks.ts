@@ -106,11 +106,6 @@ export const useLogin = () => {
 
       // 6. Complete the login with the validated data.
       login(user, token);
-
-      Alert.alert(
-        strings.auth.success.title,
-        strings.auth.success.welcome(user.name),
-      );
     } catch (error) {
       console.error(error);
       Alert.alert(strings.auth.errorTitle, strings.auth.biometrics.failure);
