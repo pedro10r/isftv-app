@@ -6,6 +6,7 @@ import {
 } from "react-native";
 import { Controller, Control, FieldValues, Path } from "react-hook-form";
 
+import { theme } from "@theme";
 import { styles } from "./styles";
 
 interface TextInputProps<
@@ -39,6 +40,7 @@ export function TextInput<TFieldValues extends FieldValues>({
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
+              placeholderTextColor={theme.colors.placeholder}
               {...textInputProps}
             />
 

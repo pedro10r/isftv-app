@@ -19,6 +19,7 @@ export const styles = StyleSheet.create({
     paddingVertical: spacing.m,
     fontSize: typography.fontSizes.body,
     backgroundColor: colors.input,
+    color: colors.textPrimary,
   },
   inputError: {
     borderColor: colors.error,

@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
   title: {
     fontSize: typography.fontSizes.h1,
     fontFamily: typography.fontFamily.medium,
+    color: colors.textPrimary,
   },
   subtitle: {
     fontSize: typography.fontSizes.caption,

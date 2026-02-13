@@ -25,9 +25,7 @@ export function SimpleButton({
 
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.6}>
-      <View style={styles.decoration}>
-        <Text style={[styles.buttonText, styleFontSizeButton]}>{label}</Text>
-      </View>
+      <Text style={[styles.buttonText, styleFontSizeButton]}>{label}</Text>
     </TouchableOpacity>
   );
 }

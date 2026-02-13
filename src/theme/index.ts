@@ -1,16 +1,21 @@
 const colors = {
-  primary: "#6200ee",
-  primaryDark: "#3700b3",
+  primary: "#445cfc",
+  primaryDark: "#2a3eb1",
   secondary: "#03dac6",
-  error: "#b00020",
-  background: "#ffffff",
-  surface: "#ffffff",
-  surfaceDark: "#1C1C1E",
-  surfaceDarkVariant: "#3A3A3C",
-  input: "#F4F4F9",
-  border: "#dddddd",
-  textPrimary: "#000000",
-  textSecondary: "#888888",
+  error: "#ed4956",
+
+  background: "#101414",
+  surface: "#161b1e",
+  surfaceDark: "#1c2225",
+  surfaceDarkVariant: "#2a3135",
+
+  input: "#161b1e",
+  border: "#363636",
+  placeholder: "#5c666f",
+
+  textPrimary: "#f5f5f5",
+  textSecondary: "#a8a8a8",
+
   white: "#ffffff",
   black: "#000000",
 };
