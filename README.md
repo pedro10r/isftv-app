@@ -92,7 +92,3 @@ Create a `.env` file in the root directory:
 ```env
 EXPO_PUBLIC_STORAGE_ENCRYPTION_KEY=your-encryption-key
 ```
-
-## 📄 License
-
-MIT
