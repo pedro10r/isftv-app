@@ -1,25 +1,9 @@
 import { StyleSheet } from "react-native";
-import { theme } from "@theme/index";
+import { theme } from "@theme";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: theme.colors.textPrimary,
-    fontSize: theme.typography.fontSizes.h2,
-  },
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 60,
-    alignItems: "center",
-    marginTop: 16,
-    borderWidth: 1,
-    borderColor: "#007AFF",
-    borderRadius: 8,
-    backgroundColor: "#FFFFFF",
+  scrollContent: {
+    paddingBottom: theme.spacing.xxl,
+    gap: theme.spacing.l,
   },
 });

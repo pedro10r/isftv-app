@@ -1,12 +1,12 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text } from "react-native";
 
+import { ScreenTemplate } from "@components/templates";
 import { styles } from "./styles";
-import { useAuthStore } from "@store/authStore";
 
 export function Home() {
   return (
-    <View style={styles.container}>
+    <ScreenTemplate>
       <Text style={styles.text}>Feed</Text>
-    </View>
+    </ScreenTemplate>
   );
 }

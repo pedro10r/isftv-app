@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import {
   useFonts,
   Inter_400Regular,
@@ -30,5 +31,9 @@ export default function App() {
     return null;
   }
 
-  return <RootNavigation />;
+  return (
+    <SafeAreaProvider>
+      <RootNavigation />
+    </SafeAreaProvider>
+  );
 }

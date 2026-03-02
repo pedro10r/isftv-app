@@ -1,11 +1,12 @@
-import { View, Text } from "react-native";
+import { Text } from "react-native";
 
+import { ScreenTemplate } from "@components/templates";
 import { styles } from "./styles";
 
 export function Championships() {
   return (
-    <View style={styles.container}>
+    <ScreenTemplate>
       <Text style={styles.text}>Championships</Text>
-    </View>
+    </ScreenTemplate>
   );
 }

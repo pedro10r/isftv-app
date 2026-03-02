@@ -1,18 +1,42 @@
-import { Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import { ScrollView } from "react-native";
 
+import { ScreenTemplate } from "@components/templates";
+import {
+  ProfileHeader,
+  AthleteStatsCard,
+  ProfileMenu,
+} from "@components/organisms";
 import { useAuthStore } from "@store/authStore";
 import { styles } from "./styles";
 
 export function Profile() {
+  const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logout);
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
+
+  const handleAvatarChange = (uri: string) => {
+    setAvatarUrl(uri);
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Profile</Text>
+    <ScreenTemplate>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <ProfileHeader
+          name={user?.name || "Usuário"}
+          username={"@pedro.ftv"}
+          avatarUrl={avatarUrl}
+          playingPosition="Direita"
+          onAvatarChange={handleAvatarChange}
+        />
 
-      <TouchableOpacity style={styles.button} onPress={logout}>
-        <Text>SAIR</Text>
-      </TouchableOpacity>
-    </View>
+        <AthleteStatsCard />
+
+        <ProfileMenu onLogout={logout} />
+      </ScrollView>
+    </ScreenTemplate>
   );
 }

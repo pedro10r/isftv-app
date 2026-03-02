@@ -3,6 +3,7 @@ const colors = {
   primaryDark: "#2a3eb1",
   secondary: "#03dac6",
   error: "#ed4956",
+  purple: "#9c27b0",
 
   background: "#101414",
   surface: "#161b1e",
