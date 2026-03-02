@@ -1,4 +1,5 @@
 import { View } from "react-native";
+import { useCallback } from "react";
 import { Feather } from "@expo/vector-icons";
 
 import { MenuItem } from "@components/molecules";
@@ -17,21 +18,24 @@ interface ProfileMenuProps {
 }
 
 export function ProfileMenu({ onLogout }: ProfileMenuProps) {
-  const getMenuItems = (onLogout?: () => void): MenuItemTypeProps[] => [
-    { icon: "user", title: strings.menu.editProfile, onPress: () => {} },
-    {
-      icon: "bar-chart-2",
-      title: strings.menu.detailedStats,
-      onPress: () => {},
-    },
-    { icon: "settings", title: strings.menu.settings, onPress: () => {} },
-    {
-      icon: "log-out",
-      title: strings.menu.logout,
-      onPress: onLogout || (() => {}),
-      isDestructive: true,
-    },
-  ];
+  const getMenuItems = useCallback(
+    (onLogout?: () => void): MenuItemTypeProps[] => [
+      { icon: "user", title: strings.menu.editProfile, onPress: () => {} },
+      {
+        icon: "bar-chart-2",
+        title: strings.menu.detailedStats,
+        onPress: () => {},
+      },
+      { icon: "settings", title: strings.menu.settings, onPress: () => {} },
+      {
+        icon: "log-out",
+        title: strings.menu.logout,
+        onPress: onLogout || (() => {}),
+        isDestructive: true,
+      },
+    ],
+    [],
+  );
 
   const menuItems: MenuItemTypeProps[] = getMenuItems(onLogout);
 

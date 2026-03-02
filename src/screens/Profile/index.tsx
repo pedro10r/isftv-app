@@ -26,8 +26,8 @@ export function Profile() {
         showsVerticalScrollIndicator={false}
       >
         <ProfileHeader
-          name={user?.name || "Usuário"}
-          username={"@pedro.ftv"}
+          name={user?.name || ""}
+          username={user?.email || ""}
           avatarUrl={avatarUrl}
           playingPosition="Direita"
           onAvatarChange={handleAvatarChange}
