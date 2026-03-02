@@ -1,2 +1,1 @@
-// Molecules - composições de átomos
-// Exemplo: InputField = TextInput + Label + ErrorMessage
+export { MenuItem } from "./MenuItem";

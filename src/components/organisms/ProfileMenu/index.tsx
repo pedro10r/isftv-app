@@ -1,65 +1,23 @@
-import { View, Text, Pressable } from "react-native";
+import { View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-import { theme } from "@theme";
+import { MenuItem } from "@components/molecules";
 import { styles } from "./styles";
 import { strings } from "./strings";
 
-interface MenuItem {
+interface MenuItemTypeProps {
   icon: keyof typeof Feather.glyphMap;
   title: string;
   onPress: () => void;
   isDestructive?: boolean;
 }
 
-interface MenuItemComponentProps extends MenuItem {
-  isLast: boolean;
-}
-
-const MenuItemComponent = ({
-  icon,
-  title,
-  onPress,
-  isDestructive,
-  isLast,
-}: MenuItemComponentProps) => (
-  <Pressable
-    style={({ pressed }) => [
-      styles.menuItem,
-      isLast && { borderBottomWidth: 0 },
-      pressed && { opacity: 0.7 },
-    ]}
-    onPress={onPress}
-  >
-    <View style={styles.leftContent}>
-      <Feather
-        name={icon}
-        size={20}
-        color={isDestructive ? theme.colors.error : theme.colors.textPrimary}
-        style={styles.icon}
-      />
-
-      <Text style={[styles.title, isDestructive && styles.destructive]}>
-        {title}
-      </Text>
-    </View>
-
-    {!isDestructive && (
-      <Feather
-        name="chevron-right"
-        size={20}
-        color={theme.colors.textSecondary}
-      />
-    )}
-  </Pressable>
-);
-
-export interface ProfileMenuProps {
+interface ProfileMenuProps {
   onLogout?: () => void;
 }
 
 export function ProfileMenu({ onLogout }: ProfileMenuProps) {
-  const getMenuItems = (onLogout?: () => void): MenuItem[] => [
+  const getMenuItems = (onLogout?: () => void): MenuItemTypeProps[] => [
     { icon: "user", title: strings.menu.editProfile, onPress: () => {} },
     {
       icon: "bar-chart-2",
@@ -75,14 +33,17 @@ export function ProfileMenu({ onLogout }: ProfileMenuProps) {
     },
   ];
 
-  const menuItems = getMenuItems(onLogout);
+  const menuItems: MenuItemTypeProps[] = getMenuItems(onLogout);
 
   return (
     <View style={styles.container}>
       {menuItems.map((item, index) => (
-        <MenuItemComponent
+        <MenuItem
           key={item.title}
-          {...item}
+          icon={item.icon}
+          title={item.title}
+          onPress={item.onPress}
+          isDestructive={item.isDestructive}
           isLast={index === menuItems.length - 1}
         />
       ))}
