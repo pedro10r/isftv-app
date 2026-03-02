@@ -13,6 +13,10 @@ export const styles = StyleSheet.create({
     fontFamily: typography.fontFamily.light,
     color: colors.textPrimary,
   },
+  inputWrapper: {
+    width: "100%",
+    position: "relative",
+  },
   input: {
     borderRadius: radii.m,
     paddingHorizontal: spacing.m,
@@ -21,9 +25,20 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.input,
     color: colors.textPrimary,
   },
+  inputWithToggle: {
+    paddingRight: spacing.xxl + spacing.s,
+  },
   inputError: {
     borderColor: colors.error,
     borderWidth: 0.5,
+  },
+  toggleButton: {
+    position: "absolute",
+    right: spacing.m,
+    top: 0,
+    bottom: 0,
+    justifyContent: "center",
+    paddingVertical: spacing.m,
   },
   errorText: {
     color: colors.error,

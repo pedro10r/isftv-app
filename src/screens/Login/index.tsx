@@ -44,6 +44,7 @@ export function Login() {
             name="password"
             placeholder={strings.login.passwordPlaceholder}
             secureTextEntry
+            showPasswordToggle
           />
 
           <View style={styles.forgetPasswordButtonContainer}>

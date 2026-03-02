@@ -1,10 +1,13 @@
+import { useState } from "react";
 import {
   View,
   TextInput as RNTextInput,
   Text,
+  Pressable,
   TextInputProps as RNTextInputProps,
 } from "react-native";
 import { Controller, Control, FieldValues, Path } from "react-hook-form";
+import { Ionicons } from "@expo/vector-icons";
 
 import { theme } from "@theme";
 import { styles } from "./styles";
@@ -15,14 +18,21 @@ interface TextInputProps<
   control: Control<TFieldValues>;
   name: Path<TFieldValues>;
   fieldName?: string;
+  showPasswordToggle?: boolean;
 }
 
 export function TextInput<TFieldValues extends FieldValues>({
   control,
   name,
   fieldName,
+  showPasswordToggle,
+  secureTextEntry,
   ...textInputProps
 }: TextInputProps<TFieldValues>) {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  const isSecure = secureTextEntry && !isPasswordVisible;
+
   return (
     <View>
       {fieldName && <Text style={styles.fieldName}>{fieldName}</Text>}
@@ -34,15 +44,33 @@ export function TextInput<TFieldValues extends FieldValues>({
           field: { value, onChange, onBlur },
           fieldState: { error },
         }) => (
-          <View style={styles.container}>
+          <View style={styles.inputWrapper}>
             <RNTextInput
-              style={[styles.input, error && styles.inputError]}
+              style={[
+                styles.input,
+                showPasswordToggle && styles.inputWithToggle,
+                error && styles.inputError,
+              ]}
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
               placeholderTextColor={theme.colors.placeholder}
+              secureTextEntry={isSecure}
               {...textInputProps}
             />
+
+            {showPasswordToggle && secureTextEntry && (
+              <Pressable
+                style={styles.toggleButton}
+                onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+              >
+                <Ionicons
+                  name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
+                  size={20}
+                  color={theme.colors.textSecondary}
+                />
+              </Pressable>
+            )}
 
             {error && <Text style={styles.errorText}>{error.message}</Text>}
           </View>

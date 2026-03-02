@@ -35,6 +35,7 @@ export function ForgotPassword() {
             name="newPassword"
             placeholder={strings.forgotPassword.newPasswordPlaceholder}
             secureTextEntry
+            showPasswordToggle
           />
 
           <TextInput
@@ -43,6 +44,7 @@ export function ForgotPassword() {
             name="confirmPassword"
             placeholder={strings.forgotPassword.confirmPasswordPlaceholder}
             secureTextEntry
+            showPasswordToggle
           />
         </View>
 

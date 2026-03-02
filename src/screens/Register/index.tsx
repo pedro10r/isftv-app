@@ -44,6 +44,7 @@ export function Register() {
             name="password"
             placeholder={strings.register.passwordPlaceholder}
             secureTextEntry
+            showPasswordToggle
           />
 
           <TextInput
@@ -52,6 +53,7 @@ export function Register() {
             name="confirmPassword"
             placeholder={strings.register.passwordPlaceholder}
             secureTextEntry
+            showPasswordToggle
           />
         </View>
 
