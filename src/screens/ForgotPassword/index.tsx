@@ -12,7 +12,7 @@ export function ForgotPassword() {
     useForgotPassword();
 
   return (
-    <FormTemplate>
+    <FormTemplate showBackButton onBack={handleGoBack}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{strings.forgotPassword.title}</Text>

@@ -1,8 +1,11 @@
 export const strings = {
   title: "Editar Perfil",
+  subtitle:
+    "Atualize suas informações para que os usuários possam te conhecer melhor.",
   labels: {
     name: "Nome",
     username: "Username",
+    city: "Cidade",
     height: "Altura",
     weight: "Peso",
     playingPosition: "Posição",
@@ -10,6 +13,7 @@ export const strings = {
   placeholders: {
     name: "Seu nome",
     username: "@seu.username",
+    city: "São Paulo, SP",
     height: "1.73m",
     weight: "75kg",
     playingPosition: "Direita, Esquerda ou Ambos",

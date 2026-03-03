@@ -13,4 +13,14 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: spacing.l,
   },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingHorizontal: spacing.l,
+    paddingVertical: spacing.m,
+  },
+  backButton: {
+    padding: spacing.s,
+    marginLeft: -spacing.s,
+  },
 });

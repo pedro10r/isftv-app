@@ -15,12 +15,18 @@ export function EditProfile() {
     setPlayingPosition,
     handleSubmit,
     onSubmit,
+    goBack,
     isSubmitting,
   } = useProfile();
 
   return (
-    <FormTemplate>
+    <FormTemplate showBackButton onBack={goBack}>
       <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{strings.title}</Text>
+          <Text style={styles.subtitle}>{strings.subtitle}</Text>
+        </View>
+
         <View>
           <Text style={styles.label}>{strings.labels.name}</Text>
           <View style={styles.readOnlyInput}>
@@ -33,6 +39,13 @@ export function EditProfile() {
           control={control}
           name="username"
           placeholder={strings.placeholders.username}
+        />
+
+        <TextInput
+          fieldName={strings.labels.city}
+          control={control}
+          name="city"
+          placeholder={strings.placeholders.city}
         />
 
         <View style={styles.row}>

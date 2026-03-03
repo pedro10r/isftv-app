@@ -35,6 +35,7 @@ export function Profile() {
         />
 
         <AthleteStatsCard
+          city={profile.city}
           height={profile.height}
           weight={profile.weight}
           playingPosition={profile.playingPosition}

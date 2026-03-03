@@ -8,6 +8,7 @@ import { styles } from "./styles";
 import { strings } from "./strings";
 
 export interface AthleteStatsProps {
+  city: string;
   height: string;
   weight: string;
   playingPosition: PlayingPosition;
@@ -34,11 +35,13 @@ const StatItem = ({ item }: StatItemProps) => (
 );
 
 export function AthleteStatsCard({
+  city,
   height,
   weight,
   playingPosition,
 }: Partial<AthleteStatsProps>) {
   const items: StatsItem[] = [
+    { icon: "map-pin", value: city || "-", label: strings.labels.city },
     { icon: "maximize", value: height || "-", label: strings.labels.height },
     { icon: "activity", value: weight || "-", label: strings.labels.weight },
     {

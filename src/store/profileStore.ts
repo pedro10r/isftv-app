@@ -6,6 +6,7 @@ export type PlayingPosition = "Direita" | "Esquerda" | "Ambos";
 
 export interface ProfileState {
   username: string;
+  city: string;
   height: string;
   weight: string;
   playingPosition: PlayingPosition;
@@ -14,6 +15,7 @@ export interface ProfileState {
 
 const INITIAL_PROFILE: Omit<ProfileState, "updateProfile"> = {
   username: "",
+  city: "",
   height: "",
   weight: "",
   playingPosition: "Direita",

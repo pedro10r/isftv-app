@@ -12,7 +12,7 @@ export function Register() {
   const { control, handleSubmit, onSubmit, handleGoBack, isLoading } = useRegister();
 
   return (
-    <FormTemplate>
+    <FormTemplate showBackButton onBack={handleGoBack}>
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{strings.register.title}</Text>

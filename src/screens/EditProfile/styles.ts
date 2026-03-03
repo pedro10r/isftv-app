@@ -1,13 +1,29 @@
 import { StyleSheet } from "react-native";
 import { theme } from "@theme";
 
-const { spacing, typography, radii } = theme;
+const { spacing, typography, radii, colors } = theme;
 
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
     gap: spacing.l,
+  },
+  header: {
+    alignItems: "center",
+    marginBottom: spacing.xxl,
+    gap: spacing.s,
+  },
+  title: {
+    fontSize: typography.fontSizes.h1,
+    fontFamily: typography.fontFamily.medium,
+    color: colors.textPrimary,
+  },
+  subtitle: {
+    fontSize: typography.fontSizes.caption,
+    fontFamily: typography.fontFamily.light,
+    color: colors.textSecondary,
+    textAlign: "center",
   },
   row: {
     flexDirection: "row",

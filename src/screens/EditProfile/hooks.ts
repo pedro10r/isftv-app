@@ -10,6 +10,7 @@ import { strings } from "./strings";
 
 interface FormValues {
   username: string;
+  city: string;
   height: string;
   weight: string;
 }
@@ -31,6 +32,7 @@ export const useProfile = () => {
   } = useForm<FormValues>({
     defaultValues: {
       username: profile.username,
+      city: profile.city,
       height: profile.height,
       weight: profile.weight,
     },
@@ -64,6 +66,7 @@ export const useProfile = () => {
     setPlayingPosition,
     handleSubmit,
     onSubmit,
+    goBack,
     isSubmitting,
   };
 };

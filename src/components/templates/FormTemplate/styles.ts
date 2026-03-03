@@ -9,4 +9,9 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.background,
     paddingHorizontal: spacing.l,
   },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: spacing.m,
+  },
 });
