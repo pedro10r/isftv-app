@@ -75,7 +75,6 @@ export function EditProfile() {
           onPress={handleSubmit(onSubmit)}
           loading={isSubmitting}
         />
-        {/* <View style={{ marginTop: 90 }} /> */}
       </ScrollView>
     </FormTemplate>
   );
