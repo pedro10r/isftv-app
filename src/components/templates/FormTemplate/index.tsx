@@ -24,7 +24,7 @@ export function FormTemplate({
 }: FormTemplateProps) {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} edges={["top"]}>
         {showBackButton && (
           <View style={styles.header}>
             <Pressable onPress={onBack}>

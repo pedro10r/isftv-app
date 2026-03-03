@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
 import { FormTemplate } from "@components/templates";
 import { Button, TextInput, Select } from "@components/atoms";
@@ -21,7 +21,7 @@ export function EditProfile() {
 
   return (
     <FormTemplate showBackButton onBack={goBack}>
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
           <Text style={styles.title}>{strings.title}</Text>
           <Text style={styles.subtitle}>{strings.subtitle}</Text>
@@ -75,7 +75,8 @@ export function EditProfile() {
           onPress={handleSubmit(onSubmit)}
           loading={isSubmitting}
         />
-      </View>
+        {/* <View style={{ marginTop: 90 }} /> */}
+      </ScrollView>
     </FormTemplate>
   );
 }
