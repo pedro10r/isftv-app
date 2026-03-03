@@ -1,9 +1,10 @@
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import { NAV } from "@navigation/routes";
 import { RootStackParamList } from "@navigation/types";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { AuthStackNavigator } from "@navigation/stacks/AuthStackNavigator";
 import { useAuthStore } from "@store/authStore";
 import { TabNavigator } from "../TabNavigator";
-import { AuthStackNavigator } from "@navigation/stacks/AuthStackNavigator";
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 

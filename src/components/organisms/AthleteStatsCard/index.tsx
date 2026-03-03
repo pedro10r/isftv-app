@@ -4,15 +4,13 @@ import { Feather } from "@expo/vector-icons";
 import { theme } from "@theme";
 import { styles } from "./styles";
 import { strings } from "./strings";
-import { MOCK_STATS } from "./mocks";
 
-export type DominantFoot = "Destro" | "Canhoto" | "Ambidestro";
+export type PlayingPosition = "Direita" | "Esquerda" | "Ambos";
 
 export interface AthleteStatsProps {
-  level: string;
   height: string;
   weight: string;
-  dominantFoot: DominantFoot;
+  playingPosition: PlayingPosition;
 }
 
 export interface StatsItem {
@@ -36,16 +34,18 @@ const StatItem = ({ item }: StatItemProps) => (
 );
 
 export function AthleteStatsCard({
-  level = MOCK_STATS.level,
-  height = MOCK_STATS.height,
-  weight = MOCK_STATS.weight,
-  dominantFoot = MOCK_STATS.dominantFoot,
+  height,
+  weight,
+  playingPosition,
 }: Partial<AthleteStatsProps>) {
   const items: StatsItem[] = [
-    { icon: "award", value: level, label: strings.labels.level },
-    { icon: "maximize", value: height, label: strings.labels.height },
-    { icon: "activity", value: weight, label: strings.labels.weight },
-    { icon: "user", value: dominantFoot, label: strings.labels.dominantFoot },
+    { icon: "maximize", value: height || "-", label: strings.labels.height },
+    { icon: "activity", value: weight || "-", label: strings.labels.weight },
+    {
+      icon: "user",
+      value: playingPosition || "-",
+      label: strings.labels.playingPosition,
+    },
   ];
 
   return (

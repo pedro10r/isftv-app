@@ -16,6 +16,7 @@ export const NAV = {
   },
   PROFILE_STACK: {
     PROFILE: "Profile",
+    EDIT_PROFILE: "EditProfile",
   },
   AUTH_STACK: {
     LOGIN: "Login",

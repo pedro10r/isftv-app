@@ -15,12 +15,17 @@ interface MenuItemTypeProps {
 
 interface ProfileMenuProps {
   onLogout?: () => void;
+  onEditProfile?: () => void;
 }
 
-export function ProfileMenu({ onLogout }: ProfileMenuProps) {
+export function ProfileMenu({ onLogout, onEditProfile }: ProfileMenuProps) {
   const getMenuItems = useCallback(
-    (onLogout?: () => void): MenuItemTypeProps[] => [
-      { icon: "user", title: strings.menu.editProfile, onPress: () => {} },
+    (onLogout?: () => void, onEditProfile?: () => void): MenuItemTypeProps[] => [
+      {
+        icon: "user",
+        title: strings.menu.editProfile,
+        onPress: onEditProfile || (() => {}),
+      },
       {
         icon: "bar-chart-2",
         title: strings.menu.detailedStats,
@@ -37,7 +42,7 @@ export function ProfileMenu({ onLogout }: ProfileMenuProps) {
     [],
   );
 
-  const menuItems: MenuItemTypeProps[] = getMenuItems(onLogout);
+  const menuItems: MenuItemTypeProps[] = getMenuItems(onLogout, onEditProfile);
 
   return (
     <View style={styles.container}>
