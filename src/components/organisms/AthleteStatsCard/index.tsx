@@ -1,11 +1,11 @@
 import { View, Text } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
+import { PlayingPosition } from "@store/profileStore";
 import { theme } from "@theme";
+
 import { styles } from "./styles";
 import { strings } from "./strings";
-
-export type PlayingPosition = "Direita" | "Esquerda" | "Ambos";
 
 export interface AthleteStatsProps {
   height: string;

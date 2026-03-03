@@ -1,14 +1,13 @@
-import { useState } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { Feather } from "@expo/vector-icons";
 
+import { PlayingPosition } from "@store/profileStore";
 import { theme } from "@theme";
+
 import { styles } from "./styles";
 import { strings } from "./strings";
-
-export type PlayingPosition = "Direita" | "Esquerda" | "Ambos";
 
 export interface ProfileHeaderProps {
   name: string;

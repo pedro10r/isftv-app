@@ -3,8 +3,8 @@ import { Alert } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as LocalAuthentication from "expo-local-authentication";
-import { useNavigation } from "@react-navigation/native";
 
+import { useAuthNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
 import { AUTH_STORAGE_KEYS } from "@constants/auth";
 import { storage } from "@lib/storage";
@@ -24,7 +24,7 @@ export const useLogin = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const { navigate } = useNavigation();
+  const { navigate } = useAuthNavigation();
 
   // Check for hardware support when assembling the hook.
   useEffect(() => {
@@ -113,15 +113,11 @@ export const useLogin = () => {
   };
 
   const handleSignUpNavigation = () => {
-    navigate(NAV.ROOT.AUTH_STACK, {
-      screen: NAV.AUTH_STACK.REGISTER,
-    });
+    navigate(NAV.AUTH_STACK.REGISTER);
   };
 
   const handleForgotPasswordNavigation = () => {
-    navigate(NAV.ROOT.AUTH_STACK, {
-      screen: NAV.AUTH_STACK.FORGOT_PASSWORD,
-    });
+    navigate(NAV.AUTH_STACK.FORGOT_PASSWORD);
   };
 
   return {

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigation } from "@react-navigation/native";
 
+import { useAuthNavigation } from "@navigation/appNavigation";
 import { storage } from "@lib/storage";
 import { createToken } from "@lib/jwt";
 import { AUTH_STORAGE_KEYS } from "@constants/auth";
@@ -18,7 +18,7 @@ export const useForgotPassword = () => {
     resolver: zodResolver(forgotPasswordSchema),
   });
 
-  const { goBack } = useNavigation();
+  const { goBack } = useAuthNavigation();
 
   const onSubmit = async (data: ForgotPasswordFormValues) => {
     try {

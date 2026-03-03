@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigation } from "@react-navigation/native";
 
+import { useAuthNavigation } from "@navigation/appNavigation";
 import { AUTH_STORAGE_KEYS } from "@constants/auth";
 import { storage } from "@lib/storage";
 import { createToken } from "@lib/jwt";
@@ -18,7 +18,7 @@ export const useRegister = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const { goBack } = useNavigation();
+  const { goBack } = useAuthNavigation();
 
   const onSubmit = async (data: RegisterFormValues) => {
     try {

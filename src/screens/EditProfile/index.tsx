@@ -1,64 +1,22 @@
-import { useState } from "react";
-import { View, Text, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { useForm } from "react-hook-form";
+import { View, Text } from "react-native";
 
 import { FormTemplate } from "@components/templates";
 import { Button, TextInput, Select } from "@components/atoms";
-import { useAuthStore } from "@store/authStore";
-import { PlayingPosition, useProfileStore } from "@store/profileStore";
 
+import { useProfile } from "./hooks";
 import { strings } from "./strings";
 import { styles } from "./styles";
 
-interface FormValues {
-  username: string;
-  height: string;
-  weight: string;
-}
-
 export function EditProfile() {
-  const { goBack } = useNavigation();
-
-  const user = useAuthStore((state) => state.user);
-  const profile = useProfileStore();
-
-  const [playingPosition, setPlayingPosition] = useState<PlayingPosition>(
-    profile.playingPosition,
-  );
-
   const {
+    user,
     control,
+    playingPosition,
+    setPlayingPosition,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<FormValues>({
-    defaultValues: {
-      username: profile.username,
-      height: profile.height,
-      weight: profile.weight,
-    },
-  });
-
-  const onSubmit = async (data: FormValues) => {
-    try {
-      profile.updateProfile({
-        ...data,
-        playingPosition,
-      });
-      Alert.alert(
-        strings.messages.successTitle,
-        strings.messages.successMessage,
-        [
-          {
-            text: "OK",
-            onPress: () => goBack(),
-          },
-        ],
-      );
-    } catch {
-      Alert.alert(strings.messages.errorTitle, strings.messages.errorMessage);
-    }
-  };
+    onSubmit,
+    isSubmitting,
+  } = useProfile();
 
   return (
     <FormTemplate>
