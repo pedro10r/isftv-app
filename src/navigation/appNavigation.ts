@@ -1,21 +1,27 @@
-import { useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { createNavigationContainerRef, useNavigation } from "@react-navigation/native";
 
 import {
-  HomeStackParamList,
-  ChampionshipsStackParamList,
-  ProfileStackParamList,
-  AuthStackParamList,
+  AuthScreenNavigationProp,
+  HomeScreenNavigationProp,
+  ChampionshipsScreenNavigationProp,
+  ProfileScreenNavigationProp,
+  RootStackParamList,
 } from "./types";
 
+export const navigationRef = createNavigationContainerRef<RootStackParamList>();
+
+/** Use only within AuthStack screens: Login, Register, ForgotPassword. */
 export const useAuthNavigation = () =>
-  useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+  useNavigation<AuthScreenNavigationProp>();
 
+/** Use only within HomeStack screens: Home. */
 export const useHomeNavigation = () =>
-  useNavigation<NativeStackNavigationProp<HomeStackParamList>>();
+  useNavigation<HomeScreenNavigationProp>();
 
+/** Use only within ChampionshipsStack screens: Championships. */
 export const useChampionshipsNavigation = () =>
-  useNavigation<NativeStackNavigationProp<ChampionshipsStackParamList>>();
+  useNavigation<ChampionshipsScreenNavigationProp>();
 
+/** Use only within ProfileStack screens: Profile, EditProfile. */
 export const useProfileNavigation = () =>
-  useNavigation<NativeStackNavigationProp<ProfileStackParamList>>();
+  useNavigation<ProfileScreenNavigationProp>();

@@ -1,4 +1,9 @@
-import type { NavigatorScreenParams } from "@react-navigation/native";
+import type {
+  CompositeNavigationProp,
+  NavigatorScreenParams,
+} from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 
 export type HomeStackParamList = {
   Home: undefined;
@@ -35,3 +40,21 @@ declare global {
     interface RootParamList extends RootStackParamList {}
   }
 }
+
+export type AuthScreenNavigationProp =
+  NativeStackNavigationProp<AuthStackParamList>;
+
+export type HomeScreenNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<HomeStackParamList>,
+  BottomTabNavigationProp<TabParamList>
+>;
+
+export type ChampionshipsScreenNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<ChampionshipsStackParamList>,
+  BottomTabNavigationProp<TabParamList>
+>;
+
+export type ProfileScreenNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<ProfileStackParamList>,
+  BottomTabNavigationProp<TabParamList>
+>;

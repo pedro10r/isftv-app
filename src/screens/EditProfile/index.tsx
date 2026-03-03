@@ -23,47 +23,47 @@ export function EditProfile() {
     <FormTemplate showBackButton onBack={goBack}>
       <ScrollView contentContainerStyle={styles.container}>
         <View style={styles.header}>
-          <Text style={styles.title}>{strings.title}</Text>
-          <Text style={styles.subtitle}>{strings.subtitle}</Text>
+          <Text style={styles.title}>{strings.form.title}</Text>
+          <Text style={styles.subtitle}>{strings.form.subtitle}</Text>
         </View>
 
         <View>
-          <Text style={styles.label}>{strings.labels.name}</Text>
+          <Text style={styles.label}>{strings.form.labels.name}</Text>
           <View style={styles.readOnlyInput}>
             <Text style={styles.readOnlyText}>{user?.name || ""}</Text>
           </View>
         </View>
 
         <TextInput
-          fieldName={strings.labels.username}
+          fieldName={strings.form.labels.username}
           control={control}
           name="username"
-          placeholder={strings.placeholders.username}
+          placeholder={strings.form.placeholders.username}
         />
 
         <TextInput
-          fieldName={strings.labels.city}
+          fieldName={strings.form.labels.city}
           control={control}
           name="city"
-          placeholder={strings.placeholders.city}
+          placeholder={strings.form.placeholders.city}
         />
 
         <View style={styles.row}>
           <View style={styles.halfInput}>
             <TextInput
-              fieldName={strings.labels.height}
+              fieldName={strings.form.labels.height}
               control={control}
               name="height"
-              placeholder={strings.placeholders.height}
+              placeholder={strings.form.placeholders.height}
             />
           </View>
 
           <View style={styles.halfInput}>
             <TextInput
-              fieldName={strings.labels.weight}
+              fieldName={strings.form.labels.weight}
               control={control}
               name="weight"
-              placeholder={strings.placeholders.weight}
+              placeholder={strings.form.placeholders.weight}
             />
           </View>
         </View>
@@ -71,7 +71,7 @@ export function EditProfile() {
         <Select value={playingPosition} onValueChange={setPlayingPosition} />
 
         <Button
-          label={strings.button}
+          label={strings.form.button}
           onPress={handleSubmit(onSubmit)}
           loading={isSubmitting}
         />

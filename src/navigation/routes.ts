@@ -1,3 +1,10 @@
+import type {
+  AuthStackParamList,
+  ChampionshipsStackParamList,
+  HomeStackParamList,
+  ProfileStackParamList,
+} from "./types";
+
 export const NAV = {
   ROOT: {
     TABS: "MainTabs",
@@ -10,17 +17,17 @@ export const NAV = {
   },
   HOME_STACK: {
     HOME: "Home",
-  },
+  } satisfies Record<string, keyof HomeStackParamList>,
   CHAMPIONSHIPS_STACK: {
     CHAMPIONSHIPS: "Championships",
-  },
+  } satisfies Record<string, keyof ChampionshipsStackParamList>,
   PROFILE_STACK: {
     PROFILE: "Profile",
     EDIT_PROFILE: "EditProfile",
-  },
+  } satisfies Record<string, keyof ProfileStackParamList>,
   AUTH_STACK: {
     LOGIN: "Login",
     REGISTER: "Register",
     FORGOT_PASSWORD: "ForgotPassword",
-  },
+  } satisfies Record<string, keyof AuthStackParamList>,
 } as const;

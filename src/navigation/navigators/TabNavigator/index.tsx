@@ -26,12 +26,12 @@ export function TabNavigator() {
       <Screen
         name={NAV.TABS.CHAMPIONSHIPS_STACK}
         component={ChampionshipsStackNavigation}
-        options={{ title: "Championships" }}
+        options={{ title: "Campeonatos" }}
       />
       <Screen
         name={NAV.TABS.PROFILE_STACK}
         component={ProfileStackNavigation}
-        options={{ title: "Profile" }}
+        options={{ title: "Perfil" }}
       />
     </Navigator>
   );

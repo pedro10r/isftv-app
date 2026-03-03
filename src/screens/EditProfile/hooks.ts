@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Alert } from "react-native";
 import { useForm } from "react-hook-form";
 
-import { useAuthNavigation } from "@navigation/appNavigation";
+import { useProfileNavigation } from "@navigation/appNavigation";
 import { useAuthStore } from "@store/authStore";
 import { PlayingPosition, useProfileStore } from "@store/profileStore";
 
@@ -16,7 +16,7 @@ interface FormValues {
 }
 
 export const useProfile = () => {
-  const { goBack } = useAuthNavigation();
+  const { goBack } = useProfileNavigation();
 
   const user = useAuthStore((state) => state.user);
   const profile = useProfileStore();
