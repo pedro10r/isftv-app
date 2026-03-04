@@ -16,6 +16,8 @@ const FADE_CONFIG = {
   duration: 200,
 };
 
+const HIDE_TRANSLATE_Y = 100;
+
 const TAB_ICONS: Record<string, { focused: string; unfocused: string }> = {
   HomeStack: {
     focused: "home",
@@ -40,10 +42,20 @@ export function FloatingTabBar({
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const translateX = useSharedValue(0);
+  const translateY = useSharedValue(0);
+  const barOpacity = useSharedValue(1);
+
+  const activeRoute = state.routes[state.index];
+  const isInChildScreen = (activeRoute.state?.index ?? 0) > 0;
 
   useEffect(() => {
     translateX.value = withTiming(state.index * TAB_WIDTH, FADE_CONFIG);
   }, [state.index, translateX]);
+
+  useEffect(() => {
+    translateY.value = withTiming(isInChildScreen ? HIDE_TRANSLATE_Y : 0, FADE_CONFIG);
+    barOpacity.value = withTiming(isInChildScreen ? 0 : 1, FADE_CONFIG);
+  }, [isInChildScreen, translateY, barOpacity]);
 
   const animatedIndicatorStyle = useAnimatedStyle(() => {
     return {
@@ -51,8 +63,16 @@ export function FloatingTabBar({
     };
   });
 
+  const animatedContainerStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+    opacity: barOpacity.value,
+  }));
+
   return (
-    <View style={styles.container}>
+    <Animated.View
+      style={[styles.container, animatedContainerStyle]}
+      pointerEvents={isInChildScreen ? "none" : "auto"}
+    >
       <View style={styles.tabBar}>
         <Animated.View style={[styles.indicator, animatedIndicatorStyle]} />
 
@@ -98,7 +118,7 @@ export function FloatingTabBar({
           );
         })}
       </View>
-    </View>
+    </Animated.View>
   );
 }
 
