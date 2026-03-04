@@ -1,10 +1,10 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import { View, ViewStyle, Pressable } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
-import { theme } from "@theme";
-import { styles } from "./styles";
+import { useAppTheme } from "@theme/ThemeContext";
+import { createStyles } from "./styles";
 
 interface ScreenTemplateProps {
   children: ReactNode;
@@ -19,6 +19,9 @@ export function ScreenTemplate({
   showBackButton,
   onBack,
 }: ScreenTemplateProps) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   return (
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       {showBackButton && (
@@ -27,7 +30,7 @@ export function ScreenTemplate({
             <Feather
               name="arrow-left"
               size={24}
-              color={theme.colors.textPrimary}
+              color={colors.textPrimary}
             />
           </Pressable>
         </View>

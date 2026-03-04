@@ -1,11 +1,13 @@
 import { StyleSheet } from "react-native";
-import { theme } from "@theme";
 
-const { colors, typography } = theme;
+import { theme, Colors } from "@theme";
 
-export const styles = StyleSheet.create({
-  buttonText: {
-    color: colors.primary,
-    fontFamily: typography.fontFamily.regular,
-  },
-});
+const { typography } = theme;
+
+export const createStyles = (colors: Colors) =>
+  StyleSheet.create({
+    buttonText: {
+      color: colors.primary,
+      fontFamily: typography.fontFamily.regular,
+    },
+  });

@@ -1,12 +1,13 @@
+import { useMemo } from "react";
 import { View, Text, TouchableOpacity, Alert } from "react-native";
 import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { Feather } from "@expo/vector-icons";
 
 import { PlayingPosition } from "@store/profileStore";
-import { theme } from "@theme";
+import { useAppTheme } from "@theme/ThemeContext";
 
-import { styles } from "./styles";
+import { createStyles } from "./styles";
 import { strings } from "./strings";
 
 export interface ProfileHeaderProps {
@@ -17,12 +18,6 @@ export interface ProfileHeaderProps {
   onAvatarChange: (uri: string) => void;
 }
 
-const POSITION_COLORS: Record<PlayingPosition, string> = {
-  Direita: theme.colors.primary,
-  Esquerda: theme.colors.secondary,
-  Ambos: theme.colors.purple,
-};
-
 export function ProfileHeader({
   name,
   username,
@@ -30,6 +25,15 @@ export function ProfileHeader({
   playingPosition,
   onAvatarChange,
 }: ProfileHeaderProps) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
+  const POSITION_COLORS: Record<PlayingPosition, string> = {
+    Direita: colors.primary,
+    Esquerda: colors.secondary,
+    Ambos: colors.purple,
+  };
+
   const getInitials = (fullName: string): string => {
     const parts = fullName.trim().split(" ");
     if (parts.length >= 2) {
@@ -79,7 +83,7 @@ export function ProfileHeader({
           onPress={handlePickImage}
           activeOpacity={0.7}
         >
-          <Feather name="camera" size={16} color={theme.colors.white} />
+          <Feather name="camera" size={16} color={colors.white} />
         </TouchableOpacity>
       </View>
 

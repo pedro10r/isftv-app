@@ -1,13 +1,18 @@
+import { useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
 
 import { FormTemplate } from "@components/templates";
 import { Button, TextInput, Select } from "@components/atoms";
+import { useAppTheme } from "@theme/ThemeContext";
 
 import { useProfile } from "./hooks";
 import { strings } from "./strings";
-import { styles } from "./styles";
+import { createStyles } from "./styles";
 
 export function EditProfile() {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const {
     user,
     control,

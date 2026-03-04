@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { ScrollView } from "react-native";
 
 import { ScreenTemplate } from "@components/templates";
@@ -6,11 +7,15 @@ import {
   AthleteStatsCard,
   ProfileMenu,
 } from "@components/organisms";
+import { useAppTheme } from "@theme/ThemeContext";
 
 import { useProfile } from "./hooks";
-import { styles } from "./styles";
+import { createStyles } from "./styles";
 
 export function Profile() {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const {
     user,
     profile,
@@ -18,6 +23,7 @@ export function Profile() {
     handleAvatarChange,
     logout,
     handleEditProfile,
+    handleSettings,
   } = useProfile();
 
   return (
@@ -41,7 +47,7 @@ export function Profile() {
           playingPosition={profile.playingPosition}
         />
 
-        <ProfileMenu onLogout={logout} onEditProfile={handleEditProfile} />
+        <ProfileMenu onLogout={logout} onEditProfile={handleEditProfile} onSettings={handleSettings} />
       </ScrollView>
     </ScreenTemplate>
   );

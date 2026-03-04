@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { View, Pressable } from "react-native";
 import Animated, {
   useSharedValue,
@@ -7,7 +7,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 
-import { styles, TAB_WIDTH } from "./styles";
+import { useAppTheme } from "@theme/ThemeContext";
+import { createStyles, TAB_WIDTH } from "./styles";
 
 type TabBarProps = any;
 
@@ -35,6 +36,9 @@ export function FloatingTabBar({
   descriptors,
   navigation,
 }: TabBarProps) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const translateX = useSharedValue(0);
 
   useEffect(() => {
@@ -99,6 +103,7 @@ export function FloatingTabBar({
 }
 
 function TabIcon({ name, isFocused }: { name: string; isFocused: boolean }) {
+  const { colors } = useAppTheme();
   const scale = useSharedValue(1);
   const opacity = useSharedValue(0.6);
 
@@ -116,7 +121,7 @@ function TabIcon({ name, isFocused }: { name: string; isFocused: boolean }) {
 
   return (
     <Animated.View style={animatedStyle}>
-      <Ionicons name={name as any} size={26} color="white" />
+      <Ionicons name={name as any} size={26} color={colors.textPrimary} />
     </Animated.View>
   );
 }

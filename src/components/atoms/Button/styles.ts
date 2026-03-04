@@ -1,18 +1,19 @@
-import { theme } from "@theme";
+import { theme, Colors } from "@theme";
 import { StyleSheet } from "react-native";
 
-const { colors, radii, typography } = theme;
+const { radii, typography } = theme;
 
-export const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: 50,
-    borderRadius: radii.m,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  label: {
-    color: colors.white,
-    fontFamily: typography.fontFamily.medium,
-  },
-});
+export const createStyles = (colors: Colors) =>
+  StyleSheet.create({
+    container: {
+      width: "100%",
+      height: 50,
+      borderRadius: radii.m,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    label: {
+      color: colors.white,
+      fontFamily: typography.fontFamily.medium,
+    },
+  });

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 import {
   Keyboard,
   TouchableWithoutFeedback,
@@ -8,8 +8,8 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
-import { theme } from "@theme";
-import { styles } from "./styles";
+import { useAppTheme } from "@theme/ThemeContext";
+import { createStyles } from "./styles";
 
 interface FormTemplateProps {
   children: ReactNode;
@@ -22,6 +22,9 @@ export function FormTemplate({
   showBackButton,
   onBack,
 }: FormTemplateProps) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <SafeAreaView style={styles.container} edges={["top"]}>
@@ -31,7 +34,7 @@ export function FormTemplate({
               <Feather
                 name="arrow-left"
                 size={24}
-                color={theme.colors.textPrimary}
+                color={colors.textPrimary}
               />
             </Pressable>
           </View>

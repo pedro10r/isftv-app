@@ -1,8 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { View, Text, Pressable, Modal } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-import { styles } from "./styles";
+import { useAppTheme } from "@theme/ThemeContext";
+import { createStyles } from "./styles";
 import { strings } from "./strings";
 import { PlayingPosition } from "@store/profileStore";
 
@@ -14,6 +15,9 @@ interface SelectProps {
 const OPTIONS: PlayingPosition[] = ["Direita", "Esquerda", "Ambos"];
 
 export function Select({ value, onValueChange }: SelectProps) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSelect = useCallback(

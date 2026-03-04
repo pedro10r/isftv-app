@@ -22,6 +22,10 @@ export const useProfile = () => {
     navigate(NAV.PROFILE_STACK.EDIT_PROFILE);
   };
 
+  const handleSettings = () => {
+    navigate(NAV.PROFILE_STACK.SETTINGS);
+  };
+
   return {
     user,
     profile,
@@ -29,5 +33,6 @@ export const useProfile = () => {
     handleAvatarChange,
     logout,
     handleEditProfile,
+    handleSettings,
   };
 };

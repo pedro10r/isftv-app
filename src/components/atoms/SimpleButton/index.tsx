@@ -1,7 +1,9 @@
-import { Text, TouchableOpacity, View } from "react-native";
-import { theme } from "@theme";
+import { useMemo } from "react";
+import { Text, TouchableOpacity } from "react-native";
 
-import { styles } from "./styles";
+import { theme } from "@theme";
+import { useAppTheme } from "@theme/ThemeContext";
+import { createStyles } from "./styles";
 
 interface SimpleButtonProps {
   label: string;
@@ -14,6 +16,9 @@ export function SimpleButton({
   onPress,
   size = "medium",
 }: SimpleButtonProps) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const { typography } = theme;
 
   const styleFontSizeButton = {

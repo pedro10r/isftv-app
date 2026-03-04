@@ -1,8 +1,9 @@
+import { useMemo } from "react";
 import { View, Text, Pressable } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-import { theme } from "@theme";
-import { styles } from "./styles";
+import { useAppTheme } from "@theme/ThemeContext";
+import { createStyles } from "./styles";
 
 export const MENU_ITEM_ICON_SIZE = 20;
 export const MENU_ITEM_FONT_SIZE = 16;
@@ -22,6 +23,9 @@ export function MenuItem({
   isDestructive,
   isLast,
 }: MenuItemProps) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   return (
     <Pressable
       style={({ pressed }) => [
@@ -47,7 +51,7 @@ export function MenuItem({
         <Feather
           name="chevron-right"
           size={MENU_ITEM_ICON_SIZE}
-          color={theme.colors.textSecondary}
+          color={colors.textSecondary}
         />
       )}
     </Pressable>

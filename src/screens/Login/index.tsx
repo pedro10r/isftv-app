@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { View, Text } from "react-native";
 
 import { FormTemplate } from "@components/templates";
 import { Button, SimpleButton, TextInput } from "@components/atoms";
+import { useAppTheme } from "@theme/ThemeContext";
 
 import { useLogin } from "./hooks";
 import { strings } from "./strings";
-import { styles } from "./styles";
+import { createStyles } from "./styles";
 
 export function Login() {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const {
     control,
     handleSubmit,

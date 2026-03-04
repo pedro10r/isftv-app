@@ -10,6 +10,7 @@ import {
 } from "@expo-google-fonts/inter";
 
 import { RootNavigation } from "./src/navigation";
+import { ThemeProvider } from "./src/theme/ThemeContext";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,8 +33,10 @@ export default function App() {
   }
 
   return (
-    <SafeAreaProvider>
-      <RootNavigation />
-    </SafeAreaProvider>
+    <ThemeProvider>
+      <SafeAreaProvider>
+        <RootNavigation />
+      </SafeAreaProvider>
+    </ThemeProvider>
   );
 }

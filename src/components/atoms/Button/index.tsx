@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   ActivityIndicator,
   Text,
@@ -5,8 +6,8 @@ import {
   TouchableOpacityProps,
 } from "react-native";
 
-import { theme as themeStyle } from "@theme";
-import { styles } from "./styles";
+import { useAppTheme } from "@theme/ThemeContext";
+import { createStyles } from "./styles";
 
 interface ButtonProps extends TouchableOpacityProps {
   onPress: () => void;
@@ -22,9 +23,12 @@ export function Button({
   theme = "primary",
   ...rest
 }: ButtonProps) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const variants = {
-    primary: themeStyle.colors.primary,
-    secondary: themeStyle.colors.secondary,
+    primary: colors.primary,
+    secondary: colors.secondary,
   };
 
   const buttonStyles = [
@@ -41,7 +45,7 @@ export function Button({
       {...rest}
     >
       {loading ? (
-        <ActivityIndicator size="small" color={themeStyle.colors.surface} />
+        <ActivityIndicator size="small" color={colors.surface} />
       ) : (
         <Text style={styles.label}>{label}</Text>
       )}

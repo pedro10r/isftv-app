@@ -1,4 +1,4 @@
-const colors = {
+const darkColors = {
   primary: "#445cfc",
   primaryDark: "#2a3eb1",
   secondary: "#03dac6",
@@ -16,6 +16,43 @@ const colors = {
 
   textPrimary: "#f5f5f5",
   textSecondary: "#a8a8a8",
+
+  success: "#34C759",
+  switchTrackOff: "#3a3a3c",
+  overlay: "rgba(0,0,0,0.5)",
+
+  tabBarBackground: "#1c2225",
+  tabBarIndicator: "#2a3135",
+
+  white: "#ffffff",
+  black: "#000000",
+};
+
+const lightColors = {
+  primary: "#445cfc",
+  primaryDark: "#2a3eb1",
+  secondary: "#03dac6",
+  error: "#ed4956",
+  purple: "#9c27b0",
+
+  background: "#f2f2f7",
+  surface: "#ffffff",
+  surfaceDark: "#f2f2f7",
+  surfaceDarkVariant: "#e5e5ea",
+
+  input: "#ffffff",
+  border: "#c6c6c8",
+  placeholder: "#8e8e93",
+
+  textPrimary: "#000000",
+  textSecondary: "#6c6c70",
+
+  success: "#34C759",
+  switchTrackOff: "#e5e5ea",
+  overlay: "rgba(0,0,0,0.5)",
+
+  tabBarBackground: "#ffffff",
+  tabBarIndicator: "#e5e5ea",
 
   white: "#ffffff",
   black: "#000000",
@@ -54,11 +91,12 @@ const typography = {
   },
 };
 
+export type Colors = typeof darkColors;
+
 export const theme = {
-  colors,
+  darkColors,
+  lightColors,
   spacing,
   radii,
   typography,
 };
-
-export type AppTheme = typeof theme;

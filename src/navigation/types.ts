@@ -12,6 +12,7 @@ export type HomeStackParamList = {
 export type ProfileStackParamList = {
   Profile: undefined;
   EditProfile: undefined;
+  Settings: undefined;
 };
 
 export type ChampionshipsStackParamList = {

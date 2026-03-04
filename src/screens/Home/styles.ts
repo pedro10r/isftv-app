@@ -1,9 +1,13 @@
 import { StyleSheet } from "react-native";
-import { theme } from "@theme";
 
-export const styles = StyleSheet.create({
-  text: {
-    color: theme.colors.textPrimary,
-    fontSize: theme.typography.fontSizes.h2,
-  },
-});
+import { theme, Colors } from "@theme";
+
+const { typography } = theme;
+
+export const createStyles = (colors: Colors) =>
+  StyleSheet.create({
+    text: {
+      color: colors.textPrimary,
+      fontSize: typography.fontSizes.h2,
+    },
+  });

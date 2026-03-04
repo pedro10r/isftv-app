@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   View,
   TextInput as RNTextInput,
@@ -9,8 +9,8 @@ import {
 import { Controller, Control, FieldValues, Path } from "react-hook-form";
 import { Ionicons } from "@expo/vector-icons";
 
-import { theme } from "@theme";
-import { styles } from "./styles";
+import { useAppTheme } from "@theme/ThemeContext";
+import { createStyles } from "./styles";
 
 interface TextInputProps<
   TFieldValues extends FieldValues,
@@ -29,6 +29,9 @@ export function TextInput<TFieldValues extends FieldValues>({
   secureTextEntry,
   ...textInputProps
 }: TextInputProps<TFieldValues>) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const isSecure = secureTextEntry && !isPasswordVisible;
@@ -54,7 +57,7 @@ export function TextInput<TFieldValues extends FieldValues>({
               value={value}
               onChangeText={onChange}
               onBlur={onBlur}
-              placeholderTextColor={theme.colors.placeholder}
+              placeholderTextColor={colors.placeholder}
               secureTextEntry={isSecure}
               {...textInputProps}
             />
@@ -67,7 +70,7 @@ export function TextInput<TFieldValues extends FieldValues>({
                 <Ionicons
                   name={isPasswordVisible ? "eye-off-outline" : "eye-outline"}
                   size={20}
-                  color={theme.colors.textSecondary}
+                  color={colors.textSecondary}
                 />
               </Pressable>
             )}

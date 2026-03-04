@@ -1,9 +1,10 @@
 import { View } from "react-native";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { Feather } from "@expo/vector-icons";
 
 import { MenuItem } from "@components/molecules";
-import { styles } from "./styles";
+import { useAppTheme } from "@theme/ThemeContext";
+import { createStyles } from "./styles";
 import { strings } from "./strings";
 
 interface MenuItemTypeProps {
@@ -16,11 +17,15 @@ interface MenuItemTypeProps {
 interface ProfileMenuProps {
   onLogout?: () => void;
   onEditProfile?: () => void;
+  onSettings?: () => void;
 }
 
-export function ProfileMenu({ onLogout, onEditProfile }: ProfileMenuProps) {
+export function ProfileMenu({ onLogout, onEditProfile, onSettings }: ProfileMenuProps) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const getMenuItems = useCallback(
-    (onLogout?: () => void, onEditProfile?: () => void): MenuItemTypeProps[] => [
+    (onLogout?: () => void, onEditProfile?: () => void, onSettings?: () => void): MenuItemTypeProps[] => [
       {
         icon: "user",
         title: strings.menu.editProfile,
@@ -31,7 +36,7 @@ export function ProfileMenu({ onLogout, onEditProfile }: ProfileMenuProps) {
         title: strings.menu.detailedStats,
         onPress: () => {},
       },
-      { icon: "settings", title: strings.menu.settings, onPress: () => {} },
+      { icon: "settings", title: strings.menu.settings, onPress: onSettings || (() => {}) },
       {
         icon: "log-out",
         title: strings.menu.logout,
@@ -42,7 +47,7 @@ export function ProfileMenu({ onLogout, onEditProfile }: ProfileMenuProps) {
     [],
   );
 
-  const menuItems: MenuItemTypeProps[] = getMenuItems(onLogout, onEditProfile);
+  const menuItems: MenuItemTypeProps[] = getMenuItems(onLogout, onEditProfile, onSettings);
 
   return (
     <View style={styles.container}>

@@ -24,6 +24,7 @@ export const NAV = {
   PROFILE_STACK: {
     PROFILE: "Profile",
     EDIT_PROFILE: "EditProfile",
+    SETTINGS: "Settings",
   } satisfies Record<string, keyof ProfileStackParamList>,
   AUTH_STACK: {
     LOGIN: "Login",

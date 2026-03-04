@@ -1,10 +1,12 @@
+import { useMemo } from "react";
 import { View, Text } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { PlayingPosition } from "@store/profileStore";
-import { theme } from "@theme";
+import { useAppTheme } from "@theme/ThemeContext";
+import { Colors } from "@theme";
 
-import { styles } from "./styles";
+import { createStyles } from "./styles";
 import { strings } from "./strings";
 
 export interface AthleteStatsProps {
@@ -22,12 +24,14 @@ export interface StatsItem {
 
 interface StatItemProps {
   item: StatsItem;
+  styles: ReturnType<typeof createStyles>;
+  iconColor: string;
 }
 
-const StatItem = ({ item }: StatItemProps) => (
+const StatItem = ({ item, styles, iconColor }: StatItemProps) => (
   <View style={styles.statCard}>
     <View style={styles.iconContainer}>
-      <Feather name={item.icon} size={20} color={theme.colors.primary} />
+      <Feather name={item.icon} size={20} color={iconColor} />
     </View>
     <Text style={styles.value}>{item.value}</Text>
     <Text style={styles.label}>{item.label}</Text>
@@ -40,6 +44,9 @@ export function AthleteStatsCard({
   weight,
   playingPosition,
 }: Partial<AthleteStatsProps>) {
+  const { colors } = useAppTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+
   const items: StatsItem[] = [
     { icon: "map-pin", value: city || "-", label: strings.labels.city },
     { icon: "maximize", value: height || "-", label: strings.labels.height },
@@ -54,7 +61,7 @@ export function AthleteStatsCard({
   return (
     <View style={styles.container}>
       {items.map((item, index) => (
-        <StatItem key={index} item={item} />
+        <StatItem key={index} item={item} styles={styles} iconColor={colors.primary} />
       ))}
     </View>
   );
