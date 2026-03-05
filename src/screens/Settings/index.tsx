@@ -38,10 +38,7 @@ export function Settings() {
                 </Text>
               </View>
 
-              <Switch
-                value={isDarkMode}
-                onValueChange={handleToggleDarkMode}
-              />
+              <Switch value={isDarkMode} onValueChange={handleToggleDarkMode} />
             </View>
           </View>
         </View>

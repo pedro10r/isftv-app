@@ -18,6 +18,7 @@ const darkColors = {
   textSecondary: "#a8a8a8",
 
   success: "#34C759",
+  warning: "#FF9500",
   switchTrackOff: "#3a3a3c",
   overlay: "rgba(0,0,0,0.5)",
 
@@ -48,6 +49,7 @@ const lightColors = {
   textSecondary: "#6c6c70",
 
   success: "#34C759",
+  warning: "#FF9500",
   switchTrackOff: "#e5e5ea",
   overlay: "rgba(0,0,0,0.5)",
 

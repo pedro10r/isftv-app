@@ -3,10 +3,12 @@ import { theme, Colors } from "@theme";
 
 const { spacing } = theme;
 
+const TAB_BAR_OFFSET = 96;
+
 export const createStyles = (_colors: Colors) =>
   StyleSheet.create({
     scrollContent: {
-      paddingBottom: spacing.xxl,
+      paddingBottom: TAB_BAR_OFFSET,
       gap: spacing.l,
     },
   });
