@@ -1,48 +1,48 @@
+/**
+ * FloatingTabBar — custom tab bar for createMaterialTopTabNavigator.
+ *
+ * Uses two animation systems intentionally:
+ * - RNAnimated: drives indicator and icons via `position.interpolate()`, which
+ *   is a native Animated.Value updated frame-by-frame by the pager engine.
+ * - Reanimated: drives the container hide/show when entering child screens.
+ *
+ * TabIcon lives here because it's tightly coupled to `position` and has no
+ * use outside this component. Its inline styles are fixed layout values for
+ * the cross-fade container, not theme-dependent, so they stay out of styles.ts.
+ */
+
 import { useEffect, useMemo } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, Animated as RNAnimated } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
-import { Gesture, GestureDetector, Pressable } from "react-native-gesture-handler";
+import { MaterialTopTabBarProps } from "@react-navigation/material-top-tabs";
+import { Pressable } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 
 import { useAppTheme } from "@theme/ThemeContext";
 import { createStyles, TAB_WIDTH } from "./styles";
 
-type TabBarProps = any;
-
-const FADE_CONFIG = {
-  duration: 200,
-};
-
+const FADE_CONFIG = { duration: 200 };
 const HIDE_TRANSLATE_Y = 100;
 
 const TAB_ICONS: Record<string, { focused: string; unfocused: string }> = {
-  HomeStack: {
-    focused: "home",
-    unfocused: "home-outline",
-  },
-  ChampionshipsStack: {
-    focused: "trophy",
-    unfocused: "trophy-outline",
-  },
-  ProfileStack: {
-    focused: "person",
-    unfocused: "person-outline",
-  },
+  HomeStack: { focused: "home", unfocused: "home-outline" },
+  ChampionshipsStack: { focused: "trophy", unfocused: "trophy-outline" },
+  ProfileStack: { focused: "person", unfocused: "person-outline" },
 };
 
 export function FloatingTabBar({
   state,
   descriptors,
   navigation,
-}: TabBarProps) {
+  position,
+}: MaterialTopTabBarProps) {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
-  const translateX = useSharedValue(0);
   const translateY = useSharedValue(0);
   const barOpacity = useSharedValue(1);
 
@@ -50,53 +50,55 @@ export function FloatingTabBar({
   const isInChildScreen = (activeRoute.state?.index ?? 0) > 0;
 
   useEffect(() => {
-    translateX.value = withTiming(state.index * TAB_WIDTH, FADE_CONFIG);
-  }, [state.index, translateX]);
-
-  useEffect(() => {
-    translateY.value = withTiming(isInChildScreen ? HIDE_TRANSLATE_Y : 0, FADE_CONFIG);
+    translateY.value = withTiming(
+      isInChildScreen ? HIDE_TRANSLATE_Y : 0,
+      FADE_CONFIG,
+    );
     barOpacity.value = withTiming(isInChildScreen ? 0 : 1, FADE_CONFIG);
   }, [isInChildScreen, translateY, barOpacity]);
-
-  const animatedIndicatorStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ translateX: translateX.value }],
-    };
-  });
 
   const animatedContainerStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY.value }],
     opacity: barOpacity.value,
   }));
 
-  const swipeGesture = Gesture.Pan()
-    .activeOffsetX([-20, 20])
-    .failOffsetY([-15, 15])
-    .runOnJS(true)
-    .onEnd((event) => {
-      const SWIPE_THRESHOLD = 50;
-      if (event.translationX < -SWIPE_THRESHOLD) {
-        const nextIndex = Math.min(state.index + 1, state.routes.length - 1);
-        navigation.navigate(state.routes[nextIndex].name);
-      } else if (event.translationX > SWIPE_THRESHOLD) {
-        const prevIndex = Math.max(state.index - 1, 0);
-        navigation.navigate(state.routes[prevIndex].name);
-      }
-    });
+  const indicatorTranslateX = position?.interpolate({
+    inputRange: state.routes.map((_: any, i: number) => i),
+    outputRange: state.routes.map((_: any, i: number) => i * TAB_WIDTH),
+    extrapolate: "clamp",
+  });
+
+  const indicatorScaleX = position?.interpolate({
+    inputRange: [0, 0.5, 1, 1.5, 2],
+    outputRange: [1, 1.15, 1, 1.15, 1],
+    extrapolate: "clamp",
+  });
+
+  const indicatorScaleY = position?.interpolate({
+    inputRange: [0, 0.5, 1, 1.5, 2],
+    outputRange: [1, 0.98, 1, 0.98, 1],
+    extrapolate: "clamp",
+  });
 
   return (
     <>
-      {!isInChildScreen && (
-        <GestureDetector gesture={swipeGesture}>
-          <View style={StyleSheet.absoluteFill} />
-        </GestureDetector>
-      )}
       <Animated.View
         style={[styles.container, animatedContainerStyle]}
         pointerEvents={isInChildScreen ? "none" : "auto"}
       >
         <View style={styles.tabBar}>
-          <Animated.View style={[styles.indicator, animatedIndicatorStyle]} />
+          <RNAnimated.View
+            style={[
+              styles.indicator,
+              {
+                transform: [
+                  { translateX: indicatorTranslateX ?? 0 },
+                  { scaleX: indicatorScaleX ?? 1 },
+                  { scaleY: indicatorScaleY ?? 1 },
+                ],
+              },
+            ]}
+          />
 
           {state.routes.map((route: any, index: number) => {
             const { options } = descriptors[route.key];
@@ -109,7 +111,6 @@ export function FloatingTabBar({
                 target: route.key,
                 canPreventDefault: true,
               });
-
               if (!isFocused && !event.defaultPrevented) {
                 navigation.navigate(route.name);
               }
@@ -123,7 +124,6 @@ export function FloatingTabBar({
             };
 
             const icons = TAB_ICONS[label] || TAB_ICONS.HomeStack;
-            const iconName = isFocused ? icons.focused : icons.unfocused;
 
             return (
               <Pressable
@@ -135,7 +135,7 @@ export function FloatingTabBar({
                 onLongPress={onLongPress}
                 style={styles.tab}
               >
-                <TabIcon name={iconName} isFocused={isFocused} />
+                <TabIcon icons={icons} index={index} position={position} />
               </Pressable>
             );
           })}
@@ -145,26 +145,64 @@ export function FloatingTabBar({
   );
 }
 
-function TabIcon({ name, isFocused }: { name: string; isFocused: boolean }) {
+function TabIcon({
+  icons,
+  index,
+  position,
+}: {
+  icons: { focused: string; unfocused: string };
+  index: number;
+  position: any;
+}) {
   const { colors } = useAppTheme();
-  const scale = useSharedValue(1);
-  const opacity = useSharedValue(0.6);
 
-  useEffect(() => {
-    scale.value = withTiming(isFocused ? 1.1 : 1, FADE_CONFIG);
-    opacity.value = withTiming(isFocused ? 1 : 0.6, FADE_CONFIG);
-  }, [isFocused, scale, opacity]);
+  const scale = position?.interpolate({
+    inputRange: [index - 1, index, index + 1],
+    outputRange: [1, 1.1, 1],
+    extrapolate: "clamp",
+  });
 
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: scale.value }],
-      opacity: opacity.value,
-    };
+  const focusedOpacity = position?.interpolate({
+    inputRange: [index - 0.51, index - 0.5, index + 0.5, index + 0.51],
+    outputRange: [0, 1, 1, 0],
+    extrapolate: "clamp",
+  });
+
+  const unfocusedOpacity = position?.interpolate({
+    inputRange: [index - 0.51, index - 0.5, index + 0.5, index + 0.51],
+    outputRange: [1, 0, 0, 1],
+    extrapolate: "clamp",
   });
 
   return (
-    <Animated.View style={animatedStyle}>
-      <Ionicons name={name as any} size={26} color={colors.textPrimary} />
-    </Animated.View>
+    <RNAnimated.View
+      style={{
+        transform: [{ scale: scale ?? 1 }],
+        alignItems: "center",
+        justifyContent: "center",
+        width: 26,
+        height: 26,
+      }}
+    >
+      <RNAnimated.View
+        style={{ position: "absolute", opacity: unfocusedOpacity }}
+      >
+        <Ionicons
+          name={icons.unfocused as any}
+          size={26}
+          color={colors.textPrimary}
+        />
+      </RNAnimated.View>
+
+      <RNAnimated.View
+        style={{ position: "absolute", opacity: focusedOpacity }}
+      >
+        <Ionicons
+          name={icons.focused as any}
+          size={26}
+          color={colors.textPrimary}
+        />
+      </RNAnimated.View>
+    </RNAnimated.View>
   );
 }

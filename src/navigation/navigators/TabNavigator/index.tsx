@@ -1,4 +1,4 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import { TabParamList } from "@navigation/types";
 import { NAV } from "@navigation/routes";
@@ -7,14 +7,15 @@ import { ProfileStackNavigation } from "@navigation/stacks/ProfileStackNavigatio
 import { ChampionshipsStackNavigation } from "@navigation/stacks/ChampionshipsStackNavigation";
 import { FloatingTabBar } from "@components/organisms/FloatingTabBar";
 
-const { Navigator, Screen } = createBottomTabNavigator<TabParamList>();
+const { Navigator, Screen } = createMaterialTopTabNavigator<TabParamList>();
 
 export function TabNavigator() {
   return (
     <Navigator
+      tabBarPosition="bottom"
       screenOptions={{
-        headerShown: false,
-        animation: "shift",
+        swipeEnabled: true,
+        animationEnabled: true,
       }}
       tabBar={(props) => <FloatingTabBar {...props} />}
     >
