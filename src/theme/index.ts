@@ -25,6 +25,10 @@ const darkColors = {
   tabBarBackground: "#1c2225",
   tabBarIndicator: "#2a3135",
 
+  prizeGold: "#FFD700",
+  prizeSilver: "#C0C0C0",
+  prizeBronze: "#CD7F32",
+
   white: "#ffffff",
   black: "#000000",
 };
@@ -55,6 +59,10 @@ const lightColors = {
 
   tabBarBackground: "#ffffff",
   tabBarIndicator: "#e5e5ea",
+
+  prizeGold: "#FFD700",
+  prizeSilver: "#C0C0C0",
+  prizeBronze: "#CD7F32",
 
   white: "#ffffff",
   black: "#000000",

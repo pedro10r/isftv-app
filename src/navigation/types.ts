@@ -15,8 +15,10 @@ export type ProfileStackParamList = {
   Settings: undefined;
 };
 
-export type ChampionshipsStackParamList = {
-  Championships: undefined;
+export type TournamentsStackParamList = {
+  Tournaments: undefined;
+  CreateTournament: undefined;
+  TournamentDetails: { tournamentId: string };
 };
 
 export type AuthStackParamList = {
@@ -27,7 +29,7 @@ export type AuthStackParamList = {
 
 export type TabParamList = {
   HomeStack: NavigatorScreenParams<HomeStackParamList>;
-  ChampionshipsStack: NavigatorScreenParams<ChampionshipsStackParamList>;
+  TournamentsStack: NavigatorScreenParams<TournamentsStackParamList>;
   ProfileStack: NavigatorScreenParams<ProfileStackParamList>;
 };
 
@@ -50,8 +52,8 @@ export type HomeScreenNavigationProp = CompositeNavigationProp<
   BottomTabNavigationProp<TabParamList>
 >;
 
-export type ChampionshipsScreenNavigationProp = CompositeNavigationProp<
-  NativeStackNavigationProp<ChampionshipsStackParamList>,
+export type TournamentsScreenNavigationProp = CompositeNavigationProp<
+  NativeStackNavigationProp<TournamentsStackParamList>,
   BottomTabNavigationProp<TabParamList>
 >;
 

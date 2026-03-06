@@ -3,7 +3,7 @@ import { createNavigationContainerRef, useNavigation } from "@react-navigation/n
 import {
   AuthScreenNavigationProp,
   HomeScreenNavigationProp,
-  ChampionshipsScreenNavigationProp,
+  TournamentsScreenNavigationProp,
   ProfileScreenNavigationProp,
   RootStackParamList,
 } from "./types";
@@ -18,9 +18,9 @@ export const useAuthNavigation = () =>
 export const useHomeNavigation = () =>
   useNavigation<HomeScreenNavigationProp>();
 
-/** Use only within ChampionshipsStack screens: Championships. */
-export const useChampionshipsNavigation = () =>
-  useNavigation<ChampionshipsScreenNavigationProp>();
+/** Use only within TournamentsStack screens: Tournaments. */
+export const useTournamentsNavigation = () =>
+  useNavigation<TournamentsScreenNavigationProp>();
 
 /** Use only within ProfileStack screens: Profile, EditProfile. */
 export const useProfileNavigation = () =>

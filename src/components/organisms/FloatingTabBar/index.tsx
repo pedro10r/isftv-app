@@ -30,7 +30,7 @@ const HIDE_TRANSLATE_Y = 100;
 
 const TAB_ICONS: Record<string, { focused: string; unfocused: string }> = {
   HomeStack: { focused: "home", unfocused: "home-outline" },
-  ChampionshipsStack: { focused: "trophy", unfocused: "trophy-outline" },
+  TournamentsStack: { focused: "trophy", unfocused: "trophy-outline" },
   ProfileStack: { focused: "person", unfocused: "person-outline" },
 };
 

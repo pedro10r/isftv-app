@@ -19,9 +19,7 @@ export const createStyles = (colors: Colors) =>
       fontFamily: typography.fontFamily.bold,
       color: colors.textPrimary,
     },
-    addButton: {
-      padding: spacing.s,
-    },
+    addButton: {},
     filterList: {
       marginHorizontal: -spacing.l,
       flexGrow: 0,
@@ -41,19 +39,5 @@ export const createStyles = (colors: Colors) =>
     },
     separator: {
       height: spacing.m,
-    },
-    emptyState: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-      paddingTop: spacing.xxl,
-      gap: spacing.m,
-    },
-    emptyText: {
-      fontSize: typography.fontSizes.body,
-      fontFamily: typography.fontFamily.regular,
-      color: colors.textSecondary,
-      textAlign: "center",
-      lineHeight: 24,
     },
   });

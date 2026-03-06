@@ -1,8 +1,8 @@
 export type Category =
   | "Iniciante"
-  | "Série C"
-  | "Série B"
-  | "Série A"
+  | "Amador C"
+  | "Amador B"
+  | "Amador A"
   | "Open"
   | "Misto";
 
@@ -21,4 +21,8 @@ export interface Tournament {
   registrationFee: number;
   status: TournamentStatus;
   categories: Category[];
+  prizeFirst?: string;
+  prizeSecond?: string;
+  prizeThird?: string;
+  prizeFourth?: string;
 }

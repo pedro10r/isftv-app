@@ -4,7 +4,7 @@ import { TabParamList } from "@navigation/types";
 import { NAV } from "@navigation/routes";
 import { HomeStackNavigation } from "@navigation/stacks/HomeStackNavigation";
 import { ProfileStackNavigation } from "@navigation/stacks/ProfileStackNavigation";
-import { ChampionshipsStackNavigation } from "@navigation/stacks/ChampionshipsStackNavigation";
+import { TournamentsStackNavigation } from "@navigation/stacks/TournamentsStackNavigation";
 import { FloatingTabBar } from "@components/organisms/FloatingTabBar";
 
 const { Navigator, Screen } = createMaterialTopTabNavigator<TabParamList>();
@@ -25,8 +25,8 @@ export function TabNavigator() {
         options={{ title: "Home" }}
       />
       <Screen
-        name={NAV.TABS.CHAMPIONSHIPS_STACK}
-        component={ChampionshipsStackNavigation}
+        name={NAV.TABS.TOURNAMENTS_STACK}
+        component={TournamentsStackNavigation}
         options={{ title: "Campeonatos" }}
       />
       <Screen
