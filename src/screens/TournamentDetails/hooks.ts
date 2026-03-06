@@ -1,10 +1,10 @@
 import { useCallback } from "react";
 import { RouteProp, useRoute } from "@react-navigation/native";
 
-import { TOURNAMENTS_MOCK } from "@mocks/tournaments";
 import { useTournamentsNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
 import { TournamentsStackParamList } from "@navigation/types";
+import { useTournamentStore } from "@store/useTournamentStore";
 import { Colors } from "@theme";
 
 type TournamentDetailsRouteProp = RouteProp<
@@ -16,8 +16,9 @@ export const useTournamentDetails = () => {
   const { goBack } = useTournamentsNavigation();
   const route = useRoute<TournamentDetailsRouteProp>();
 
-  const tournament = TOURNAMENTS_MOCK.find(
-    (t) => t.id === route.params.tournamentId,
+  const tournamentId = route.params.tournamentId;
+  const tournament = useTournamentStore((s) =>
+    s.tournaments.find((t) => t.id === tournamentId),
   );
 
   const prizes = tournament

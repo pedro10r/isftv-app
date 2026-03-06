@@ -12,7 +12,11 @@ export const strings = {
     },
     arena: {
       label: "Arena / Local",
-      placeholder: "Ex: Villa Beach – Brodowski/SP",
+      placeholder: "Ex: Arena Praia Clube",
+    },
+    city: {
+      label: "Cidade",
+      placeholder: "Ex: São Paulo, SP",
     },
     price: {
       label: "Valor da Inscrição",
@@ -38,4 +42,8 @@ export const strings = {
     fourth: { label: "4º Lugar", placeholder: "Ex: R$ 100,00" },
   },
   submit: "Cadastrar Torneio",
+  messages: {
+    successTitle: "Campeonato Criado",
+    successMessage: "O campeonato foi criado com sucesso!",
+  },
 };

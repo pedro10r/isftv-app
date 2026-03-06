@@ -21,6 +21,7 @@ export interface Tournament {
   registrationFee: number;
   status: TournamentStatus;
   categories: Category[];
+  city?: string;
   prizeFirst?: string;
   prizeSecond?: string;
   prizeThird?: string;

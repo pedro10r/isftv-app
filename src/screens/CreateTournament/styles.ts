@@ -29,6 +29,7 @@ export const createStyles = (colors: Colors) =>
       width: 40,
     },
     scrollContent: {
+      flexGrow: 1,
       paddingTop: spacing.m,
       paddingBottom: spacing.xxl,
       gap: spacing.l,

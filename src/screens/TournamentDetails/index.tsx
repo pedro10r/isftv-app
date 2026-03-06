@@ -59,7 +59,11 @@ export function TournamentDetails() {
           <View style={styles.metaGroup}>
             <View style={styles.metaRow}>
               <Feather name="map-pin" size={16} color={colors.textSecondary} />
-              <Text style={styles.metaText}>{tournament.venueName}</Text>
+              <Text style={styles.metaText}>
+                {tournament.city
+                  ? `${tournament.venueName} - ${tournament.city}`
+                  : tournament.venueName}
+              </Text>
             </View>
 
             <View style={styles.metaRow}>

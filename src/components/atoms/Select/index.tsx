@@ -8,7 +8,7 @@ import { strings } from "./strings";
 import { PlayingPosition } from "@store/profileStore";
 
 interface SelectProps {
-  value: PlayingPosition;
+  value: PlayingPosition | null;
   onValueChange: (value: PlayingPosition) => void;
 }
 

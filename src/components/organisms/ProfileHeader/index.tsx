@@ -14,7 +14,7 @@ export interface ProfileHeaderProps {
   name: string;
   username: string;
   avatarUrl?: string;
-  playingPosition: PlayingPosition;
+  playingPosition: PlayingPosition | null;
   onAvatarChange: (uri: string) => void;
 }
 
@@ -90,21 +90,23 @@ export function ProfileHeader({
       <Text style={styles.name}>{name}</Text>
       <Text style={styles.username}>{username}</Text>
 
-      <View
-        style={[
-          styles.positionBadge,
-          { backgroundColor: POSITION_COLORS[playingPosition] + "20" },
-        ]}
-      >
-        <Text
+      {playingPosition && (
+        <View
           style={[
-            styles.positionText,
-            { color: POSITION_COLORS[playingPosition] },
+            styles.positionBadge,
+            { backgroundColor: POSITION_COLORS[playingPosition] + "20" },
           ]}
         >
-          {playingPosition}
-        </Text>
-      </View>
+          <Text
+            style={[
+              styles.positionText,
+              { color: POSITION_COLORS[playingPosition] },
+            ]}
+          >
+            {playingPosition}
+          </Text>
+        </View>
+      )}
     </View>
   );
 }

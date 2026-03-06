@@ -16,6 +16,7 @@ import { FormTemplate } from "@components/templates";
 import { Category } from "@models/tournament";
 import { useAppTheme } from "@theme/ThemeContext";
 import { theme } from "@theme";
+import { maskCurrency, maskDate } from "@utils";
 
 import { createStyles } from "./styles";
 import { useCreateTournament } from "./hooks";
@@ -73,6 +74,7 @@ export function CreateTournament() {
           style={{ flex: 1 }}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
         >
           <Pressable
             onPress={handlePickImage}
@@ -116,10 +118,19 @@ export function CreateTournament() {
 
             <TextInput
               control={control}
+              name="city"
+              fieldName={strings.fields.city.label}
+              placeholder={strings.fields.city.placeholder}
+              autoCapitalize="words"
+            />
+
+            <TextInput
+              control={control}
               name="price"
               fieldName={strings.fields.price.label}
               placeholder={strings.fields.price.placeholder}
               keyboardType="numeric"
+              transform={maskCurrency}
             />
 
             <View style={styles.row}>
@@ -130,6 +141,8 @@ export function CreateTournament() {
                   fieldName={strings.fields.startDate.label}
                   placeholder={strings.fields.startDate.placeholder}
                   keyboardType="numeric"
+                  maxLength={10}
+                  transform={maskDate}
                 />
               </View>
 
@@ -140,6 +153,8 @@ export function CreateTournament() {
                   fieldName={strings.fields.endDate.label}
                   placeholder={strings.fields.endDate.placeholder}
                   keyboardType="numeric"
+                  maxLength={10}
+                  transform={maskDate}
                 />
               </View>
             </View>
@@ -192,6 +207,7 @@ export function CreateTournament() {
                   fieldName={strings.prizes.first.label}
                   placeholder={strings.prizes.first.placeholder}
                   keyboardType="numeric"
+                  transform={maskCurrency}
                 />
               </View>
 
@@ -202,6 +218,7 @@ export function CreateTournament() {
                   fieldName={strings.prizes.second.label}
                   placeholder={strings.prizes.second.placeholder}
                   keyboardType="numeric"
+                  transform={maskCurrency}
                 />
               </View>
 
@@ -212,6 +229,7 @@ export function CreateTournament() {
                   fieldName={strings.prizes.third.label}
                   placeholder={strings.prizes.third.placeholder}
                   keyboardType="numeric"
+                  transform={maskCurrency}
                 />
               </View>
 
@@ -222,6 +240,7 @@ export function CreateTournament() {
                   fieldName={strings.prizes.fourth.label}
                   placeholder={strings.prizes.fourth.placeholder}
                   keyboardType="numeric"
+                  transform={maskCurrency}
                 />
               </View>
             </View>

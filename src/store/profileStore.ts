@@ -9,7 +9,7 @@ export interface ProfileState {
   city: string;
   height: string;
   weight: string;
-  playingPosition: PlayingPosition;
+  playingPosition: PlayingPosition | null;
   updateProfile: (data: Partial<Omit<ProfileState, "updateProfile">>) => void;
 }
 
@@ -18,7 +18,7 @@ const INITIAL_PROFILE: Omit<ProfileState, "updateProfile"> = {
   city: "",
   height: "",
   weight: "",
-  playingPosition: "Direita",
+  playingPosition: null,
 };
 
 export const useProfileStore = create<ProfileState>()(

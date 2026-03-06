@@ -19,6 +19,7 @@ interface TextInputProps<
   name: Path<TFieldValues>;
   fieldName?: string;
   showPasswordToggle?: boolean;
+  transform?: (value: string) => string;
 }
 
 export function TextInput<TFieldValues extends FieldValues>({
@@ -27,6 +28,7 @@ export function TextInput<TFieldValues extends FieldValues>({
   fieldName,
   showPasswordToggle,
   secureTextEntry,
+  transform,
   ...textInputProps
 }: TextInputProps<TFieldValues>) {
   const { colors } = useAppTheme();
@@ -55,7 +57,21 @@ export function TextInput<TFieldValues extends FieldValues>({
                 error && styles.inputError,
               ]}
               value={value}
-              onChangeText={onChange}
+              onChangeText={(text) => {
+                if (!transform) {
+                  onChange(text);
+                  return;
+                }
+
+                const prevMasked = transform(value ?? "");
+
+                if (text.length < prevMasked.length) {
+                  const prevDigits = (value ?? "").replace(/\D/g, "");
+                  onChange(transform(prevDigits.slice(0, -1)));
+                } else {
+                  onChange(transform(text));
+                }
+              }}
               onBlur={onBlur}
               placeholderTextColor={colors.placeholder}
               secureTextEntry={isSecure}

@@ -4,6 +4,7 @@ import { View, Text, ScrollView } from "react-native";
 import { FormTemplate } from "@components/templates";
 import { Button, TextInput, Select } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
+import { maskHeight, maskWeight } from "@utils";
 
 import { useProfile } from "./hooks";
 import { strings } from "./strings";
@@ -44,6 +45,7 @@ export function EditProfile() {
           control={control}
           name="username"
           placeholder={strings.form.placeholders.username}
+          keyboardType="email-address"
         />
 
         <TextInput
@@ -60,6 +62,9 @@ export function EditProfile() {
               control={control}
               name="height"
               placeholder={strings.form.placeholders.height}
+              keyboardType="numeric"
+              maxLength={6}
+              transform={maskHeight}
             />
           </View>
 
@@ -69,6 +74,9 @@ export function EditProfile() {
               control={control}
               name="weight"
               placeholder={strings.form.placeholders.weight}
+              keyboardType="numeric"
+              maxLength={7}
+              transform={maskWeight}
             />
           </View>
         </View>

@@ -13,7 +13,7 @@ export interface AthleteStatsProps {
   city: string;
   height: string;
   weight: string;
-  playingPosition: PlayingPosition;
+  playingPosition: PlayingPosition | null;
 }
 
 export interface StatsItem {

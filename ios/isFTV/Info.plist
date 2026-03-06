@@ -47,6 +47,8 @@
     </dict>
     <key>NSFaceIDUsageDescription</key>
     <string>Permitir o uso do Face ID para autenticação rápida.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Permitir acesso às fotos para adicionar o poster do torneio.</string>
     <key>RCTNewArchEnabled</key>
     <true/>
     <key>UILaunchStoryboardName</key>

@@ -1,7 +1,7 @@
 export const strings = {
   labels: {
     playingPosition: "Posição",
-    select: "Selecione...",
+    select: "Escolher posição",
   },
   options: {
     direita: "Direita",
