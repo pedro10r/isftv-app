@@ -1,5 +1,7 @@
 import { useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { theme } from "@theme";
 
 import { FormTemplate } from "@components/templates";
 import { Button, TextInput, Select } from "@components/atoms";
@@ -10,9 +12,12 @@ import { useProfile } from "./hooks";
 import { strings } from "./strings";
 import { createStyles } from "./styles";
 
+const { spacing } = theme;
+
 export function EditProfile() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
+  const insets = useSafeAreaInsets();
 
   const {
     user,
@@ -27,7 +32,13 @@ export function EditProfile() {
 
   return (
     <FormTemplate showBackButton onBack={goBack}>
-      <ScrollView contentContainerStyle={styles.container}>
+      <ScrollView
+        style={styles.flexContainer}
+        contentContainerStyle={styles.scrollContent}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+      >
         <View style={styles.header}>
           <Text style={styles.title}>{strings.form.title}</Text>
           <Text style={styles.subtitle}>{strings.form.subtitle}</Text>
@@ -56,7 +67,7 @@ export function EditProfile() {
         />
 
         <View style={styles.row}>
-          <View style={styles.halfInput}>
+          <View style={styles.flexContainer}>
             <TextInput
               fieldName={strings.form.labels.height}
               control={control}
@@ -68,7 +79,7 @@ export function EditProfile() {
             />
           </View>
 
-          <View style={styles.halfInput}>
+          <View style={styles.flexContainer}>
             <TextInput
               fieldName={strings.form.labels.weight}
               control={control}
@@ -82,13 +93,20 @@ export function EditProfile() {
         </View>
 
         <Select value={playingPosition} onValueChange={setPlayingPosition} />
+      </ScrollView>
 
+      <View
+        style={[
+          styles.footer,
+          { paddingBottom: Math.max(insets.bottom, spacing.m) },
+        ]}
+      >
         <Button
           label={strings.form.button}
           onPress={handleSubmit(onSubmit)}
           loading={isSubmitting}
         />
-      </ScrollView>
+      </View>
     </FormTemplate>
   );
 }

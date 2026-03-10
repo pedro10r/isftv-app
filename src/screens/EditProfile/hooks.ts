@@ -21,9 +21,8 @@ export const useProfile = () => {
   const user = useAuthStore((state) => state.user);
   const profile = useProfileStore();
 
-  const [playingPosition, setPlayingPosition] = useState<PlayingPosition | null>(
-    profile.playingPosition,
-  );
+  const [playingPosition, setPlayingPosition] =
+    useState<PlayingPosition | null>(profile.playingPosition);
 
   const {
     control,

@@ -5,6 +5,9 @@ const { spacing, typography, radii } = theme;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
+    flexContainer: {
+      flex: 1,
+    },
     container: {
       flex: 1,
       justifyContent: "center",
@@ -30,9 +33,6 @@ export const createStyles = (colors: Colors) =>
       flexDirection: "row",
       gap: spacing.m,
     },
-    halfInput: {
-      flex: 1,
-    },
     label: {
       fontSize: typography.fontSizes.caption,
       fontFamily: typography.fontFamily.light,
@@ -49,5 +49,11 @@ export const createStyles = (colors: Colors) =>
     readOnlyText: {
       fontSize: typography.fontSizes.body,
       color: colors.textSecondary,
+    },
+    scrollContent: {
+      gap: spacing.l,
+    },
+    footer: {
+      paddingTop: spacing.m,
     },
   });

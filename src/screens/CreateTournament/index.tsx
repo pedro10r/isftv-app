@@ -1,8 +1,6 @@
 import { useMemo } from "react";
 import {
   Image,
-  KeyboardAvoidingView,
-  Platform,
   Pressable,
   ScrollView,
   Text,
@@ -52,10 +50,7 @@ export function CreateTournament() {
 
   return (
     <FormTemplate>
-      <KeyboardAvoidingView
-        style={styles.keyboardView}
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-      >
+      <View style={styles.keyboardView}>
         <View style={styles.header}>
           <Pressable
             onPress={handleGoBack}
@@ -255,7 +250,7 @@ export function CreateTournament() {
         >
           <Button label={strings.submit} onPress={handleSubmit(onSubmit)} />
         </View>
-      </KeyboardAvoidingView>
+      </View>
     </FormTemplate>
   );
 }

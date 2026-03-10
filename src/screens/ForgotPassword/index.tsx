@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
 import { FormTemplate } from "@components/templates";
 import { Button, SimpleButton, TextInput } from "@components/atoms";
@@ -18,49 +18,59 @@ export function ForgotPassword() {
 
   return (
     <FormTemplate showBackButton onBack={handleGoBack}>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{strings.forgotPassword.title}</Text>
-          <Text style={styles.subtitle}>{strings.forgotPassword.subtitle}</Text>
+      <ScrollView
+        style={styles.flexContainer}
+        contentContainerStyle={styles.flexContainer}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+      >
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.title}>{strings.forgotPassword.title}</Text>
+            <Text style={styles.subtitle}>
+              {strings.forgotPassword.subtitle}
+            </Text>
+          </View>
+
+          <View style={styles.inputContainer}>
+            <TextInput
+              fieldName={strings.forgotPassword.emailLabel}
+              control={control}
+              name="email"
+              placeholder={strings.forgotPassword.emailPlaceholder}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
+
+            <TextInput
+              fieldName={strings.forgotPassword.newPasswordLabel}
+              control={control}
+              name="newPassword"
+              placeholder={strings.forgotPassword.newPasswordPlaceholder}
+              secureTextEntry
+              showPasswordToggle
+            />
+
+            <TextInput
+              fieldName={strings.forgotPassword.confirmPasswordLabel}
+              control={control}
+              name="confirmPassword"
+              placeholder={strings.forgotPassword.confirmPasswordPlaceholder}
+              secureTextEntry
+              showPasswordToggle
+            />
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <Button
+              label={strings.forgotPassword.buttonSubmit}
+              onPress={handleSubmit(onSubmit)}
+              loading={isLoading}
+            />
+          </View>
         </View>
-
-        <View style={styles.inputContainer}>
-          <TextInput
-            fieldName={strings.forgotPassword.emailLabel}
-            control={control}
-            name="email"
-            placeholder={strings.forgotPassword.emailPlaceholder}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
-
-          <TextInput
-            fieldName={strings.forgotPassword.newPasswordLabel}
-            control={control}
-            name="newPassword"
-            placeholder={strings.forgotPassword.newPasswordPlaceholder}
-            secureTextEntry
-            showPasswordToggle
-          />
-
-          <TextInput
-            fieldName={strings.forgotPassword.confirmPasswordLabel}
-            control={control}
-            name="confirmPassword"
-            placeholder={strings.forgotPassword.confirmPasswordPlaceholder}
-            secureTextEntry
-            showPasswordToggle
-          />
-        </View>
-
-        <View style={styles.buttonContainer}>
-          <Button
-            label={strings.forgotPassword.buttonSubmit}
-            onPress={handleSubmit(onSubmit)}
-            loading={isLoading}
-          />
-        </View>
-      </View>
+      </ScrollView>
 
       <View style={styles.footer}>
         <Text style={styles.text}>

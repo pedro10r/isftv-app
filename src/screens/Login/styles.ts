@@ -5,6 +5,9 @@ const { typography, spacing, radii } = theme;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
+    flexContainer: {
+      flex: 1,
+    },
     container: {
       flex: 1,
       justifyContent: "center",

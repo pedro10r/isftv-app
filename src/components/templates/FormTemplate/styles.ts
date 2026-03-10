@@ -6,6 +6,9 @@ const { spacing } = theme;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
+    keyboardContainer: {
+      flex: 1,
+    },
     container: {
       flex: 1,
       backgroundColor: colors.background,

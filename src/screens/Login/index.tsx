@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
 import { FormTemplate } from "@components/templates";
 import { Button, SimpleButton, TextInput } from "@components/atoms";
@@ -26,57 +26,65 @@ export function Login() {
 
   return (
     <FormTemplate>
-      <View style={styles.container}>
-        <View style={styles.header}>
-          <Text style={styles.title}>{strings.login.title}</Text>
-          <Text style={styles.subtitle}>{strings.login.subtitle}</Text>
-        </View>
+      <ScrollView
+        style={styles.flexContainer}
+        contentContainerStyle={styles.flexContainer}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+      >
+        <View style={styles.container}>
+          <View style={styles.header}>
+            <Text style={styles.title}>{strings.login.title}</Text>
+            <Text style={styles.subtitle}>{strings.login.subtitle}</Text>
+          </View>
 
-        <View style={styles.inputContainer}>
-          <TextInput
-            fieldName={strings.login.emailLabel}
-            control={control}
-            name="email"
-            placeholder={strings.login.emailPlaceholder}
-            keyboardType="email-address"
-            autoCapitalize="none"
-          />
+          <View style={styles.inputContainer}>
+            <TextInput
+              fieldName={strings.login.emailLabel}
+              control={control}
+              name="email"
+              placeholder={strings.login.emailPlaceholder}
+              keyboardType="email-address"
+              autoCapitalize="none"
+            />
 
-          <TextInput
-            fieldName={strings.login.passwordLabel}
-            control={control}
-            name="password"
-            placeholder={strings.login.passwordPlaceholder}
-            secureTextEntry
-            showPasswordToggle
-          />
+            <TextInput
+              fieldName={strings.login.passwordLabel}
+              control={control}
+              name="password"
+              placeholder={strings.login.passwordPlaceholder}
+              secureTextEntry
+              showPasswordToggle
+            />
 
-          <View style={styles.forgetPasswordButtonContainer}>
-            <SimpleButton
-              label={strings.login.buttonForgot}
-              onPress={handleForgotPasswordNavigation}
-              size="small"
+            <View style={styles.forgetPasswordButtonContainer}>
+              <SimpleButton
+                label={strings.login.buttonForgot}
+                onPress={handleForgotPasswordNavigation}
+                size="small"
+              />
+            </View>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <Button
+              label={strings.login.buttonSubmit}
+              onPress={handleSubmit(onSubmit)}
+              loading={isLoading}
             />
           </View>
-        </View>
 
-        <View style={styles.buttonContainer}>
-          <Button
-            label={strings.login.buttonSubmit}
-            onPress={handleSubmit(onSubmit)}
-            loading={isLoading}
-          />
+          {isBiometricSupported && (
+            <View style={styles.biometryButtonContainer}>
+              <SimpleButton
+                label={strings.login.buttonBiometrics}
+                onPress={handleBiometricLogin}
+              />
+            </View>
+          )}
         </View>
-
-        {isBiometricSupported && (
-          <View style={styles.biometryButtonContainer}>
-            <SimpleButton
-              label={strings.login.buttonBiometrics}
-              onPress={handleBiometricLogin}
-            />
-          </View>
-        )}
-      </View>
+      </ScrollView>
 
       <View style={styles.footer}>
         <Text style={styles.text}>{strings.login.dontHaveAccount}</Text>
