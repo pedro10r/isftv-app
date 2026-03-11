@@ -51,6 +51,7 @@ export const createStyles = (colors: Colors) =>
       color: colors.textSecondary,
     },
     scrollContent: {
+      paddingTop: spacing.xxl,
       gap: spacing.l,
     },
     footer: {

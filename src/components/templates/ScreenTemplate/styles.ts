@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { theme, Colors } from "@theme";
 
-const { spacing } = theme;
+const { spacing, typography } = theme;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
@@ -23,5 +23,15 @@ export const createStyles = (colors: Colors) =>
     backButton: {
       padding: spacing.s,
       marginLeft: -spacing.s,
+    },
+    headerTitle: {
+      flex: 1,
+      textAlign: "center",
+      fontSize: typography.fontSizes.body,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+    },
+    headerSpacer: {
+      width: 24 + spacing.s * 2,
     },
   });

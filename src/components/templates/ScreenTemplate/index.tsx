@@ -1,5 +1,5 @@
 import { ReactNode, useMemo } from "react";
-import { View, ViewStyle, Pressable } from "react-native";
+import { View, ViewStyle, Pressable, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Feather } from "@expo/vector-icons";
 
@@ -11,6 +11,7 @@ interface ScreenTemplateProps {
   style?: ViewStyle;
   showBackButton?: boolean;
   onBack?: () => void;
+  title?: string;
 }
 
 export function ScreenTemplate({
@@ -18,6 +19,7 @@ export function ScreenTemplate({
   style,
   showBackButton,
   onBack,
+  title,
 }: ScreenTemplateProps) {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -33,6 +35,8 @@ export function ScreenTemplate({
               color={colors.textPrimary}
             />
           </Pressable>
+          {title && <Text style={styles.headerTitle}>{title}</Text>}
+          {title && <View style={styles.headerSpacer} />}
         </View>
       )}
       <View style={[styles.content, style]}>{children}</View>

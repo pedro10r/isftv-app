@@ -17,7 +17,7 @@ export function Settings() {
   const { isDarkMode, handleToggleDarkMode, goBack } = useSettings();
 
   return (
-    <ScreenTemplate showBackButton onBack={goBack}>
+    <ScreenTemplate showBackButton onBack={goBack} title={strings.screen.title}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}

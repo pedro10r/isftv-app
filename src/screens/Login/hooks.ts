@@ -19,6 +19,14 @@ export const useLogin = () => {
   const [isBiometricSupported, setIsBiometricSupported] = useState(false);
 
   const login = useAuthStore((state) => state.login);
+  const isBiometricEnabled = useAuthStore((state) => state.isBiometricEnabled);
+  const skipBiometricPrompt = useAuthStore(
+    (state) => state.skipBiometricPrompt,
+  );
+
+  const setBiometricEnabled = useAuthStore(
+    (state) => state.setBiometricEnabled,
+  );
 
   const { control, handleSubmit } = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
@@ -26,13 +34,20 @@ export const useLogin = () => {
 
   const { navigate } = useAuthNavigation();
 
-  // Check for hardware support when assembling the hook.
+  // Check for hardware support and auto-trigger biometric if applicable.
   useEffect(() => {
     (async () => {
       const compatible = await LocalAuthentication.hasHardwareAsync();
       const hasRecords = await LocalAuthentication.isEnrolledAsync();
-      setIsBiometricSupported(compatible && hasRecords);
+      const supported = compatible && hasRecords;
+
+      setIsBiometricSupported(supported);
+
+      if (supported && isBiometricEnabled && !skipBiometricPrompt) {
+        handleToggleBiometric(true);
+      }
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // MANUAL LOGIN (Email and Password).
@@ -64,39 +79,30 @@ export const useLogin = () => {
     }
   };
 
-  // LOGIN WITH BIOMETRICS.
-  const handleBiometricLogin = async () => {
-    try {
-      // 1. Hardware validation.
-      const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-      if (!isEnrolled) {
-        return Alert.alert(
-          strings.auth.biometrics.notEnrolledTitle,
-          strings.auth.biometrics.notEnrolledMessage,
-        );
-      }
+  // BIOMETRIC LOGIN — handles both toggle activation and auto-trigger on mount.
+  const handleToggleBiometric = async (value: boolean) => {
+    if (!value) {
+      setBiometricEnabled(false);
+      return;
+    }
 
-      // 2. Calls the sensor (Face ID/Fingerprint).
-      const auth = await LocalAuthentication.authenticateAsync({
-        promptMessage: strings.auth.biometrics.prompt,
-        fallbackLabel: strings.auth.biometrics.fallback,
-        disableDeviceFallback: false,
-      });
+    const savedSession = storage.getString(AUTH_STORAGE_KEYS.USER_SESSION);
+    if (!savedSession) {
+      return Alert.alert(
+        strings.auth.config.requiredTitle,
+        strings.auth.config.requiredMessage,
+      );
+    }
 
-      // 3. Early Return: If the user cancels or all attempts fail.
-      if (!auth.success) return;
+    const auth = await LocalAuthentication.authenticateAsync({
+      promptMessage: strings.auth.biometrics.prompt,
+      fallbackLabel: strings.auth.biometrics.fallback,
+      disableDeviceFallback: false,
+    });
 
-      // 4. Retrieve data from MMKV (Synchronous).
-      const savedSession = storage.getString(AUTH_STORAGE_KEYS.USER_SESSION);
+    if (auth.success) {
+      setBiometricEnabled(true);
 
-      if (!savedSession) {
-        return Alert.alert(
-          strings.auth.config.requiredTitle,
-          strings.auth.config.requiredMessage,
-        );
-      }
-
-      // 5. Validate token before login.
       const { user, token } = JSON.parse(savedSession);
       const isValidToken = verifyToken(token);
 
@@ -104,11 +110,7 @@ export const useLogin = () => {
         return Alert.alert(strings.auth.errorTitle, strings.auth.errorMessage);
       }
 
-      // 6. Complete the login with the validated data.
       login(user, token);
-    } catch (error) {
-      console.error(error);
-      Alert.alert(strings.auth.errorTitle, strings.auth.biometrics.failure);
     }
   };
 
@@ -126,7 +128,8 @@ export const useLogin = () => {
     onSubmit,
     isLoading,
     isBiometricSupported,
-    handleBiometricLogin,
+    isBiometricEnabled,
+    handleToggleBiometric,
     handleSignUpNavigation,
     handleForgotPasswordNavigation,
   };

@@ -10,8 +10,11 @@ interface User {
 interface AuthState {
   user: User | null;
   token: string | null;
+  isBiometricEnabled: boolean;
+  skipBiometricPrompt: boolean;
   login: (userData: User, token: string) => void;
   logout: () => void;
+  setBiometricEnabled: (value: boolean) => void;
 }
 
 export const useAuthStore = create<AuthState>()(
@@ -19,14 +22,20 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       token: null,
-      login: (user, token) => set({ user, token }),
-      logout: () => {
-        set({ user: null, token: null });
-      },
+      isBiometricEnabled: false,
+      skipBiometricPrompt: false,
+      login: (user, token) => set({ user, token, skipBiometricPrompt: false }),
+      logout: () => set({ user: null, token: null, skipBiometricPrompt: true }),
+      setBiometricEnabled: (value) => set({ isBiometricEnabled: value }),
     }),
     {
       name: "auth-storage",
       storage: createJSONStorage(() => mmkvStorageAdapter),
+      partialize: (state) => ({
+        user: state.user,
+        token: state.token,
+        isBiometricEnabled: state.isBiometricEnabled,
+      }),
     },
   ),
 );

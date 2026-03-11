@@ -9,8 +9,7 @@ export const createStyles = (colors: Colors) =>
       flex: 1,
     },
     container: {
-      flex: 1,
-      justifyContent: "center",
+      paddingTop: spacing.xxl,
       gap: spacing.l,
     },
     header: {
@@ -42,11 +41,14 @@ export const createStyles = (colors: Colors) =>
       marginTop: spacing.m,
     },
     footer: {
+      gap: spacing.m,
+      paddingTop: spacing.m,
+    },
+    footerLink: {
       flexDirection: "row",
-      alignItems: "flex-start",
+      alignItems: "center",
       justifyContent: "center",
       gap: spacing.xs,
-      marginBottom: spacing.l,
     },
     decoration: {
       borderBottomWidth: 0.5,

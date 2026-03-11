@@ -11,6 +11,7 @@ export const strings = {
     buttonForgot: "Esqueci minha senha",
     dontHaveAccount: "Não tem uma conta?",
     buttonBiometrics: "Entrar com Biometria",
+    biometricToggleLabel: "Habilitar o acesso com Face ID",
     signUp: "Cadastrar-se",
   },
 

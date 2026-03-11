@@ -3,14 +3,16 @@ import { StyleSheet } from "react-native";
 
 const { typography, spacing, radii } = theme;
 
+// Compensates for the absence of the back button header.
+const HEADER_DISTANCE = spacing.xxl + spacing.l + spacing.m * 2;
+
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
     flexContainer: {
       flex: 1,
     },
     container: {
-      flex: 1,
-      justifyContent: "center",
+      paddingTop: HEADER_DISTANCE,
       gap: spacing.l,
     },
     header: {
@@ -65,19 +67,32 @@ export const createStyles = (colors: Colors) =>
       fontFamily: typography.fontFamily.medium,
     },
     footer: {
-      flexDirection: "row",
-      alignItems: "flex-start",
-      justifyContent: "center",
-      gap: spacing.xs,
-      marginBottom: spacing.l,
-    },
-    biometryButtonContainer: {
-      width: "100%",
+      gap: spacing.m,
+      paddingTop: spacing.m,
       alignItems: "center",
     },
-    biometryButtonText: {
-      color: colors.primary,
-      fontFamily: typography.fontFamily.regular,
+    footerLink: {
+      flexDirection: "row",
+      justifyContent: "center",
+      gap: spacing.xs,
+    },
+    biometricIcon: {
+      marginRight: spacing.s,
+    },
+    biometricRow: {
+      borderTopWidth: 1,
+      borderColor: colors.border,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      paddingVertical: spacing.m,
+      marginTop: spacing.m,
+    },
+    biometricLabel: {
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.light,
+      color: colors.textPrimary,
+      flex: 1,
     },
     signUpButtonText: {
       color: colors.primary,

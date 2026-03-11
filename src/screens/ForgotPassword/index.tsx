@@ -1,17 +1,22 @@
 import { useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { FormTemplate } from "@components/templates";
 import { Button, SimpleButton, TextInput } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
+import { theme } from "@theme";
 
 import { useForgotPassword } from "./hooks";
 import { strings } from "./strings";
 import { createStyles } from "./styles";
 
+const { spacing } = theme;
+
 export function ForgotPassword() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
+  const insets = useSafeAreaInsets();
 
   const { control, handleSubmit, onSubmit, handleGoBack, isLoading } =
     useForgotPassword();
@@ -20,7 +25,6 @@ export function ForgotPassword() {
     <FormTemplate showBackButton onBack={handleGoBack}>
       <ScrollView
         style={styles.flexContainer}
-        contentContainerStyle={styles.flexContainer}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
         bounces={false}
@@ -61,26 +65,30 @@ export function ForgotPassword() {
               showPasswordToggle
             />
           </View>
-
-          <View style={styles.buttonContainer}>
-            <Button
-              label={strings.forgotPassword.buttonSubmit}
-              onPress={handleSubmit(onSubmit)}
-              loading={isLoading}
-            />
-          </View>
         </View>
       </ScrollView>
 
-      <View style={styles.footer}>
-        <Text style={styles.text}>
-          {strings.forgotPassword.rememberedPassword}
-        </Text>
-
-        <SimpleButton
-          label={strings.forgotPassword.buttonBack}
-          onPress={handleGoBack}
+      <View
+        style={[
+          styles.footer,
+          { paddingBottom: Math.max(insets.bottom, spacing.l) },
+        ]}
+      >
+        <Button
+          label={strings.forgotPassword.buttonSubmit}
+          onPress={handleSubmit(onSubmit)}
+          loading={isLoading}
         />
+
+        <View style={styles.footerLink}>
+          <Text style={styles.text}>
+            {strings.forgotPassword.rememberedPassword}
+          </Text>
+          <SimpleButton
+            label={strings.forgotPassword.buttonBack}
+            onPress={handleGoBack}
+          />
+        </View>
       </View>
     </FormTemplate>
   );
