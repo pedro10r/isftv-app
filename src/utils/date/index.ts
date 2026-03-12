@@ -26,3 +26,18 @@ export function formatDateRange(startDate: string, endDate: string): string {
 
   return startDate === endDate ? endStr : `${startStr} – ${endStr}`;
 }
+
+export function formatTimeAgo(createdAt: string): string {
+  const diffMs = Date.now() - new Date(createdAt).getTime();
+  const diffMinutes = Math.floor(diffMs / 60000);
+
+  if (diffMinutes < 60) return `há ${diffMinutes}m`;
+
+  const diffHours = Math.floor(diffMinutes / 60);
+
+  if (diffHours < 24) return `há ${diffHours}h`;
+
+  const diffDays = Math.floor(diffHours / 24);
+
+  return `há ${diffDays}d`;
+}

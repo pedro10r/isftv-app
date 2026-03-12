@@ -12,7 +12,7 @@ export const createStyles = (colors: Colors) =>
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      marginBottom: spacing.m,
+      marginVertical: spacing.m,
     },
     title: {
       fontSize: typography.fontSizes.h1,
@@ -36,6 +36,9 @@ export const createStyles = (colors: Colors) =>
     listContent: {
       paddingTop: spacing.s,
       paddingBottom: TAB_BAR_OFFSET,
+    },
+    listContentEmpty: {
+      flexGrow: 1,
     },
     separator: {
       height: spacing.m,

@@ -75,7 +75,11 @@ export function Login() {
             {isBiometricSupported && (
               <View style={styles.biometricRow}>
                 <View style={styles.biometricIcon}>
-                  <Feather name="maximize" size={20} color={colors.overlay} />
+                  <Feather
+                    name="maximize"
+                    size={20}
+                    color={colors.textPrimary}
+                  />
                 </View>
 
                 <Text style={styles.biometricLabel}>

@@ -4,6 +4,7 @@ import { HomeStackParamList } from "@navigation/types";
 import { NAV } from "@navigation/routes";
 
 import { Home } from "@screens/Home";
+import { CreatePost } from "@screens/CreatePost";
 import { useNavigation } from "@react-navigation/native";
 
 const { Navigator, Screen } = createNativeStackNavigator<HomeStackParamList>();
@@ -23,6 +24,7 @@ export function HomeStackNavigation() {
       })}
     >
       <Screen name={NAV.HOME_STACK.HOME} component={Home} />
+      <Screen name={NAV.HOME_STACK.CREATE_POST} component={CreatePost} />
     </Navigator>
   );
 }

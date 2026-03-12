@@ -7,9 +7,9 @@ const { spacing, typography } = theme;
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
     container: {
+      flex: 1,
       alignItems: "center",
       justifyContent: "center",
-      paddingTop: spacing.xxl,
       gap: spacing.m,
     },
     message: {

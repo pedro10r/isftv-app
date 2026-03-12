@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { FlatList, Pressable, Text, View } from "react-native";
+import { FlashList } from "@shopify/flash-list";
 
 import Feather from "@expo/vector-icons/Feather";
 
@@ -54,12 +55,15 @@ export function Tournaments() {
         )}
       />
 
-      <FlatList
+      <FlashList
         style={styles.cardList}
         data={filteredTournaments}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.listContent}
+        contentContainerStyle={[
+          styles.listContent,
+          !filteredTournaments.length && styles.listContentEmpty,
+        ]}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={
           <EmptyListState icon="inbox" message={strings.emptyState} />
