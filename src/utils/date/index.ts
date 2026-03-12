@@ -41,3 +41,8 @@ export function formatTimeAgo(createdAt: string): string {
 
   return `há ${diffDays}d`;
 }
+
+export function toISO(ddmmyyyy: string): string {
+  const [dd, mm, yyyy] = ddmmyyyy.split("/");
+  return `${yyyy}-${mm}-${dd}`;
+}

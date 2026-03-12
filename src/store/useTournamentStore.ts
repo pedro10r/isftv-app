@@ -1,16 +1,12 @@
 import { create } from "zustand";
 
 import { Category, Tournament } from "@models/tournament";
+import { toISO } from "@utils";
 import { CreateTournamentFormData } from "@screens/CreateTournament/schemas";
 
 interface TournamentState {
   tournaments: Tournament[];
   addTournament: (data: CreateTournamentFormData) => void;
-}
-
-function toISO(ddmmyyyy: string): string {
-  const [dd, mm, yyyy] = ddmmyyyy.split("/");
-  return `${yyyy}-${mm}-${dd}`;
 }
 
 export const useTournamentStore = create<TournamentState>()((set) => ({
