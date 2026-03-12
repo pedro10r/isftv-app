@@ -14,15 +14,11 @@ export const createStyles = (colors: Colors) =>
       alignItems: "center",
       paddingVertical: spacing.m,
     },
-    closeButton: {
-      padding: spacing.s,
-      marginLeft: -spacing.s,
-    },
     title: {
       flex: 1,
       textAlign: "center",
-      fontSize: typography.fontSizes.h3,
-      fontFamily: typography.fontFamily.bold,
+      fontSize: typography.fontSizes.body,
+      fontFamily: typography.fontFamily.medium,
       color: colors.textPrimary,
     },
     headerSpacer: {

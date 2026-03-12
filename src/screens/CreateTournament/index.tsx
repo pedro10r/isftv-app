@@ -1,11 +1,5 @@
 import { useMemo } from "react";
-import {
-  Image,
-  Pressable,
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Feather from "@expo/vector-icons/Feather";
 
@@ -52,11 +46,7 @@ export function CreateTournament() {
     <FormTemplate>
       <View style={styles.keyboardView}>
         <View style={styles.header}>
-          <Pressable
-            onPress={handleGoBack}
-            style={styles.closeButton}
-            hitSlop={8}
-          >
+          <Pressable onPress={handleGoBack} hitSlop={8}>
             <Feather name="x" size={24} color={colors.textPrimary} />
           </Pressable>
 

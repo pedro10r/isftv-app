@@ -4,6 +4,7 @@ import { useProfileNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
 import { useAuthStore } from "@store/authStore";
 import { useProfileStore } from "@store/profileStore";
+import { pickImage } from "@utils/pickImage";
 
 export const useProfile = () => {
   const { navigate } = useProfileNavigation();
@@ -13,9 +14,16 @@ export const useProfile = () => {
   const profile = useProfileStore();
 
   const [avatarUrl, setAvatarUrl] = useState<string | undefined>(undefined);
+  const [coverUrl, setCoverUrl] = useState<string | undefined>(undefined);
 
-  const handleAvatarChange = (uri: string) => {
-    setAvatarUrl(uri);
+  const handlePickAvatar = async () => {
+    const uri = await pickImage([1, 1]);
+    if (uri) setAvatarUrl(uri);
+  };
+
+  const handlePickCover = async () => {
+    const uri = await pickImage([16, 9]);
+    if (uri) setCoverUrl(uri);
   };
 
   const handleEditProfile = () => {
@@ -30,7 +38,9 @@ export const useProfile = () => {
     user,
     profile,
     avatarUrl,
-    handleAvatarChange,
+    coverUrl,
+    handlePickAvatar,
+    handlePickCover,
     logout,
     handleEditProfile,
     handleSettings,
