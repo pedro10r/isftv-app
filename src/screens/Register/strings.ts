@@ -17,6 +17,7 @@ export const strings = {
     errorTitle: "Erro no Cadastro",
     errorMessage: "Não foi possível criar sua conta. Tente novamente.",
     successTitle: "Sucesso",
-    successMessage: "Conta criada com sucesso!",
+    successMessage:
+      "Conta criada! Verifique seu e-mail para confirmar o cadastro antes de fazer login.",
   },
 };

@@ -4,9 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { useAuthNavigation } from "@navigation/appNavigation";
-import { storage } from "@lib/storage";
-import { createToken } from "@lib/jwt";
-import { AUTH_STORAGE_KEYS } from "@constants/auth";
+import { supabase } from "@services/supabase";
 
 import { ForgotPasswordFormValues, forgotPasswordSchema } from "./schemas";
 import { strings } from "./strings";
@@ -24,54 +22,23 @@ export const useForgotPassword = () => {
     try {
       setIsLoading(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const { error } = await supabase.auth.resetPasswordForEmail(data.email);
 
-      const savedSession = storage.getString(AUTH_STORAGE_KEYS.USER_SESSION);
-
-      if (!savedSession) {
-        return Alert.alert(
-          strings.auth.errorTitle,
-          strings.auth.errorEmailNotFound,
-        );
+      if (error) {
+        return Alert.alert(strings.auth.errorTitle, error.message);
       }
-
-      const { user } = JSON.parse(savedSession);
-
-      if (user.email !== data.email) {
-        return Alert.alert(
-          strings.auth.errorTitle,
-          strings.auth.errorEmailNotFound,
-        );
-      }
-
-      const newUser = {
-        ...user,
-        name: user.name,
-      };
-
-      const newToken = createToken(data.email, newUser.name);
-
-      storage.set(
-        AUTH_STORAGE_KEYS.USER_SESSION,
-        JSON.stringify({ user: newUser, token: newToken }),
-      );
 
       Alert.alert(strings.auth.successTitle, strings.auth.successMessage, [
-        {
-          text: "OK",
-          onPress: () => goBack(),
-        },
+        { text: "OK", onPress: () => goBack() },
       ]);
-    } catch (error) {
+    } catch {
       Alert.alert(strings.auth.errorTitle, strings.auth.errorMessage);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleGoBack = () => {
-    goBack();
-  };
+  const handleGoBack = () => goBack();
 
   return { control, handleSubmit, onSubmit, handleGoBack, isLoading };
 };

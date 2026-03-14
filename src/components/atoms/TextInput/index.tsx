@@ -20,6 +20,7 @@ interface TextInputProps<
   fieldName?: string;
   showPasswordToggle?: boolean;
   transform?: (value: string) => string;
+  rawExtractor?: (maskedValue: string) => string;
 }
 
 export function TextInput<TFieldValues extends FieldValues>({
@@ -29,6 +30,7 @@ export function TextInput<TFieldValues extends FieldValues>({
   showPasswordToggle,
   secureTextEntry,
   transform,
+  rawExtractor,
   ...textInputProps
 }: TextInputProps<TFieldValues>) {
   const { colors } = useAppTheme();
@@ -64,10 +66,11 @@ export function TextInput<TFieldValues extends FieldValues>({
                 }
 
                 const prevMasked = transform(value ?? "");
+                const extract = rawExtractor ?? ((v: string) => v.replace(/\D/g, ""));
 
                 if (text.length < prevMasked.length) {
-                  const prevDigits = (value ?? "").replace(/\D/g, "");
-                  onChange(transform(prevDigits.slice(0, -1)));
+                  const prevRaw = extract(value ?? "");
+                  onChange(transform(prevRaw.slice(0, -1)));
                 } else {
                   onChange(transform(text));
                 }

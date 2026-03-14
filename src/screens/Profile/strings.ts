@@ -3,7 +3,8 @@ export const strings = {
     title: "Perfil",
   },
   profile: {
-    bio: "Professor e atleta de futevôlei.",
+    noUsername: "Nome de usuário não definido",
+    noBio: "Sem bio ainda.",
   },
   stats: {
     positionLabel: "Posição",
@@ -18,4 +19,8 @@ export const strings = {
     myMedia: "Minhas Mídias",
   },
   emptyStateMessage: "Você ainda não publicou nenhuma mídia.",
+  upload: {
+    errorTitle: "Erro no upload",
+    errorMessage: "Não foi possível enviar a imagem. Tente novamente.",
+  },
 };

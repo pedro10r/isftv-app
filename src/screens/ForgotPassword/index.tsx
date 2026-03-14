@@ -27,7 +27,6 @@ export function ForgotPassword() {
         style={styles.flexContainer}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        bounces={false}
       >
         <View style={styles.container}>
           <View style={styles.header}>
@@ -45,24 +44,6 @@ export function ForgotPassword() {
               placeholder={strings.forgotPassword.emailPlaceholder}
               keyboardType="email-address"
               autoCapitalize="none"
-            />
-
-            <TextInput
-              fieldName={strings.forgotPassword.newPasswordLabel}
-              control={control}
-              name="newPassword"
-              placeholder={strings.forgotPassword.newPasswordPlaceholder}
-              secureTextEntry
-              showPasswordToggle
-            />
-
-            <TextInput
-              fieldName={strings.forgotPassword.confirmPasswordLabel}
-              control={control}
-              name="confirmPassword"
-              placeholder={strings.forgotPassword.confirmPasswordPlaceholder}
-              secureTextEntry
-              showPasswordToggle
             />
           </View>
         </View>

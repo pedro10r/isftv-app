@@ -1,6 +1,8 @@
 import { StyleSheet } from "react-native";
 import { theme, Colors } from "@theme";
 
+const TAB_BAR_OFFSET = 96;
+
 const { spacing, typography, radii } = theme;
 
 export const createStyles = (colors: Colors) =>
@@ -11,6 +13,11 @@ export const createStyles = (colors: Colors) =>
     container: {
       flex: 1,
       justifyContent: "center",
+      gap: spacing.l,
+    },
+    scrollContent: {
+      paddingTop: spacing.xxl,
+      paddingBottom: TAB_BAR_OFFSET,
       gap: spacing.l,
     },
     header: {
@@ -49,10 +56,6 @@ export const createStyles = (colors: Colors) =>
     readOnlyText: {
       fontSize: typography.fontSizes.body,
       color: colors.textSecondary,
-    },
-    scrollContent: {
-      paddingTop: spacing.xxl,
-      gap: spacing.l,
     },
     footer: {
       paddingTop: spacing.m,

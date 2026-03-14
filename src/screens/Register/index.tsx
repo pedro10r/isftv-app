@@ -27,7 +27,6 @@ export function Register() {
         style={styles.flexContainer}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        bounces={false}
       >
         <View style={styles.container}>
           <View style={styles.header}>

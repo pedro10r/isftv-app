@@ -1,3 +1,5 @@
+import "react-native-url-polyfill/auto";
+
 import React, { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
@@ -12,6 +14,8 @@ import {
 
 import { RootNavigation } from "./src/navigation";
 import { ThemeProvider } from "./src/theme/ThemeContext";
+import { supabase } from "./src/services/supabase";
+import { useAuthStore } from "./src/store/authStore";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,6 +26,18 @@ export default function App() {
     Inter_500Medium,
     Inter_300Light,
   });
+
+  const setSession = useAuthStore((state) => state.setSession);
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [setSession]);
 
   useEffect(() => {
     if (fontsLoaded || fontError) {

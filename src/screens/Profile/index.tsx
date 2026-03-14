@@ -1,5 +1,12 @@
 import { useMemo } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import Feather from "@expo/vector-icons/Feather";
 
@@ -10,15 +17,16 @@ import { getInitials } from "@utils/getInitials";
 import { useProfile } from "./hooks";
 import { createStyles } from "./styles";
 import { strings } from "./strings";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export function Profile() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const {
-    user,
+    session,
     profile,
+    isLoadingProfile,
+    isUploadingMedia,
     avatarUrl,
     coverUrl,
     handlePickAvatar,
@@ -26,6 +34,24 @@ export function Profile() {
     handleEditProfile,
     handleSettings,
   } = useProfile();
+
+  const displayName =
+    profile?.full_name ?? session?.user?.user_metadata?.full_name ?? "";
+  const displayUsername = profile?.username ?? strings.profile.noUsername;
+  const displayBio = profile?.bio ?? strings.profile.noBio;
+  const displayPosition = profile?.playing_position ?? "-";
+  const displayHeight = profile?.height ? `${profile.height}m` : "-";
+  const displayWeight = profile?.weight ? `${profile.weight}kg` : "-";
+
+  if (isLoadingProfile && !profile) {
+    return (
+      <SafeAreaView style={styles.container} edges={["bottom"]}>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={styles.container} edges={["bottom"]}>
@@ -47,8 +73,13 @@ export function Profile() {
             style={styles.coverActionButton}
             onPress={handlePickCover}
             activeOpacity={0.7}
+            disabled={isUploadingMedia}
           >
-            <Feather name="image" size={18} color={colors.textPrimary} />
+            {isUploadingMedia ? (
+              <ActivityIndicator size="small" color={colors.textPrimary} />
+            ) : (
+              <Feather name="image" size={18} color={colors.textPrimary} />
+            )}
           </TouchableOpacity>
         </View>
 
@@ -64,7 +95,7 @@ export function Profile() {
               ) : (
                 <View style={styles.avatarInitials}>
                   <Text style={styles.avatarInitialsText}>
-                    {getInitials(user?.name ?? "")}
+                    {getInitials(displayName)}
                   </Text>
                 </View>
               )}
@@ -74,31 +105,34 @@ export function Profile() {
               style={styles.avatarEditButton}
               onPress={handlePickAvatar}
               activeOpacity={0.7}
+              disabled={isUploadingMedia}
             >
-              <Feather name="camera" size={16} color={colors.surface} />
+              {isUploadingMedia ? (
+                <ActivityIndicator size="small" color={colors.surface} />
+              ) : (
+                <Feather name="camera" size={16} color={colors.surface} />
+              )}
             </TouchableOpacity>
           </View>
         </View>
 
         <View style={styles.profileInfoContainer}>
-          <Text style={styles.profileName}>{user?.name ?? ""}</Text>
-          <Text style={styles.profileUsername}>{profile.username}</Text>
-          <Text style={styles.profileBio}>{strings.profile.bio}</Text>
+          <Text style={styles.profileName}>{displayName}</Text>
+          <Text style={styles.profileUsername}>{displayUsername}</Text>
+          <Text style={styles.profileBio}>{displayBio}</Text>
         </View>
 
         <View style={styles.statsCard}>
           <View style={[styles.statItem, styles.statItemWithBorder]}>
-            <Text style={styles.statValue}>
-              {profile.playingPosition || "-"}
-            </Text>
+            <Text style={styles.statValue}>{displayPosition}</Text>
             <Text style={styles.statLabel}>{strings.stats.positionLabel}</Text>
           </View>
           <View style={[styles.statItem, styles.statItemWithBorder]}>
-            <Text style={styles.statValue}>{profile?.height || "-"}</Text>
+            <Text style={styles.statValue}>{displayHeight}</Text>
             <Text style={styles.statLabel}>{strings.stats.heightLabel}</Text>
           </View>
           <View style={styles.statItem}>
-            <Text style={styles.statValue}>{profile.weight || "-"}</Text>
+            <Text style={styles.statValue}>{displayWeight}</Text>
             <Text style={styles.statLabel}>{strings.stats.physicalLabel}</Text>
           </View>
         </View>

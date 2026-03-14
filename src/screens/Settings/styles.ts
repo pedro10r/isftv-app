@@ -47,9 +47,22 @@ export const createStyles = (colors: Colors) =>
       alignItems: "center",
       justifyContent: "center",
     },
+    iconContainerDestructive: {
+      width: 32,
+      height: 32,
+      borderRadius: spacing.s,
+      backgroundColor: colors.error,
+      alignItems: "center",
+      justifyContent: "center",
+    },
     rowLabel: {
       fontSize: typography.fontSizes.body,
       fontFamily: typography.fontFamily.medium,
       color: colors.textPrimary,
+    },
+    rowLabelDestructive: {
+      fontSize: typography.fontSizes.body,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.error,
     },
   });

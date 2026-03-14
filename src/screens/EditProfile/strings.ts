@@ -1,5 +1,4 @@
 export const strings = {
-  // Strings used in index.tsx
   form: {
     title: "Editar Perfil",
     subtitle:
@@ -7,23 +6,20 @@ export const strings = {
     button: "Salvar",
     labels: {
       name: "Nome",
-      username: "Username",
-      city: "Cidade",
+      username: "Nome de usuário",
+      bio: "Bio",
       height: "Altura",
       weight: "Peso",
-      playingPosition: "Posição",
     },
     placeholders: {
-      name: "Seu nome",
+      name: "Seu nome completo",
       username: "@seu.username",
-      city: "São Paulo, SP",
-      height: "1,73 m",
-      weight: "75 kg",
-      playingPosition: "Direita, Esquerda ou Ambos",
+      bio: "Fale um pouco sobre você...",
+      height: "1,80 m",
+      weight: "78 kg",
     },
   },
 
-  // Strings used in hooks.ts
   messages: {
     successTitle: "Sucesso",
     successMessage: "Perfil atualizado com sucesso!",

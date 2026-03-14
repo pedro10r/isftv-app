@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ScrollView, View, Text } from "react-native";
+import { ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { ScreenTemplate } from "@components/templates";
@@ -14,7 +14,8 @@ export function Settings() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
-  const { isDarkMode, handleToggleDarkMode, goBack } = useSettings();
+  const { isDarkMode, handleToggleDarkMode, handleLogout, goBack } =
+    useSettings();
 
   return (
     <ScreenTemplate showBackButton onBack={goBack} title={strings.screen.title}>
@@ -40,6 +41,29 @@ export function Settings() {
 
               <Switch value={isDarkMode} onValueChange={handleToggleDarkMode} />
             </View>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>
+            {strings.screen.accountSection}
+          </Text>
+
+          <View style={styles.card}>
+            <TouchableOpacity
+              style={styles.row}
+              onPress={handleLogout}
+              activeOpacity={0.7}
+            >
+              <View style={styles.rowLeft}>
+                <View style={styles.iconContainerDestructive}>
+                  <Feather name="log-out" size={16} color={colors.white} />
+                </View>
+                <Text style={styles.rowLabelDestructive}>
+                  {strings.screen.logoutLabel}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>

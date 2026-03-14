@@ -62,7 +62,6 @@ export function CreatePost() {
         style={styles.scroll}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        bounces={false}
       >
         <Controller
           control={control}

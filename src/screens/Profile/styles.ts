@@ -193,4 +193,9 @@ export const createStyles = (colors: Colors) =>
       justifyContent: "center",
       paddingVertical: spacing.xl,
     },
+    loadingContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+    },
   });

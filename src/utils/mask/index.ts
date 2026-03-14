@@ -27,6 +27,14 @@ export function maskHeight(value: string): string {
   return `${digits[0]},${digits.slice(1)} m`;
 }
 
+// "user" → "@user" | "@user" → "@user"
+export function maskUsername(value: string): string {
+  const raw = value.startsWith("@") ? value.slice(1) : value;
+  const clean = raw.replace(/[^a-zA-Z0-9_.]/g, "").toLowerCase();
+  if (!clean) return "";
+  return `@${clean}`;
+}
+
 // "75" → "75 kg" | "755" → "75,5 kg"
 export function maskWeight(value: string): string {
   const digits = value.replace(/\D/g, "").slice(0, 3);

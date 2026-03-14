@@ -6,9 +6,9 @@ import { theme } from "@theme";
 import { FormTemplate } from "@components/templates";
 import { Button, TextInput, Select } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
-import { maskHeight, maskWeight } from "@utils";
+import { maskHeight, maskUsername, maskWeight } from "@utils";
 
-import { useProfile } from "./hooks";
+import { useEditProfile } from "./hooks";
 import { strings } from "./strings";
 import { createStyles } from "./styles";
 
@@ -20,15 +20,14 @@ export function EditProfile() {
   const insets = useSafeAreaInsets();
 
   const {
-    user,
     control,
-    playingPosition,
-    setPlayingPosition,
     handleSubmit,
     onSubmit,
     goBack,
-    isSubmitting,
-  } = useProfile();
+    playingPosition,
+    setPlayingPosition,
+    isUpdatingProfile,
+  } = useEditProfile();
 
   return (
     <FormTemplate showBackButton onBack={goBack}>
@@ -37,33 +36,37 @@ export function EditProfile() {
         contentContainerStyle={styles.scrollContent}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        bounces={false}
       >
         <View style={styles.header}>
           <Text style={styles.title}>{strings.form.title}</Text>
           <Text style={styles.subtitle}>{strings.form.subtitle}</Text>
         </View>
 
-        <View>
-          <Text style={styles.label}>{strings.form.labels.name}</Text>
-          <View style={styles.readOnlyInput}>
-            <Text style={styles.readOnlyText}>{user?.name || ""}</Text>
-          </View>
-        </View>
+        <TextInput
+          fieldName={strings.form.labels.name}
+          control={control}
+          name="full_name"
+          placeholder={strings.form.placeholders.name}
+          autoCapitalize="words"
+        />
 
         <TextInput
           fieldName={strings.form.labels.username}
           control={control}
           name="username"
           placeholder={strings.form.placeholders.username}
-          keyboardType="email-address"
+          autoCapitalize="none"
+          transform={maskUsername}
+          rawExtractor={(v) => v.replace(/^@/, "")}
         />
 
         <TextInput
-          fieldName={strings.form.labels.city}
+          fieldName={strings.form.labels.bio}
           control={control}
-          name="city"
-          placeholder={strings.form.placeholders.city}
+          name="bio"
+          placeholder={strings.form.placeholders.bio}
+          multiline
+          numberOfLines={3}
         />
 
         <View style={styles.row}>
@@ -104,7 +107,7 @@ export function EditProfile() {
         <Button
           label={strings.form.button}
           onPress={handleSubmit(onSubmit)}
-          loading={isSubmitting}
+          loading={isUpdatingProfile}
         />
       </View>
     </FormTemplate>

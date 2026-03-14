@@ -1,3 +1,4 @@
+import { ActivityIndicator, View } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { NAV } from "@navigation/routes";
@@ -9,11 +10,20 @@ import { TabNavigator } from "../TabNavigator";
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();
 
 export function RootNavigator() {
-  const token = useAuthStore((state) => state.token);
+  const session = useAuthStore((state) => state.session);
+  const isLoading = useAuthStore((state) => state.isLoading);
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
 
   return (
     <Navigator screenOptions={{ headerShown: false }}>
-      {token ? (
+      {session ? (
         <Screen name={NAV.ROOT.TABS} component={TabNavigator} />
       ) : (
         <Screen name={NAV.ROOT.AUTH_STACK} component={AuthStackNavigator} />

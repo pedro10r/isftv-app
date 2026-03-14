@@ -1,10 +1,9 @@
 import React, { useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Feather } from "@expo/vector-icons";
 
 import { FormTemplate } from "@components/templates";
-import { Button, SimpleButton, Switch, TextInput } from "@components/atoms";
+import { Button, SimpleButton, TextInput } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { theme } from "@theme";
 
@@ -24,9 +23,6 @@ export function Login() {
     handleSubmit,
     onSubmit,
     isLoading,
-    isBiometricSupported,
-    isBiometricEnabled,
-    handleToggleBiometric,
     handleSignUpNavigation,
     handleForgotPasswordNavigation,
   } = useLogin();
@@ -37,7 +33,6 @@ export function Login() {
         style={styles.flexContainer}
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
-        bounces={false}
       >
         <View style={styles.container}>
           <View style={styles.header}>
@@ -71,27 +66,6 @@ export function Login() {
                 size="small"
               />
             </View>
-
-            {isBiometricSupported && (
-              <View style={styles.biometricRow}>
-                <View style={styles.biometricIcon}>
-                  <Feather
-                    name="maximize"
-                    size={20}
-                    color={colors.textPrimary}
-                  />
-                </View>
-
-                <Text style={styles.biometricLabel}>
-                  {strings.login.biometricToggleLabel}
-                </Text>
-
-                <Switch
-                  value={isBiometricEnabled}
-                  onValueChange={handleToggleBiometric}
-                />
-              </View>
-            )}
           </View>
         </View>
       </ScrollView>
