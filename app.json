@@ -27,12 +27,6 @@
     },
     "plugins": [
       [
-        "expo-local-authentication",
-        {
-          "faceIDPermission": "Permitir o uso do Face ID para autenticação rápida."
-        }
-      ],
-      [
         "expo-image-picker",
         {
           "photosPermission": "Permitir acesso às fotos para adicionar o poster do torneio."
