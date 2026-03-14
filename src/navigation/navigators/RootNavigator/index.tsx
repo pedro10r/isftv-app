@@ -21,9 +21,11 @@ export function RootNavigator() {
     );
   }
 
+  const isAuthenticated = !!session;
+
   return (
     <Navigator screenOptions={{ headerShown: false }}>
-      {session ? (
+      {isAuthenticated ? (
         <Screen name={NAV.ROOT.TABS} component={TabNavigator} />
       ) : (
         <Screen name={NAV.ROOT.AUTH_STACK} component={AuthStackNavigator} />
