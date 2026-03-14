@@ -2,9 +2,9 @@ import { StyleSheet } from "react-native";
 
 import { Colors } from "@theme";
 
-export const TRACK_WIDTH = 51;
-export const TRACK_HEIGHT = 31;
-export const THUMB_SIZE = 27;
+export const TRACK_WIDTH = 53;
+export const TRACK_HEIGHT = 27;
+export const THUMB_SIZE = 23;
 export const THUMB_OFFSET = 2;
 export const THUMB_ON_X = TRACK_WIDTH - THUMB_SIZE - THUMB_OFFSET;
 export const ANIMATION_DURATION = 200;
