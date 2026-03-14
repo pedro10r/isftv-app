@@ -4,7 +4,7 @@ import { RouteProp, useRoute } from "@react-navigation/native";
 import { useTournamentsNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
 import { TournamentsStackParamList } from "@navigation/types";
-import { useTournamentStore } from "@store/useTournamentStore";
+import { useTournamentStore } from "@store/tournamentStore";
 import { Colors } from "@theme";
 
 type TournamentDetailsRouteProp = RouteProp<

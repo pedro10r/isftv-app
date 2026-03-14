@@ -1,6 +1,6 @@
 import { useHomeNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
-import { useFeedStore } from "@store/useFeedStore";
+import { useFeedStore } from "@store/feedStore";
 
 export const useHome = () => {
   const { navigate } = useHomeNavigation();

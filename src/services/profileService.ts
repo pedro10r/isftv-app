@@ -2,7 +2,7 @@ import * as FileSystem from "expo-file-system/legacy";
 import { decode } from "base64-arraybuffer";
 
 import { supabase } from "@services/supabase";
-import { Profile } from "@store/profileStore";
+import { Profile } from "@models/profile";
 
 export async function getProfile(userId: string): Promise<Profile> {
   const { data, error } = await supabase

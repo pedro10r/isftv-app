@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Category } from "@models/tournament";
 import { useTournamentsNavigation } from "@navigation/appNavigation";
-import { useTournamentStore } from "@store/useTournamentStore";
+import { useTournamentStore } from "@store/tournamentStore";
 
 import { CreateTournamentFormData, createTournamentSchema } from "./schemas";
 import { strings } from "./strings";

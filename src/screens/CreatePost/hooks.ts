@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as ImagePicker from "expo-image-picker";
 
 import { useHomeNavigation } from "@navigation/appNavigation";
-import { useFeedStore } from "@store/useFeedStore";
+import { useFeedStore } from "@store/feedStore";
 
 import { createPostSchema, CreatePostFormValues } from "./schemas";
 

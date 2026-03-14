@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from "react";
 import { Category } from "@models/tournament";
 import { NAV } from "@navigation/routes";
 import { useTournamentsNavigation } from "@navigation/appNavigation";
-import { useTournamentStore } from "@store/useTournamentStore";
+import { useTournamentStore } from "@store/tournamentStore";
 
 export const useTournaments = () => {
   const { navigate } = useTournamentsNavigation();
