@@ -4,19 +4,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useShallow } from "zustand/shallow";
 
+import { PlayingPosition } from "@models/profile";
 import { useProfileNavigation } from "@navigation/appNavigation";
 import { useAuthStore } from "@store/authStore";
-import { PlayingPosition, useProfileStore } from "@store/profileStore";
-import { maskHeight, maskWeight } from "@utils";
+import { useProfileStore } from "@store/profileStore";
+import { maskHeight, maskWeight, parseNumber } from "@utils";
 
 import { EditProfileFormValues, editProfileSchema } from "./schemas";
 import { strings } from "./strings";
-
-const parseNumber = (value: string | undefined): number | null => {
-  if (!value) return null;
-  const clean = parseFloat(value.replace(",", ".").replace(/[^\d.]/g, ""));
-  return isNaN(clean) ? null : clean;
-};
 
 export const useEditProfile = () => {
   const { goBack } = useProfileNavigation();
