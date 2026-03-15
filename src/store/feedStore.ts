@@ -1,32 +1,53 @@
 import { create } from "zustand";
 
-import { FeedData, UserPost } from "@models/feed";
-import { CreatePostFormValues } from "@screens/CreatePost/schemas";
+import { Post } from "@models/feed";
+import { getFeedPosts, createFeedPost } from "@services/feedService";
 
 interface FeedState {
-  feed: FeedData[];
-  addPost: (data: CreatePostFormValues) => void;
+  posts: Post[];
+  isLoading: boolean;
+  isCreatingPost: boolean;
+  error: string | null;
+  fetchFeed: () => Promise<void>;
+  addPost: (
+    userId: string,
+    content: string,
+    imageUri?: string,
+  ) => Promise<void>;
 }
 
 export const useFeedStore = create<FeedState>()((set) => ({
-  feed: [],
-  addPost: (data) => {
-    const newPost: UserPost = {
-      id: Date.now().toString(),
-      type: "USER_POST",
-      createdAt: new Date().toISOString(),
-      author: {
-        id: "user-1",
-        name: "Pedro",
-        avatarUrl: "https://i.pravatar.cc/150?u=pedro",
-        type: "PLAYER",
-      },
-      content: data.content,
-      mediaUrl: data.mediaUrl,
-      isVideo: data.isVideo,
-      likes: 0,
-      comments: 0,
-    };
-    set((state) => ({ feed: [newPost, ...state.feed] }));
+  posts: [],
+  isLoading: false,
+  isCreatingPost: false,
+  error: null,
+
+  fetchFeed: async () => {
+    set({ isLoading: true, error: null });
+    try {
+      const posts = await getFeedPosts();
+      set({ posts });
+    } catch (err) {
+      set({
+        error: err instanceof Error ? err.message : "Erro ao carregar feed",
+      });
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+
+  addPost: async (userId, content, imageUri) => {
+    set({ isCreatingPost: true, error: null });
+    try {
+      const newPost = await createFeedPost(userId, content, imageUri ?? null); // userId = authorId
+      set((state) => ({ posts: [newPost, ...state.posts] }));
+    } catch (err) {
+      set({
+        error: err instanceof Error ? err.message : "Erro ao publicar post",
+      });
+      throw err;
+    } finally {
+      set({ isCreatingPost: false });
+    }
   },
 }));

@@ -1,10 +1,10 @@
 import { useMemo } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, ActivityIndicator } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Feather } from "@expo/vector-icons";
 
-import { FeedData } from "@models/feed";
-import { FeedTournamentPromo, FeedUserPost } from "@components";
+import { Post } from "@models/feed";
+import { FeedUserPost } from "@components";
 import { ScreenTemplate } from "@components/templates";
 import { EmptyListState } from "@components/molecules/EmptyListState";
 import { useAppTheme } from "@theme/ThemeContext";
@@ -17,19 +17,12 @@ export function Home() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
-  const { feed, handleCreatePostPress } = useHome();
+  const { posts, isLoading, mapPostToUserPost, handleCreatePostPress } =
+    useHome();
 
-  const renderItem = ({ item }: { item: FeedData }) => {
-    if (item.type === "USER_POST") {
-      return <FeedUserPost data={item} />;
-    }
-
-    if (item.type === "TOURNAMENT_PROMO") {
-      return <FeedTournamentPromo data={item} onPress={() => {}} />;
-    }
-
-    return null;
-  };
+  const renderItem = ({ item }: { item: Post }) => (
+    <FeedUserPost data={mapPostToUserPost(item)} />
+  );
 
   return (
     <ScreenTemplate>
@@ -40,14 +33,21 @@ export function Home() {
         </Pressable>
       </View>
 
+      {isLoading && (
+        <ActivityIndicator
+          color={colors.textPrimary}
+          style={{ marginVertical: 20 }}
+        />
+      )}
+
       <FlashList
-        data={feed}
+        data={posts}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[
           styles.listContent,
-          !feed.length && styles.listContentEmpty,
+          !posts.length && styles.listContentEmpty,
         ]}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={

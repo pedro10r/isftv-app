@@ -5,12 +5,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as ImagePicker from "expo-image-picker";
 
 import { useHomeNavigation } from "@navigation/appNavigation";
+import { useAuthStore } from "@store/authStore";
 import { useFeedStore } from "@store/feedStore";
 
 import { createPostSchema, CreatePostFormValues } from "./schemas";
 
 export const useCreatePost = () => {
   const { goBack } = useHomeNavigation();
+  const userId = useAuthStore((state) => state.session?.user.id);
+  const addPost = useFeedStore((state) => state.addPost);
+  const isCreatingPost = useFeedStore((state) => state.isCreatingPost);
 
   const { control, handleSubmit, formState, watch, setValue } =
     useForm<CreatePostFormValues>({
@@ -54,11 +58,16 @@ export const useCreatePost = () => {
     setValue("isVideo", false, { shouldValidate: true });
   }, [setValue]);
 
-  const addPost = useFeedStore((s) => s.addPost);
+  const onSubmit = async (data: CreatePostFormValues) => {
+    if (!userId) return;
 
-  const onSubmit = (data: CreatePostFormValues) => {
-    addPost(data);
-    goBack();
+    try {
+      await addPost(userId, data.content, data.mediaUrl);
+      goBack();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      Alert.alert("Erro", message);
+    }
   };
 
   return {
@@ -67,6 +76,7 @@ export const useCreatePost = () => {
     formState,
     mediaUrl,
     isVideo,
+    isCreatingPost,
     handlePickMedia,
     removeMedia,
     onSubmit,

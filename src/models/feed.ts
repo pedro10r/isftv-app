@@ -1,10 +1,18 @@
-export type FeedItemType = "USER_POST" | "TOURNAMENT_PROMO";
+export enum FeedItemType {
+  UserPost = "USER_POST",
+  TournamentPromo = "TOURNAMENT_PROMO",
+}
+
+export enum AuthorType {
+  Player = "PLAYER",
+  Arena = "ARENA",
+}
 
 export interface Author {
   id: string;
   name: string;
   avatarUrl: string;
-  type: "PLAYER" | "ARENA";
+  type: AuthorType;
 }
 
 export interface FeedItem {
@@ -14,7 +22,7 @@ export interface FeedItem {
 }
 
 export interface UserPost extends FeedItem {
-  type: "USER_POST";
+  type: FeedItemType.UserPost;
   author: Author;
   content: string;
   mediaUrl?: string;
@@ -24,11 +32,25 @@ export interface UserPost extends FeedItem {
 }
 
 export interface TournamentPromo extends FeedItem {
-  type: "TOURNAMENT_PROMO";
+  type: FeedItemType.TournamentPromo;
   title: string;
   message: string;
   tournamentId: string;
   bannerUrl: string;
 }
 
-export type FeedData = UserPost | TournamentPromo;
+export interface Post {
+  id: string;
+  author_id: string;
+  content: string | null;
+  media_url: string | null;
+  is_video: boolean | null;
+  type: FeedItemType | null;
+  reference_id: string | null;
+  created_at: string;
+  profiles: {
+    full_name: string | null;
+    username: string | null;
+    avatar_url: string | null;
+  } | null;
+}

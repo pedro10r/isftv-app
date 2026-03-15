@@ -6,6 +6,7 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  ActivityIndicator,
 } from "react-native";
 import { Controller } from "react-hook-form";
 import { Feather } from "@expo/vector-icons";
@@ -27,16 +28,23 @@ export function CreatePost() {
     formState,
     mediaUrl,
     isVideo,
+    isCreatingPost,
     handlePickMedia,
     removeMedia,
     onSubmit,
     goBack,
   } = useCreatePost();
 
+  const isPublishDisabled = !formState.isValid || isCreatingPost;
+
   return (
     <FormTemplate>
       <View style={styles.header}>
-        <TouchableOpacity onPress={goBack} activeOpacity={0.7}>
+        <TouchableOpacity
+          onPress={goBack}
+          activeOpacity={0.7}
+          disabled={isCreatingPost}
+        >
           <Text style={styles.cancelButton}>{strings.header.cancel}</Text>
         </TouchableOpacity>
 
@@ -44,17 +52,21 @@ export function CreatePost() {
 
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
-          disabled={!formState.isValid}
+          disabled={isPublishDisabled}
           activeOpacity={0.7}
         >
-          <Text
-            style={[
-              styles.publishButton,
-              !formState.isValid && styles.publishButtonDisabled,
-            ]}
-          >
-            {strings.header.publish}
-          </Text>
+          {isCreatingPost ? (
+            <ActivityIndicator size="small" color={colors.primary} />
+          ) : (
+            <Text
+              style={[
+                styles.publishButton,
+                isPublishDisabled && styles.publishButtonDisabled,
+              ]}
+            >
+              {strings.header.publish}
+            </Text>
+          )}
         </TouchableOpacity>
       </View>
 
@@ -99,6 +111,7 @@ export function CreatePost() {
               style={styles.removeMedia}
               onPress={removeMedia}
               activeOpacity={0.8}
+              disabled={isCreatingPost}
             >
               <Feather name="x" size={14} color={colors.white} />
             </TouchableOpacity>
@@ -107,7 +120,11 @@ export function CreatePost() {
       </ScrollView>
 
       <View style={styles.toolbar}>
-        <TouchableOpacity onPress={handlePickMedia} activeOpacity={0.7}>
+        <TouchableOpacity
+          onPress={handlePickMedia}
+          activeOpacity={0.7}
+          disabled={isCreatingPost}
+        >
           <Feather name="image" size={24} color={colors.textSecondary} />
         </TouchableOpacity>
       </View>
