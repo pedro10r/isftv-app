@@ -23,25 +23,17 @@ export function Profile() {
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const {
-    session,
     profile,
     isLoadingProfile,
     isUploadingMedia,
     avatarUrl,
     coverUrl,
+    labels,
     handlePickAvatar,
     handlePickCover,
-    handleEditProfile,
-    handleSettings,
+    handleNavigateEditProfile,
+    handleNavigateSettings,
   } = useProfile();
-
-  const displayName =
-    profile?.full_name ?? session?.user?.user_metadata?.full_name ?? "";
-  const displayUsername = profile?.username ?? strings.profile.noUsername;
-  const displayBio = profile?.bio ?? strings.profile.noBio;
-  const displayPosition = profile?.playing_position ?? "-";
-  const displayHeight = profile?.height ? `${profile.height}m` : "-";
-  const displayWeight = profile?.weight ? `${profile.weight}kg` : "-";
 
   if (isLoadingProfile && !profile) {
     return (
@@ -95,7 +87,7 @@ export function Profile() {
               ) : (
                 <View style={styles.avatarInitials}>
                   <Text style={styles.avatarInitialsText}>
-                    {getInitials(displayName)}
+                    {getInitials(labels.displayName)}
                   </Text>
                 </View>
               )}
@@ -117,22 +109,22 @@ export function Profile() {
         </View>
 
         <View style={styles.profileInfoContainer}>
-          <Text style={styles.profileName}>{displayName}</Text>
-          <Text style={styles.profileUsername}>{displayUsername}</Text>
-          <Text style={styles.profileBio}>{displayBio}</Text>
+          <Text style={styles.profileName}>{labels.displayName}</Text>
+          <Text style={styles.profileUsername}>{labels.displayUsername}</Text>
+          <Text style={styles.profileBio}>{labels.displayBio}</Text>
         </View>
 
         <View style={styles.statsCard}>
           <View style={[styles.statItem, styles.statItemWithBorder]}>
-            <Text style={styles.statValue}>{displayPosition}</Text>
+            <Text style={styles.statValue}>{labels.displayPosition}</Text>
             <Text style={styles.statLabel}>{strings.stats.positionLabel}</Text>
           </View>
           <View style={[styles.statItem, styles.statItemWithBorder]}>
-            <Text style={styles.statValue}>{displayHeight}</Text>
+            <Text style={styles.statValue}>{labels.displayHeight}</Text>
             <Text style={styles.statLabel}>{strings.stats.heightLabel}</Text>
           </View>
           <View style={styles.statItem}>
-            <Text style={styles.statValue}>{displayWeight}</Text>
+            <Text style={styles.statValue}>{labels.displayWeight}</Text>
             <Text style={styles.statLabel}>{strings.stats.physicalLabel}</Text>
           </View>
         </View>
@@ -140,7 +132,7 @@ export function Profile() {
         <View style={styles.actionsRow}>
           <TouchableOpacity
             style={[styles.actionButton, styles.actionButtonOutline]}
-            onPress={handleEditProfile}
+            onPress={handleNavigateEditProfile}
             activeOpacity={0.7}
           >
             <Text style={styles.actionButtonText}>
@@ -150,7 +142,7 @@ export function Profile() {
 
           <TouchableOpacity
             style={[styles.actionButton, styles.actionButtonOutline]}
-            onPress={handleSettings}
+            onPress={handleNavigateSettings}
             activeOpacity={0.7}
           >
             <Text style={styles.actionButtonText}>

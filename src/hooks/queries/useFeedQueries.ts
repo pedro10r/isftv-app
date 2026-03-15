@@ -6,8 +6,9 @@ import {
 } from "@tanstack/react-query";
 
 import { Post, FeedItemType } from "@models/feed";
+import { Profile } from "@models/profile";
 import { getFeedPosts, createFeedPost } from "@services/feedService";
-import { useProfileStore } from "@store/profileStore";
+import { PROFILE_QUERY_KEY } from "@hooks/queries/useProfileQueries";
 
 export const FEED_QUERY_KEY = ["posts"] as const;
 
@@ -42,7 +43,7 @@ export function useCreatePost() {
       const previousData =
         queryClient.getQueryData<InfiniteData<Post[]>>(FEED_QUERY_KEY);
 
-      const profile = useProfileStore.getState().profile;
+      const profile = queryClient.getQueryData<Profile>(PROFILE_QUERY_KEY(authorId));
 
       const optimisticPost: Post = {
         id: `optimistic-${Date.now()}`,
