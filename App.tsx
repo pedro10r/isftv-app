@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   useFonts,
   Inter_400Regular,
@@ -11,6 +12,8 @@ import {
   Inter_500Medium,
   Inter_300Light,
 } from "@expo-google-fonts/inter";
+
+const queryClient = new QueryClient();
 
 import { RootNavigation } from "./src/navigation";
 import { ThemeProvider } from "./src/theme/ThemeContext";
@@ -50,12 +53,14 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider>
-        <SafeAreaProvider>
-          <RootNavigation />
-        </SafeAreaProvider>
-      </ThemeProvider>
-    </GestureHandlerRootView>
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ThemeProvider>
+          <SafeAreaProvider>
+            <RootNavigation />
+          </SafeAreaProvider>
+        </ThemeProvider>
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   );
 }

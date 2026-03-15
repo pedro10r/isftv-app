@@ -1,51 +1,58 @@
-import { useFocusEffect } from "@react-navigation/native";
-import { useCallback } from "react";
-import { useShallow } from "zustand/shallow";
+import { useMemo } from "react";
 
 import { useHomeNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
-import { useFeedStore } from "@store/feedStore";
 import { AuthorType, FeedItemType, Post, UserPost } from "@models/feed";
+import { useFeed } from "@hooks/queries/useFeedQueries";
 
 export const useHome = () => {
   const { navigate } = useHomeNavigation();
 
-  const { posts, isLoading, isFetchingMore, fetchFeed, fetchMorePosts } = useFeedStore(
-    useShallow((state) => ({
-      posts: state.posts,
-      isLoading: state.isLoading,
-      isFetchingMore: state.isFetchingMore,
-      fetchFeed: state.fetchFeed,
-      fetchMorePosts: state.fetchMorePosts,
-    })),
-  );
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+    refetch,
+    isRefetching,
+  } = useFeed();
 
-  useFocusEffect(
-    useCallback(() => {
-      fetchFeed();
-    }, [fetchFeed]),
-  );
+  const posts = useMemo(() => data?.pages.flat() ?? [], [data]);
 
-  const mapPostToUserPost = (post: Post): UserPost => {
-    return {
-      id: post.id,
-      type: FeedItemType.UserPost,
-      createdAt: post.created_at,
-      author: {
-        id: post.author_id,
-        name: post.profiles?.full_name ?? post.profiles?.username ?? "Usuário",
-        avatarUrl: post.profiles?.avatar_url ?? "",
-        type: AuthorType.Player,
-      },
-      content: post.content ?? "",
-      mediaUrl: post.media_url ?? undefined,
-      isVideo: post.is_video ?? false,
-      likes: 0,
-      comments: 0,
-    };
+  const fetchMorePosts = () => {
+    if (hasNextPage) fetchNextPage();
   };
+
+  const handleRefresh = () => refetch();
+
+  const mapPostToUserPost = (post: Post): UserPost => ({
+    id: post.id,
+    type: FeedItemType.UserPost,
+    createdAt: post.created_at,
+    author: {
+      id: post.author_id,
+      name: post.profiles?.full_name ?? post.profiles?.username ?? "Usuário",
+      avatarUrl: post.profiles?.avatar_url ?? "",
+      type: AuthorType.Player,
+    },
+    content: post.content ?? "",
+    mediaUrl: post.media_url ?? undefined,
+    isVideo: post.is_video ?? false,
+    likes: 0,
+    comments: 0,
+  });
 
   const handleCreatePostPress = () => navigate(NAV.HOME_STACK.CREATE_POST);
 
-  return { posts, isLoading, isFetchingMore, fetchMorePosts, mapPostToUserPost, handleCreatePostPress };
+  return {
+    posts,
+    isLoading,
+    isFetchingNextPage,
+    isRefetching,
+    fetchMorePosts,
+    handleRefresh,
+    mapPostToUserPost,
+    handleCreatePostPress,
+  };
 };

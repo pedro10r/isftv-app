@@ -1,12 +1,16 @@
 import { useMemo } from "react";
-import { View, Text, Pressable, ActivityIndicator } from "react-native";
+import {
+  View,
+  Text,
+  Pressable,
+  ActivityIndicator,
+  RefreshControl,
+} from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Feather } from "@expo/vector-icons";
 
 import { Post } from "@models/feed";
-import { FeedUserPost } from "@components";
-import { ScreenTemplate } from "@components/templates";
-import { EmptyListState } from "@components/molecules/EmptyListState";
+import { FeedUserPost, ScreenTemplate, EmptyListState } from "@components";
 import { useAppTheme } from "@theme/ThemeContext";
 
 import { createStyles } from "./styles";
@@ -20,8 +24,10 @@ export function Home() {
   const {
     posts,
     isLoading,
-    isFetchingMore,
+    isFetchingNextPage,
+    isRefetching,
     fetchMorePosts,
+    handleRefresh,
     mapPostToUserPost,
     handleCreatePostPress,
   } = useHome();
@@ -39,40 +45,47 @@ export function Home() {
         </Pressable>
       </View>
 
-      {isLoading && (
+      {isLoading ? (
         <ActivityIndicator
           color={colors.textPrimary}
-          style={{ marginVertical: 20 }}
+          style={styles.flexContainer}
+        />
+      ) : (
+        <FlashList
+          data={posts}
+          keyExtractor={(item) => item.id}
+          renderItem={renderItem}
+          showsVerticalScrollIndicator={false}
+          onEndReached={fetchMorePosts}
+          onEndReachedThreshold={0.5}
+          refreshControl={
+            <RefreshControl
+              refreshing={isRefetching}
+              onRefresh={handleRefresh}
+              tintColor={colors.textPrimary}
+            />
+          }
+          contentContainerStyle={[
+            styles.listContent,
+            !posts.length && styles.listContentEmpty,
+          ]}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+          ListEmptyComponent={
+            <EmptyListState
+              icon="message-square"
+              message={strings.emptyState.message}
+            />
+          }
+          ListFooterComponent={
+            isFetchingNextPage && posts.length > 0 ? (
+              <ActivityIndicator
+                color={colors.textPrimary}
+                style={styles.footerPage}
+              />
+            ) : null
+          }
         />
       )}
-
-      <FlashList
-        data={posts}
-        keyExtractor={(item) => item.id}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        onEndReached={fetchMorePosts}
-        onEndReachedThreshold={0.5}
-        contentContainerStyle={[
-          styles.listContent,
-          !posts.length && styles.listContentEmpty,
-        ]}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        ListEmptyComponent={
-          <EmptyListState
-            icon="message-square"
-            message={strings.emptyState.message}
-          />
-        }
-        ListFooterComponent={
-          isFetchingMore && posts.length > 0 ? (
-            <ActivityIndicator
-              color={colors.textPrimary}
-              style={{ paddingVertical: 16 }}
-            />
-          ) : null
-        }
-      />
     </ScreenTemplate>
   );
 }

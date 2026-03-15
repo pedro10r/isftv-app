@@ -14,7 +14,7 @@ import { Feather } from "@expo/vector-icons";
 import { FormTemplate } from "@components/templates";
 import { useAppTheme } from "@theme/ThemeContext";
 
-import { useCreatePost } from "./hooks";
+import { useCreatePostForm } from "./hooks";
 import { createStyles } from "./styles";
 import { strings } from "./strings";
 
@@ -33,7 +33,7 @@ export function CreatePost() {
     removeMedia,
     onSubmit,
     goBack,
-  } = useCreatePost();
+  } = useCreatePostForm();
 
   const isPublishDisabled = !formState.isValid || isCreatingPost;
 

@@ -6,15 +6,14 @@ import * as ImagePicker from "expo-image-picker";
 
 import { useHomeNavigation } from "@navigation/appNavigation";
 import { useAuthStore } from "@store/authStore";
-import { useFeedStore } from "@store/feedStore";
+import { useCreatePost } from "@hooks/queries/useFeedQueries";
 
 import { createPostSchema, CreatePostFormValues } from "./schemas";
 
-export const useCreatePost = () => {
+export const useCreatePostForm = () => {
   const { goBack } = useHomeNavigation();
   const userId = useAuthStore((state) => state.session?.user.id);
-  const addPost = useFeedStore((state) => state.addPost);
-  const isCreatingPost = useFeedStore((state) => state.isCreatingPost);
+  const { mutateAsync, isPending } = useCreatePost();
 
   const { control, handleSubmit, formState, watch, setValue } =
     useForm<CreatePostFormValues>({
@@ -62,7 +61,7 @@ export const useCreatePost = () => {
     if (!userId) return;
 
     try {
-      await addPost(userId, data.content, data.mediaUrl);
+      await mutateAsync({ authorId: userId, content: data.content, imageUri: data.mediaUrl });
       goBack();
     } catch (err) {
       const message = err instanceof Error ? err.message : String(err);
@@ -76,7 +75,7 @@ export const useCreatePost = () => {
     formState,
     mediaUrl,
     isVideo,
-    isCreatingPost,
+    isCreatingPost: isPending,
     handlePickMedia,
     removeMedia,
     onSubmit,

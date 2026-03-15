@@ -4,7 +4,7 @@ import { decode } from "base64-arraybuffer";
 import { supabase } from "@services/supabase";
 import { Post, FeedItemType } from "@models/feed";
 
-const FEED_LIMIT = 2;
+const FEED_LIMIT = 10;
 
 export async function getFeedPosts(
   page: number,

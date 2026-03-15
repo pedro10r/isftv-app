@@ -8,6 +8,9 @@ const TAB_BAR_OFFSET = 96;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
+    flexContainer: {
+      flex: 1,
+    },
     header: {
       flexDirection: "row",
       justifyContent: "space-between",
@@ -27,5 +30,8 @@ export const createStyles = (colors: Colors) =>
     },
     listContentEmpty: {
       flexGrow: 1,
+    },
+    footerPage: {
+      paddingVertical: spacing.m,
     },
   });
