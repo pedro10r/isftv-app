@@ -49,9 +49,16 @@ export function FeedUserPost({ data }: FeedUserPostProps) {
       )}
 
       <View style={styles.footer}>
-        <TouchableOpacity style={styles.actionButton} activeOpacity={0.7}>
-          <Feather name="heart" size={20} color={colors.textSecondary} />
-
+        <TouchableOpacity
+          style={styles.actionButton}
+          activeOpacity={0.7}
+          onPress={data.onLikePress}
+        >
+          <Feather
+            name="heart"
+            size={20}
+            color={data.isLiked ? colors.error : colors.textSecondary}
+          />
           <Text style={styles.actionCount}>{data.likes}</Text>
         </TouchableOpacity>
 
@@ -61,7 +68,6 @@ export function FeedUserPost({ data }: FeedUserPostProps) {
             size={20}
             color={colors.textSecondary}
           />
-
           <Text style={styles.actionCount}>{data.comments}</Text>
         </TouchableOpacity>
 

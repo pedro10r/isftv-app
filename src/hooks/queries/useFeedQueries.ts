@@ -7,7 +7,11 @@ import {
 
 import { Post, FeedItemType } from "@models/feed";
 import { Profile } from "@models/profile";
-import { getFeedPosts, createFeedPost } from "@services/feedService";
+import {
+  getFeedPosts,
+  createFeedPost,
+  toggleFeedLike,
+} from "@services/feedService";
 import { PROFILE_QUERY_KEY } from "@hooks/queries/useProfileQueries";
 
 export const FEED_QUERY_KEY = ["posts"] as const;
@@ -43,7 +47,9 @@ export function useCreatePost() {
       const previousData =
         queryClient.getQueryData<InfiniteData<Post[]>>(FEED_QUERY_KEY);
 
-      const profile = queryClient.getQueryData<Profile>(PROFILE_QUERY_KEY(authorId));
+      const profile = queryClient.getQueryData<Profile>(
+        PROFILE_QUERY_KEY(authorId),
+      );
 
       const optimisticPost: Post = {
         id: `optimistic-${Date.now()}`,
@@ -59,6 +65,7 @@ export function useCreatePost() {
           username: profile?.username ?? null,
           avatar_url: profile?.avatar_url ?? null,
         },
+        likes: [],
       };
 
       queryClient.setQueryData<InfiniteData<Post[]>>(FEED_QUERY_KEY, (old) => {
@@ -66,6 +73,58 @@ export function useCreatePost() {
         return {
           ...old,
           pages: [[optimisticPost, ...old.pages[0]], ...old.pages.slice(1)],
+        };
+      });
+
+      return { previousData };
+    },
+
+    onError: (_err, _variables, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData(FEED_QUERY_KEY, context.previousData);
+      }
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: FEED_QUERY_KEY });
+    },
+  });
+}
+
+type ToggleLikeVariables = {
+  postId: string;
+  userId: string;
+  isCurrentlyLiked: boolean;
+};
+
+export function useToggleLike() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ postId, userId, isCurrentlyLiked }: ToggleLikeVariables) =>
+      toggleFeedLike(postId, userId, isCurrentlyLiked),
+
+    onMutate: async ({ postId, userId, isCurrentlyLiked }) => {
+      await queryClient.cancelQueries({ queryKey: FEED_QUERY_KEY });
+
+      const previousData =
+        queryClient.getQueryData<InfiniteData<Post[]>>(FEED_QUERY_KEY);
+
+      queryClient.setQueryData<InfiniteData<Post[]>>(FEED_QUERY_KEY, (old) => {
+        if (!old) return old;
+        return {
+          ...old,
+          pages: old.pages.map((page) =>
+            page.map((post) => {
+              if (post.id !== postId) return post;
+              return {
+                ...post,
+                likes: isCurrentlyLiked
+                  ? post.likes.filter((l) => l.user_id !== userId)
+                  : [...post.likes, { user_id: userId }],
+              };
+            }),
+          ),
         };
       });
 

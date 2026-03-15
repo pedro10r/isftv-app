@@ -28,6 +28,8 @@ export interface UserPost extends FeedItem {
   mediaUrl?: string;
   isVideo?: boolean;
   likes: number;
+  isLiked: boolean;
+  onLikePress: () => void;
   comments: number;
 }
 
@@ -53,4 +55,7 @@ export interface Post {
     username: string | null;
     avatar_url: string | null;
   } | null;
+  likes: {
+    user_id: string;
+  }[];
 }

@@ -15,7 +15,7 @@ export async function getFeedPosts(
 
   const { data, error } = await supabase
     .from("posts")
-    .select("*, profiles(full_name, username, avatar_url)")
+    .select("*, profiles(full_name, username, avatar_url), likes(user_id)")
     .order("created_at", { ascending: false })
     .range(from, to);
 
@@ -60,10 +60,32 @@ export async function createFeedPost(
       media_url: mediaUrl,
       type: FeedItemType.UserPost,
     })
-    .select("*, profiles(full_name, username, avatar_url)")
+    .select("*, profiles(full_name, username, avatar_url), likes(user_id)")
     .single();
 
   if (error) throw new Error(error.message);
 
   return data as Post;
+}
+
+export async function toggleFeedLike(
+  postId: string,
+  userId: string,
+  isCurrentlyLiked: boolean,
+): Promise<void> {
+  if (isCurrentlyLiked) {
+    const { error } = await supabase
+      .from("likes")
+      .delete()
+      .eq("post_id", postId)
+      .eq("user_id", userId);
+
+    if (error) throw new Error(error.message);
+  } else {
+    const { error } = await supabase
+      .from("likes")
+      .insert({ post_id: postId, user_id: userId });
+
+    if (error) throw new Error(error.message);
+  }
 }
