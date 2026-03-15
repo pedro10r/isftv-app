@@ -17,8 +17,14 @@ export function Home() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
-  const { posts, isLoading, mapPostToUserPost, handleCreatePostPress } =
-    useHome();
+  const {
+    posts,
+    isLoading,
+    isFetchingMore,
+    fetchMorePosts,
+    mapPostToUserPost,
+    handleCreatePostPress,
+  } = useHome();
 
   const renderItem = ({ item }: { item: Post }) => (
     <FeedUserPost data={mapPostToUserPost(item)} />
@@ -45,6 +51,8 @@ export function Home() {
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
+        onEndReached={fetchMorePosts}
+        onEndReachedThreshold={0.5}
         contentContainerStyle={[
           styles.listContent,
           !posts.length && styles.listContentEmpty,
@@ -55,6 +63,14 @@ export function Home() {
             icon="message-square"
             message={strings.emptyState.message}
           />
+        }
+        ListFooterComponent={
+          isFetchingMore && posts.length > 0 ? (
+            <ActivityIndicator
+              color={colors.textPrimary}
+              style={{ paddingVertical: 16 }}
+            />
+          ) : null
         }
       />
     </ScreenTemplate>

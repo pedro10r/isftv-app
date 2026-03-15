@@ -4,11 +4,20 @@ import { decode } from "base64-arraybuffer";
 import { supabase } from "@services/supabase";
 import { Post, FeedItemType } from "@models/feed";
 
-export async function getFeedPosts(): Promise<Post[]> {
+const FEED_LIMIT = 2;
+
+export async function getFeedPosts(
+  page: number,
+  limit: number = FEED_LIMIT,
+): Promise<Post[]> {
+  const from = page * limit;
+  const to = from + limit - 1;
+
   const { data, error } = await supabase
     .from("posts")
     .select("*, profiles(full_name, username, avatar_url)")
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .range(from, to);
 
   if (error) throw new Error(error.message);
 

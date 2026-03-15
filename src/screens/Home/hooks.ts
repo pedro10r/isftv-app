@@ -10,11 +10,13 @@ import { AuthorType, FeedItemType, Post, UserPost } from "@models/feed";
 export const useHome = () => {
   const { navigate } = useHomeNavigation();
 
-  const { posts, isLoading, fetchFeed } = useFeedStore(
+  const { posts, isLoading, isFetchingMore, fetchFeed, fetchMorePosts } = useFeedStore(
     useShallow((state) => ({
       posts: state.posts,
       isLoading: state.isLoading,
+      isFetchingMore: state.isFetchingMore,
       fetchFeed: state.fetchFeed,
+      fetchMorePosts: state.fetchMorePosts,
     })),
   );
 
@@ -45,5 +47,5 @@ export const useHome = () => {
 
   const handleCreatePostPress = () => navigate(NAV.HOME_STACK.CREATE_POST);
 
-  return { posts, isLoading, mapPostToUserPost, handleCreatePostPress };
+  return { posts, isLoading, isFetchingMore, fetchMorePosts, mapPostToUserPost, handleCreatePostPress };
 };
