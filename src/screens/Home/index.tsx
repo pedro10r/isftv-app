@@ -25,7 +25,7 @@ export function Home() {
     posts,
     isLoading,
     isFetchingNextPage,
-    isRefetching,
+    isManualRefreshing,
     fetchMorePosts,
     handleRefresh,
     mapPostToUserPost,
@@ -60,7 +60,7 @@ export function Home() {
           onEndReachedThreshold={0.5}
           refreshControl={
             <RefreshControl
-              refreshing={isRefetching}
+              refreshing={isManualRefreshing}
               onRefresh={handleRefresh}
               tintColor={colors.textPrimary}
             />

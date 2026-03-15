@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState, useCallback } from "react";
 
 import { useHomeNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
@@ -18,10 +18,11 @@ export const useHome = () => {
     fetchNextPage,
     hasNextPage,
     refetch,
-    isRefetching,
   } = useFeed();
 
   const { mutate: toggleLike } = useToggleLike();
+
+  const [isManualRefreshing, setIsManualRefreshing] = useState(false);
 
   const posts = useMemo(() => data?.pages.flat() ?? [], [data]);
 
@@ -29,7 +30,14 @@ export const useHome = () => {
     if (hasNextPage) fetchNextPage();
   };
 
-  const handleRefresh = () => refetch();
+  const handleRefresh = useCallback(async () => {
+    setIsManualRefreshing(true);
+    try {
+      await refetch();
+    } finally {
+      setIsManualRefreshing(false);
+    }
+  }, [refetch]);
 
   const mapPostToUserPost = (post: Post): UserPost => {
     const isLiked = post.likes?.some((l) => l.user_id === userId) ?? false;
@@ -63,7 +71,7 @@ export const useHome = () => {
     posts,
     isLoading,
     isFetchingNextPage,
-    isRefetching,
+    isManualRefreshing,
     fetchMorePosts,
     handleRefresh,
     mapPostToUserPost,
