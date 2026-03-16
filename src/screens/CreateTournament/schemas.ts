@@ -19,4 +19,16 @@ export const createTournamentSchema = z.object({
   prizeFourth: z.string().optional(),
 });
 
+export const stepOneSchema = z.object({
+  name: z.string().min(3, "Nome deve ter pelo menos 3 caracteres"),
+  venue_name: z.string().min(3, "Local deve ter pelo menos 3 caracteres"),
+  city: z.string().min(3, "Cidade deve ter pelo menos 3 caracteres"),
+  start_date: z.string().min(10, "Data inválida (DD/MM/AAAA)"),
+  end_date: z.string().min(10, "Data inválida (DD/MM/AAAA)"),
+  contact_whatsapp: z
+    .string()
+    .min(10, "WhatsApp deve ter pelo menos 10 dígitos"),
+});
+
 export type CreateTournamentFormData = z.infer<typeof createTournamentSchema>;
+export type StepOneFormData = z.infer<typeof stepOneSchema>;

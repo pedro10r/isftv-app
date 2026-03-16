@@ -1,5 +1,11 @@
 import { useMemo } from "react";
-import { FlatList, Pressable, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
 import { FlashList } from "@shopify/flash-list";
 
 import Feather from "@expo/vector-icons/Feather";
@@ -10,15 +16,16 @@ import { ScreenTemplate } from "@components/templates";
 import { TournamentCard } from "@components/organisms";
 import { useAppTheme } from "@theme/ThemeContext";
 
-import { createStyles } from "./styles";
 import { useTournaments } from "./hooks";
 import { strings } from "./strings";
+import { createStyles } from "./styles";
 
 export function Tournaments() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const {
+    isLoading,
     activeFilter,
     filteredTournaments,
     handleFilterPress,
@@ -66,7 +73,11 @@ export function Tournaments() {
         ]}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListEmptyComponent={
-          <EmptyListState icon="inbox" message={strings.emptyState} />
+          isLoading ? (
+            <ActivityIndicator style={{ marginTop: 40 }} />
+          ) : (
+            <EmptyListState icon="inbox" message={strings.emptyState} />
+          )
         }
         renderItem={({ item }) => (
           <TournamentCard

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { View, Text, Image, Pressable } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { Tournament } from "@models/tournament";
@@ -18,21 +18,18 @@ export function TournamentCard({ data, onPress }: TournamentCardProps) {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
-  const dateRange = formatDateRange(data.startDate, data.endDate);
+  const dateRange = formatDateRange(data.start_date, data.end_date);
 
   return (
-    <Pressable
-      style={({ pressed }) => [styles.card, pressed && { opacity: 0.85 }]}
-      onPress={onPress}
-    >
+    <TouchableOpacity activeOpacity={0.8} style={styles.card} onPress={onPress}>
       <View style={styles.imageWrapper}>
         <Image
-          source={{ uri: data.posterUrl }}
+          source={{ uri: data.poster_url! }}
           style={styles.image}
           resizeMode="cover"
         />
         <View style={styles.badgeWrapper}>
-          <StatusBadge status={data.status} />
+          <StatusBadge status={data.status!} />
         </View>
       </View>
 
@@ -44,7 +41,7 @@ export function TournamentCard({ data, onPress }: TournamentCardProps) {
         <View style={styles.infoRow}>
           <Feather name="map-pin" size={14} color={colors.textSecondary} />
           <Text style={styles.infoText} numberOfLines={1}>
-            {data.venueName}
+            {data.venue_name}
           </Text>
         </View>
 
@@ -55,12 +52,12 @@ export function TournamentCard({ data, onPress }: TournamentCardProps) {
       </View>
 
       <View style={styles.footer}>
-        {data.categories.map((category) => (
-          <View key={category} style={styles.categoryTag}>
-            <Text style={styles.categoryLabel}>{category}</Text>
+        {data.tournament_categories.map((category) => (
+          <View key={category.tournament_id} style={styles.categoryTag}>
+            <Text style={styles.categoryLabel}>{category.name}</Text>
           </View>
         ))}
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 }

@@ -167,4 +167,73 @@ export const createStyles = (colors: Colors) =>
       fontFamily: typography.fontFamily.bold,
       color: colors.white,
     },
+    centered: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      gap: spacing.m,
+    },
+    errorText: {
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.regular,
+      color: colors.textSecondary,
+      textAlign: "center",
+    },
+    retryButton: {
+      paddingHorizontal: spacing.l,
+      paddingVertical: spacing.s,
+      borderRadius: radii.xl,
+      borderWidth: 1,
+      borderColor: colors.border,
+    },
+    retryButtonText: {
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+    },
+    heroPlaceholder: {
+      backgroundColor: colors.surface,
+    },
+    categoryCard: {
+      borderRadius: radii.m,
+      borderWidth: 1,
+      borderColor: colors.border,
+      overflow: "hidden",
+    },
+    categoryHeader: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      paddingHorizontal: spacing.m,
+      paddingVertical: spacing.m,
+      backgroundColor: colors.surface,
+    },
+    categoryName: {
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+    },
+    categoryFee: {
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.primary,
+    },
+    prizesContainer: {
+      backgroundColor: colors.background,
+    },
+    contactButton: {
+      flex: 1,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: spacing.s,
+      backgroundColor: colors.primary,
+      paddingVertical: spacing.m,
+      borderRadius: radii.xl,
+    },
+    contactButtonText: {
+      fontSize: typography.fontSizes.body,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.white,
+    },
   });

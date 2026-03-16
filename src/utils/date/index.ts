@@ -46,3 +46,13 @@ export function toISO(ddmmyyyy: string): string {
   const [dd, mm, yyyy] = ddmmyyyy.split("/");
   return `${yyyy}-${mm}-${dd}`;
 }
+
+export function parseDateForDB(dateStr?: string) {
+  if (!dateStr) return null;
+
+  const parts = dateStr.split("/");
+  if (parts.length !== 3) return null;
+
+  const [day, month, year] = parts;
+  return `${year}-${month}-${day}`;
+}

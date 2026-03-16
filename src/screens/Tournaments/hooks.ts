@@ -1,20 +1,19 @@
 import { useCallback, useMemo, useState } from "react";
 
-import { Category } from "@models/tournament";
 import { NAV } from "@navigation/routes";
 import { useTournamentsNavigation } from "@navigation/appNavigation";
-import { useTournamentStore } from "@store/tournamentStore";
+import { useTournaments as useTournamentsQuery } from "@hooks/queries/useTournamentQueries";
 
 export const useTournaments = () => {
   const { navigate } = useTournamentsNavigation();
-  const tournaments = useTournamentStore((s) => s.tournaments);
+  const { data: tournaments = [], isLoading } = useTournamentsQuery();
   const [activeFilter, setActiveFilter] = useState("Todos");
 
   const filteredTournaments = useMemo(() => {
     if (activeFilter === "Todos") return tournaments;
 
     return tournaments.filter((t) =>
-      t.categories.includes(activeFilter as Category),
+      t.tournament_categories.some((c) => c.name === activeFilter),
     );
   }, [activeFilter, tournaments]);
 
@@ -36,6 +35,7 @@ export const useTournaments = () => {
   }, [navigate]);
 
   return {
+    isLoading,
     activeFilter,
     filteredTournaments,
     handleFilterPress,
