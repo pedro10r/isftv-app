@@ -16,6 +16,7 @@ export function TabNavigator() {
       screenOptions={{
         swipeEnabled: true,
         animationEnabled: true,
+        lazy: true,
       }}
       tabBar={(props) => <FloatingTabBar {...props} />}
     >
