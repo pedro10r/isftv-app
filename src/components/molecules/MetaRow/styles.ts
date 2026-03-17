@@ -6,15 +6,15 @@ const { spacing, typography } = theme;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
-    scrollContent: {
-      paddingTop: spacing.m,
-      paddingBottom: spacing.xxl,
-      gap: spacing.m,
+    row: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.s,
     },
-    description: {
+    text: {
       fontSize: typography.fontSizes.regular,
       fontFamily: typography.fontFamily.regular,
       color: colors.textSecondary,
+      flex: 1,
     },
-
   });

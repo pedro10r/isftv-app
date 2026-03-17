@@ -28,6 +28,7 @@ export function TournamentCard({ data, onPress }: TournamentCardProps) {
           style={styles.image}
           resizeMode="cover"
         />
+
         <View style={styles.badgeWrapper}>
           <StatusBadge status={data.status!} />
         </View>

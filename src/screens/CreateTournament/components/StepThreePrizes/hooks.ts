@@ -10,7 +10,7 @@ import { Prizes, PrizeTier } from "@models/tournament";
 
 import { strings } from "./strings";
 
-type PrizePlace = keyof Prizes;
+type PrizePlace = keyof Omit<Prizes, "fourth_place">;
 type PrizeTierField = keyof PrizeTier;
 
 export function useStepThreePrizes() {
@@ -102,11 +102,26 @@ export function useStepThreePrizes() {
     }
   };
 
+  const handleFourthPlaceChange = (
+    categoryId: string,
+    field: "text" | "trophy",
+    value: string | boolean,
+  ) => {
+    const category = categories.find((c) => c.id === categoryId);
+    if (!category) return;
+    const updatedFourth = { ...category.prizes.fourth_place, [field]: value };
+
+    updateCategory(categoryId, {
+      prizes: { ...category.prizes, fourth_place: updatedFourth },
+    });
+  };
+
   return {
     categories,
     expandedCategory,
     toggleExpand,
     handlePrizeChange,
+    handleFourthPlaceChange,
     onSubmit,
   };
 }

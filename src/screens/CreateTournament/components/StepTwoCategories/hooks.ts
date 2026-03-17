@@ -3,6 +3,7 @@ import { Alert } from "react-native";
 import { useShallow } from "zustand/react/shallow";
 
 import { useCreateTournamentStore } from "@store/createTournamentStore";
+import { maskCurrency } from "@utils";
 
 import { strings } from "./strings";
 
@@ -29,35 +30,39 @@ export function useStepTwoCategories() {
       })),
     );
 
-  const [baseFee, setBaseFee] = useState("100");
+  const [baseFee, setBaseFee] = useState("");
   const [customCategoryName, setCustomCategoryName] = useState("");
 
   const isSelected = (name: string) =>
-    categories.some((c) => c.name === name);
+    categories.some((category) => category.name === name);
 
   const handleToggleCategory = (name: string) => {
-    const existing = categories.find((c) => c.name === name);
+    const existing = categories.find((category) => category.name === name);
+
     if (existing) {
       removeCategory(existing.id);
-    } else {
-      addCategory({
-        id: Math.random().toString(),
-        name,
-        fee: baseFee,
-        prizes: {},
-      });
+      return;
     }
+
+    addCategory({
+      id: Math.random().toString(),
+      name,
+      fee: baseFee,
+      prizes: {},
+    });
   };
 
   const handleAddCustomCategory = () => {
     const trimmed = customCategoryName.trim();
     if (!trimmed) return;
+
     addCategory({
       id: Math.random().toString(),
       name: trimmed,
       fee: baseFee,
       prizes: {},
     });
+
     setCustomCategoryName("");
   };
 
@@ -69,7 +74,19 @@ export function useStepTwoCategories() {
       );
       return;
     }
+
     nextStep();
+  };
+
+  const handleChangeText = (text: string) => {
+    const numericText = text.replace(/\D/g, "");
+
+    if (!numericText) {
+      setBaseFee("");
+      return;
+    }
+
+    setBaseFee(maskCurrency(numericText));
   };
 
   return {
@@ -83,5 +100,6 @@ export function useStepTwoCategories() {
     handleAddCustomCategory,
     removeCategory,
     onSubmit,
+    handleChangeText,
   };
 }

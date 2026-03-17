@@ -20,6 +20,9 @@ export const createStyles = (colors: Colors) =>
       width: "100%",
       height: HERO_HEIGHT,
     },
+    heroPlaceholder: {
+      backgroundColor: colors.surface,
+    },
     backButton: {
       position: "absolute",
       top: 50,
@@ -39,9 +42,6 @@ export const createStyles = (colors: Colors) =>
       paddingTop: spacing.l,
       gap: spacing.l,
     },
-    statusRow: {
-      flexDirection: "row",
-    },
     titleText: {
       fontSize: typography.fontSizes.h2,
       fontFamily: typography.fontFamily.bold,
@@ -51,77 +51,12 @@ export const createStyles = (colors: Colors) =>
     metaGroup: {
       gap: spacing.s,
     },
-    metaRow: {
-      flexDirection: "row",
-      alignItems: "center",
-      gap: spacing.s,
-    },
-    metaText: {
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.regular,
-      color: colors.textSecondary,
-      flex: 1,
-    },
     section: {
       gap: spacing.m,
     },
     sectionTitle: {
       fontSize: typography.fontSizes.body,
       fontFamily: typography.fontFamily.medium,
-      color: colors.textPrimary,
-    },
-    chipsRow: {
-      flexDirection: "row",
-      flexWrap: "wrap",
-      gap: spacing.s,
-    },
-    chip: {
-      paddingHorizontal: spacing.m,
-      paddingVertical: spacing.s,
-      borderRadius: radii.xl,
-      borderWidth: 1,
-      borderColor: colors.primary,
-      backgroundColor: `${colors.primary}1A`,
-    },
-    chipLabel: {
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.medium,
-      color: colors.primary,
-    },
-    prizeCard: {
-      backgroundColor: colors.surface,
-      borderRadius: radii.l,
-      overflow: "hidden",
-      borderWidth: 1,
-      borderColor: `${colors.primary}22`,
-    },
-    prizeRow: {
-      flexDirection: "row",
-      alignItems: "center",
-      paddingHorizontal: spacing.m,
-      paddingVertical: spacing.m,
-      gap: spacing.m,
-    },
-    prizeRowBorder: {
-      borderTopWidth: StyleSheet.hairlineWidth,
-      borderTopColor: colors.border,
-    },
-    prizeIconWrapper: {
-      width: 36,
-      height: 36,
-      borderRadius: 18,
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    prizePlaceText: {
-      flex: 1,
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.medium,
-      color: colors.textPrimary,
-    },
-    prizeValueText: {
-      fontSize: typography.fontSizes.body,
-      fontFamily: typography.fontFamily.bold,
       color: colors.textPrimary,
     },
     footer: {
@@ -143,26 +78,17 @@ export const createStyles = (colors: Colors) =>
       shadowRadius: 12,
       elevation: 8,
     },
-    feeLabel: {
-      fontSize: typography.fontSizes.caption,
-      fontFamily: typography.fontFamily.regular,
-      color: colors.textSecondary,
-      marginBottom: 2,
-    },
-    feeValue: {
-      fontSize: typography.fontSizes.h3,
-      fontFamily: typography.fontFamily.bold,
-      color: colors.textPrimary,
-    },
-    enrollButton: {
-      backgroundColor: colors.primary,
-      paddingHorizontal: spacing.l,
-      paddingVertical: spacing.m,
-      borderRadius: radii.xl,
+    contactButton: {
+      flex: 1,
+      flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
+      gap: spacing.s,
+      backgroundColor: colors.primary,
+      paddingVertical: spacing.m,
+      borderRadius: radii.xl,
     },
-    enrollButtonText: {
+    contactButtonText: {
       fontSize: typography.fontSizes.body,
       fontFamily: typography.fontFamily.bold,
       color: colors.white,
@@ -190,50 +116,5 @@ export const createStyles = (colors: Colors) =>
       fontSize: typography.fontSizes.regular,
       fontFamily: typography.fontFamily.medium,
       color: colors.textPrimary,
-    },
-    heroPlaceholder: {
-      backgroundColor: colors.surface,
-    },
-    categoryCard: {
-      borderRadius: radii.m,
-      borderWidth: 1,
-      borderColor: colors.border,
-      overflow: "hidden",
-    },
-    categoryHeader: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      paddingHorizontal: spacing.m,
-      paddingVertical: spacing.m,
-      backgroundColor: colors.surface,
-    },
-    categoryName: {
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.medium,
-      color: colors.textPrimary,
-    },
-    categoryFee: {
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.bold,
-      color: colors.primary,
-    },
-    prizesContainer: {
-      backgroundColor: colors.background,
-    },
-    contactButton: {
-      flex: 1,
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: spacing.s,
-      backgroundColor: colors.primary,
-      paddingVertical: spacing.m,
-      borderRadius: radii.xl,
-    },
-    contactButtonText: {
-      fontSize: typography.fontSizes.body,
-      fontFamily: typography.fontFamily.bold,
-      color: colors.white,
     },
   });

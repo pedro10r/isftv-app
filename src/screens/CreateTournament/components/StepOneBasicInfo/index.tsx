@@ -4,7 +4,7 @@ import Feather from "@expo/vector-icons/Feather";
 
 import { TextInput } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
-import { maskDate } from "@utils";
+import { maskDate, maskPhone } from "@utils";
 
 import { StepRef } from "../../types";
 import { createStyles } from "./styles";
@@ -105,6 +105,7 @@ export const StepOneBasicInfo = forwardRef<StepRef, {}>((_, ref) => {
         placeholder={strings.fields.whatsapp.placeholder}
         keyboardType="phone-pad"
         maxLength={15}
+        transform={maskPhone}
       />
     </ScrollView>
   );

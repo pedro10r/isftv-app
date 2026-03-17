@@ -1,13 +1,18 @@
 export interface PrizeTier {
   cash: number;
   trophy?: boolean;
-  medal?: boolean;
+}
+
+export interface FourthPlaceTier {
+  text?: string;
+  trophy?: boolean;
 }
 
 export interface Prizes {
   first_place?: PrizeTier;
   second_place?: PrizeTier;
   third_place?: PrizeTier;
+  fourth_place?: FourthPlaceTier;
 }
 
 export interface TournamentCategory {

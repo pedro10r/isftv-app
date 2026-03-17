@@ -7,7 +7,7 @@ export const strings = {
   },
   fields: {
     baseFee: {
-      placeholder: "R$ 100,00",
+      placeholder: "R$ 0,00",
     },
     customCategory: {
       placeholder: "Nome da categoria",

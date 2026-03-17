@@ -56,3 +56,20 @@ export function parseDateForDB(dateStr?: string) {
   const [day, month, year] = parts;
   return `${year}-${month}-${day}`;
 }
+
+export function parseBrDate(value: string): Date | null {
+  const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+
+  if (!match) return null;
+
+  const [, day, month, year] = match.map(Number);
+  const date = new Date(year, month - 1, day);
+
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  )
+    return null;
+  return date;
+}

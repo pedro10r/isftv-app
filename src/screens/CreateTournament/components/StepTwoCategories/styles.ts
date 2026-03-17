@@ -32,25 +32,6 @@ export const createStyles = (colors: Colors) =>
       flexWrap: "wrap",
       gap: spacing.s,
     },
-    chip: {
-      paddingHorizontal: spacing.m,
-      paddingVertical: spacing.s,
-      borderRadius: radii.xl,
-      borderWidth: 1,
-      borderColor: colors.border,
-    },
-    chipActive: {
-      backgroundColor: colors.primary,
-      borderColor: colors.primary,
-    },
-    chipLabel: {
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.medium,
-      color: colors.textSecondary,
-    },
-    chipLabelActive: {
-      color: colors.white,
-    },
     customRow: {
       flexDirection: "row",
       gap: spacing.s,
@@ -78,33 +59,6 @@ export const createStyles = (colors: Colors) =>
       fontSize: typography.fontSizes.regular,
       fontFamily: typography.fontFamily.medium,
       color: colors.primary,
-    },
-    categoryCard: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      paddingHorizontal: spacing.m,
-      paddingVertical: spacing.m,
-      borderRadius: radii.m,
-      borderWidth: 1,
-      borderColor: colors.border,
-      backgroundColor: colors.surface,
-    },
-    categoryInfo: {
-      gap: spacing.xs,
-    },
-    categoryName: {
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.medium,
-      color: colors.textPrimary,
-    },
-    categoryFee: {
-      fontSize: typography.fontSizes.caption,
-      fontFamily: typography.fontFamily.regular,
-      color: colors.textSecondary,
-    },
-    trashButton: {
-      padding: spacing.s,
     },
     emptyState: {
       fontSize: typography.fontSizes.regular,

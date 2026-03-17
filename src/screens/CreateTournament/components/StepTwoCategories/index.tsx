@@ -1,14 +1,14 @@
 import { forwardRef, useImperativeHandle, useMemo } from "react";
 import {
-  Pressable,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
-import Feather from "@expo/vector-icons/Feather";
 
+import { FilterPill } from "@components/atoms";
+import { DraftCategoryCard } from "@components/molecules";
 import { useAppTheme } from "@theme/ThemeContext";
 
 import { StepRef } from "../../types";
@@ -31,6 +31,7 @@ export const StepTwoCategories = forwardRef<StepRef, {}>((_, ref) => {
     handleAddCustomCategory,
     removeCategory,
     onSubmit,
+    handleChangeText,
   } = useStepTwoCategories();
 
   useImperativeHandle(ref, () => ({ submit: onSubmit }));
@@ -41,13 +42,12 @@ export const StepTwoCategories = forwardRef<StepRef, {}>((_, ref) => {
       showsVerticalScrollIndicator={false}
       keyboardShouldPersistTaps="handled"
     >
-      {/* Sessão 1: Valor base */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{strings.sections.baseFee}</Text>
         <TextInput
           style={styles.feeInput}
           value={baseFee}
-          onChangeText={setBaseFee}
+          onChangeText={(text) => handleChangeText(text)}
           placeholder={strings.fields.baseFee.placeholder}
           placeholderTextColor={colors.placeholder}
           keyboardType="numeric"
@@ -57,22 +57,14 @@ export const StepTwoCategories = forwardRef<StepRef, {}>((_, ref) => {
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>{strings.sections.quickPick}</Text>
         <View style={styles.chipsContainer}>
-          {DEFAULT_CATEGORIES.map((name) => {
-            const active = isSelected(name);
-            return (
-              <Pressable
-                key={name}
-                onPress={() => handleToggleCategory(name)}
-                style={[styles.chip, active && styles.chipActive]}
-              >
-                <Text
-                  style={[styles.chipLabel, active && styles.chipLabelActive]}
-                >
-                  {name}
-                </Text>
-              </Pressable>
-            );
-          })}
+          {DEFAULT_CATEGORIES.map((name) => (
+            <FilterPill
+              key={name}
+              label={name}
+              isActive={isSelected(name)}
+              onPress={() => handleToggleCategory(name)}
+            />
+          ))}
         </View>
       </View>
 
@@ -106,20 +98,12 @@ export const StepTwoCategories = forwardRef<StepRef, {}>((_, ref) => {
           <Text style={styles.emptyState}>Nenhuma categoria selecionada.</Text>
         ) : (
           categories.map((category) => (
-            <View key={category.id} style={styles.categoryCard}>
-              <View style={styles.categoryInfo}>
-                <Text style={styles.categoryName}>{category.name}</Text>
-                <Text style={styles.categoryFee}>R$ {category.fee}</Text>
-              </View>
-
-              <TouchableOpacity
-                style={styles.trashButton}
-                onPress={() => removeCategory(category.id)}
-                activeOpacity={0.7}
-              >
-                <Feather name="trash" size={18} color={colors.error} />
-              </TouchableOpacity>
-            </View>
+            <DraftCategoryCard
+              key={category.id}
+              name={category.name}
+              fee={category.fee}
+              onRemove={() => removeCategory(category.id)}
+            />
           ))
         )}
       </View>

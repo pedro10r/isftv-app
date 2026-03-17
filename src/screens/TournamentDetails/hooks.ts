@@ -6,9 +6,10 @@ import { useTournamentsNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
 import { TournamentsStackParamList } from "@navigation/types";
 import { useTournamentDetails as useTournamentDetailsQuery } from "@hooks/queries/useTournamentQueries";
-import { Colors } from "@theme";
 import { Prizes } from "@models/tournament";
 import { formatCurrency } from "@utils";
+
+import { strings } from "./strings";
 
 type TournamentDetailsRouteProp = RouteProp<
   TournamentsStackParamList,
@@ -21,23 +22,40 @@ export interface FormattedPrizeLine {
 }
 
 export function formatPrizes(prizes: Prizes): FormattedPrizeLine[] {
-  const PLACE_LABELS: Record<keyof Prizes, string> = {
-    first_place: "1º Lugar",
-    second_place: "2º Lugar",
-    third_place: "3º Lugar",
+  const TIER_LABELS = {
+    first_place: strings.prizes.places.first,
+    second_place: strings.prizes.places.second,
+    third_place: strings.prizes.places.third,
   };
 
-  return (Object.keys(PLACE_LABELS) as (keyof Prizes)[])
+  type TierKey = keyof typeof TIER_LABELS;
+
+  const tierLines = (Object.keys(TIER_LABELS) as TierKey[])
     .filter((key) => prizes[key])
     .map((key) => {
       const tier = prizes[key]!;
       const parts: string[] = [];
-
       if (tier.cash) parts.push(formatCurrency(tier.cash));
-      if (tier.trophy) parts.push("Troféu");
-      if (tier.medal) parts.push("Medalha");
-      return { label: PLACE_LABELS[key], value: parts.join(" + ") || "-" };
+      if (tier.trophy) parts.push(strings.prizes.trophy);
+
+      return {
+        label: TIER_LABELS[key],
+        value: parts.join(" + ") || strings.prizes.empty,
+      };
     });
+
+  if (prizes.fourth_place) {
+    const parts: string[] = [];
+    if (prizes.fourth_place.text) parts.push(prizes.fourth_place.text);
+    if (prizes.fourth_place.trophy) parts.push(strings.prizes.trophy);
+
+    tierLines.push({
+      label: strings.prizes.places.fourth,
+      value: parts.join(" + ") || strings.prizes.empty,
+    });
+  }
+
+  return tierLines;
 }
 
 export const useTournamentDetails = () => {
@@ -56,15 +74,9 @@ export const useTournamentDetails = () => {
   const handleContactOrganizer = useCallback(() => {
     if (!tournament?.contact_whatsapp) return;
     const phone = tournament.contact_whatsapp.replace(/\D/g, "");
-    Linking.openURL(`https://wa.me/55${phone}`);
-  }, [tournament?.contact_whatsapp]);
 
-  const getPrizeColors = (colors: Colors) =>
-    ({
-      first_place: { bg: `${colors.prizeGold}22`, icon: colors.prizeGold },
-      second_place: { bg: `${colors.prizeSilver}22`, icon: colors.prizeSilver },
-      third_place: { bg: `${colors.prizeBronze}22`, icon: colors.prizeBronze },
-    }) as const;
+    Linking.openURL(`https://wa.me/55${phone}`); // TODO: Open in Whatsapp App
+  }, [tournament?.contact_whatsapp]);
 
   return {
     tournament,
@@ -72,6 +84,5 @@ export const useTournamentDetails = () => {
     isError,
     handleGoBack,
     handleContactOrganizer,
-    getPrizeColors,
   };
 };
