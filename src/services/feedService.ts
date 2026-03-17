@@ -81,11 +81,12 @@ export async function toggleFeedLike(
       .eq("user_id", userId);
 
     if (error) throw new Error(error.message);
-  } else {
-    const { error } = await supabase
-      .from("likes")
-      .insert({ post_id: postId, user_id: userId });
-
-    if (error) throw new Error(error.message);
+    return;
   }
+
+  const { error } = await supabase
+    .from("likes")
+    .insert({ post_id: postId, user_id: userId });
+
+  if (error) throw new Error(error.message);
 }

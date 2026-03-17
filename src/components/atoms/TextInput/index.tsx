@@ -71,9 +71,10 @@ export function TextInput<TFieldValues extends FieldValues>({
                 if (text.length < prevMasked.length) {
                   const prevRaw = extract(value ?? "");
                   onChange(transform(prevRaw.slice(0, -1)));
-                } else {
-                  onChange(transform(text));
+                  return;
                 }
+
+                onChange(transform(text));
               }}
               onBlur={onBlur}
               placeholderTextColor={colors.placeholder}
