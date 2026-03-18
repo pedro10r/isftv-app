@@ -68,6 +68,19 @@ export async function createFeedPost(
   return data as Post;
 }
 
+export async function getUserPosts(userId: string): Promise<Post[]> {
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*, profiles(full_name, username, avatar_url), likes(user_id)")
+    .eq("author_id", userId)
+    .not("media_url", "is", null)
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error(error.message);
+
+  return (data ?? []) as Post[];
+}
+
 export async function toggleFeedLike(
   postId: string,
   userId: string,

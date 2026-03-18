@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import { ProfileTemplate } from "@components/templates";
+import { ProfileMediaGrid } from "@components/organisms";
 import { useAppTheme } from "@theme/ThemeContext";
 
 import { useOtherProfile } from "./hooks";
@@ -12,6 +13,7 @@ export function OtherProfile() {
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const {
+    userId,
     profile,
     isLoading,
     labels,
@@ -42,6 +44,7 @@ export function OtherProfile() {
         height: labels.displayHeight,
         weight: labels.displayWeight,
       }}
+      renderMediaGrid={() => <ProfileMediaGrid userId={userId} />}
     />
   );
 }

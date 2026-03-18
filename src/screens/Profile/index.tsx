@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import { ProfileTemplate } from "@components/templates";
+import { ProfileMediaGrid } from "@components/organisms";
 import { useAppTheme } from "@theme/ThemeContext";
 
 import { useProfile } from "./hooks";
@@ -12,6 +13,7 @@ export function Profile() {
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const {
+    userId,
     profile,
     isLoadingProfile,
     isUploadingMedia,
@@ -50,6 +52,9 @@ export function Profile() {
       onPickCover={handlePickCover}
       onEditProfile={handleNavigateEditProfile}
       onSettings={handleNavigateSettings}
+      renderMediaGrid={
+        userId ? () => <ProfileMediaGrid userId={userId} /> : undefined
+      }
     />
   );
 }

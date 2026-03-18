@@ -1,6 +1,7 @@
 import {
   useInfiniteQuery,
   useMutation,
+  useQuery,
   useQueryClient,
   InfiniteData,
 } from "@tanstack/react-query";
@@ -9,6 +10,7 @@ import { Post, FeedItemType } from "@models/feed";
 import { Profile } from "@models/profile";
 import {
   getFeedPosts,
+  getUserPosts,
   createFeedPost,
   toggleFeedLike,
 } from "@services/feedService";
@@ -31,6 +33,14 @@ export function useFeed() {
     initialPageParam: 0,
     getNextPageParam: (lastPage, allPages) =>
       lastPage.length === FEED_LIMIT ? allPages.length : undefined,
+  });
+}
+
+export function useUserPosts(userId: string | undefined) {
+  return useQuery({
+    queryKey: ["user-posts", userId],
+    queryFn: () => getUserPosts(userId!),
+    enabled: !!userId,
   });
 }
 

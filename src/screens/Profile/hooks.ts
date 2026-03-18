@@ -73,6 +73,7 @@ export const useProfile = () => {
 
   return {
     session,
+    userId,
     profile,
     isLoadingProfile,
     isUploadingMedia,

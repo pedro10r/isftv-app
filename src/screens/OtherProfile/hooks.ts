@@ -42,6 +42,7 @@ export const useOtherProfile = () => {
   };
 
   return {
+    userId,
     profile,
     isLoading,
     labels,
