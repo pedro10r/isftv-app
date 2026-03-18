@@ -30,13 +30,13 @@ export function Home() {
     handleRefresh,
     mapPostToUserPost,
     handleCreatePostPress,
-    handleNavigateToOtherProfile,
+    handleNavigateToAuthorProfile,
   } = useHome();
 
   const renderItem = ({ item }: { item: Post }) => (
     <FeedUserPost
       data={mapPostToUserPost(item)}
-      onAuthorPress={() => handleNavigateToOtherProfile(item.author_id)}
+      onAuthorPress={() => handleNavigateToAuthorProfile(item.author_id)}
     />
   );
 

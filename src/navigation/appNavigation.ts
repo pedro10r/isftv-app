@@ -1,10 +1,12 @@
 import { createNavigationContainerRef, useNavigation } from "@react-navigation/native";
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 
 import {
   AuthScreenNavigationProp,
   HomeScreenNavigationProp,
   TournamentsScreenNavigationProp,
   ProfileScreenNavigationProp,
+  TabParamList,
   RootStackParamList,
 } from "./types";
 
@@ -25,3 +27,7 @@ export const useTournamentsNavigation = () =>
 /** Use only within ProfileStack screens: Profile, EditProfile. */
 export const useProfileNavigation = () =>
   useNavigation<ProfileScreenNavigationProp>();
+
+/** Use to navigate between tabs from any screen. */
+export const useTabNavigation = () =>
+  useNavigation<BottomTabNavigationProp<TabParamList>>();

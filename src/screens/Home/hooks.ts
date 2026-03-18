@@ -1,6 +1,6 @@
 import { useMemo, useState, useCallback } from "react";
 
-import { useHomeNavigation } from "@navigation/appNavigation";
+import { useHomeNavigation, useTabNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
 import { AuthorType, FeedItemType, Post, UserPost } from "@models/feed";
 import { useAuthStore } from "@store/authStore";
@@ -8,6 +8,7 @@ import { useFeed, useToggleLike } from "@hooks/queries/useFeedQueries";
 
 export const useHome = () => {
   const { navigate } = useHomeNavigation();
+  const { navigate: navigateTab } = useTabNavigation();
 
   const userId = useAuthStore((s) => s.session?.user.id);
 
@@ -67,8 +68,17 @@ export const useHome = () => {
 
   const handleCreatePostPress = () => navigate(NAV.HOME_STACK.CREATE_POST);
 
-  const handleNavigateToOtherProfile = (authorId: string) =>
+  const handleNavigateToAuthorProfile = (authorId: string) => {
+    if (authorId === userId) {
+      navigateTab({
+        name: NAV.TABS.PROFILE_STACK,
+        params: { screen: NAV.PROFILE_STACK.PROFILE },
+      });
+      return;
+    }
+
     navigate(NAV.HOME_STACK.OTHER_PROFILE, { userId: authorId });
+  };
 
   return {
     posts,
@@ -79,6 +89,6 @@ export const useHome = () => {
     handleRefresh,
     mapPostToUserPost,
     handleCreatePostPress,
-    handleNavigateToOtherProfile,
+    handleNavigateToAuthorProfile,
   };
 };
