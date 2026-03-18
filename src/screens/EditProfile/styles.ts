@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 import { theme, Colors } from "@theme";
-
-const TAB_BAR_OFFSET = 96;
+import { TAB_BAR_OFFSET } from "@constants/layout";
 
 const { spacing, typography, radii } = theme;
 

@@ -1,10 +1,9 @@
 import { StyleSheet } from "react-native";
 
 import { theme, Colors } from "@theme";
+import { TAB_BAR_OFFSET } from "@constants/layout";
 
-const { spacing, radii, typography } = theme;
-
-const TAB_BAR_OFFSET = 96;
+const { spacing, typography } = theme;
 const COVER_HEIGHT = 180;
 const AVATAR_SIZE = spacing.xxl * 2;
 const AVATAR_BORDER = spacing.xs / 2;
@@ -26,18 +25,6 @@ export const createStyles = (colors: Colors) =>
       width: "100%",
       height: COVER_HEIGHT,
       backgroundColor: colors.border,
-    },
-    settingsButton: {
-      position: "absolute",
-      top: spacing.m,
-      right: spacing.m,
-      width: FLOAT_BUTTON_SIZE,
-      height: FLOAT_BUTTON_SIZE,
-      borderRadius: FLOAT_BUTTON_SIZE / 2,
-      alignItems: "center",
-      justifyContent: "center",
-      backgroundColor: colors.surface,
-      elevation: 2,
     },
     avatarWrapper: {
       alignItems: "center",
@@ -120,62 +107,12 @@ export const createStyles = (colors: Colors) =>
       textAlign: "center",
       lineHeight: spacing.l,
     },
-    statsCard: {
-      flexDirection: "row",
-      marginHorizontal: spacing.m,
-      marginBottom: spacing.m,
-      paddingVertical: spacing.m,
-      paddingHorizontal: spacing.l,
-      borderRadius: radii.l,
-      backgroundColor: colors.surface,
-      shadowColor: colors.black,
-      shadowOffset: { width: 0, height: spacing.xs / 2 },
-      shadowOpacity: 0.1,
-      shadowRadius: radii.s,
-      elevation: spacing.xs,
-    },
-    statItem: {
-      flex: 1,
-      alignItems: "center",
-      justifyContent: "center",
-      gap: spacing.xs,
-    },
-    statItemWithBorder: {
-      borderRightWidth: StyleSheet.hairlineWidth,
-      borderRightColor: colors.border,
-    },
-    statLabel: {
-      fontSize: typography.fontSizes.caption,
-      fontFamily: typography.fontFamily.regular,
-      color: colors.textSecondary,
-    },
-    statValue: {
-      fontSize: typography.fontSizes.h3,
-      fontFamily: typography.fontFamily.bold,
-      color: colors.textPrimary,
-    },
     actionsRow: {
       flexDirection: "row",
       gap: spacing.s,
       paddingHorizontal: spacing.m,
+      marginTop: spacing.m,
       marginBottom: spacing.l,
-    },
-    actionButton: {
-      flex: 1,
-      paddingVertical: spacing.s,
-      borderRadius: radii.m,
-      alignItems: "center",
-      justifyContent: "center",
-      borderWidth: 1,
-    },
-    actionButtonOutline: {
-      borderColor: colors.textPrimary,
-      backgroundColor: "transparent",
-    },
-    actionButtonText: {
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.medium,
-      color: colors.textPrimary,
     },
     sectionContainer: {
       paddingHorizontal: spacing.m,
@@ -197,5 +134,6 @@ export const createStyles = (colors: Colors) =>
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
+      backgroundColor: colors.background,
     },
   });

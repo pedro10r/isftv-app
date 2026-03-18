@@ -10,7 +10,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import Feather from "@expo/vector-icons/Feather";
 
-import { EmptyListState } from "@components/molecules";
+import { EmptyListState, StatsCard } from "@components/molecules";
+import { OutlineButton } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { getInitials } from "@utils/getInitials";
 
@@ -37,11 +38,9 @@ export function Profile() {
 
   if (isLoadingProfile && !profile) {
     return (
-      <SafeAreaView style={styles.container} edges={["bottom"]}>
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      </SafeAreaView>
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color={colors.primary} />
+      </View>
     );
   }
 
@@ -114,41 +113,26 @@ export function Profile() {
           <Text style={styles.profileBio}>{labels.displayBio}</Text>
         </View>
 
-        <View style={styles.statsCard}>
-          <View style={[styles.statItem, styles.statItemWithBorder]}>
-            <Text style={styles.statValue}>{labels.displayPosition}</Text>
-            <Text style={styles.statLabel}>{strings.stats.positionLabel}</Text>
-          </View>
-          <View style={[styles.statItem, styles.statItemWithBorder]}>
-            <Text style={styles.statValue}>{labels.displayHeight}</Text>
-            <Text style={styles.statLabel}>{strings.stats.heightLabel}</Text>
-          </View>
-          <View style={styles.statItem}>
-            <Text style={styles.statValue}>{labels.displayWeight}</Text>
-            <Text style={styles.statLabel}>{strings.stats.physicalLabel}</Text>
-          </View>
-        </View>
+        <StatsCard
+          items={[
+            {
+              value: labels.displayPosition,
+              label: strings.stats.positionLabel,
+            },
+            { value: labels.displayHeight, label: strings.stats.heightLabel },
+            { value: labels.displayWeight, label: strings.stats.physicalLabel },
+          ]}
+        />
 
         <View style={styles.actionsRow}>
-          <TouchableOpacity
-            style={[styles.actionButton, styles.actionButtonOutline]}
+          <OutlineButton
+            label={strings.actions.editProfile}
             onPress={handleNavigateEditProfile}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.actionButtonText}>
-              {strings.actions.editProfile}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.actionButton, styles.actionButtonOutline]}
+          />
+          <OutlineButton
+            label={strings.actions.settings}
             onPress={handleNavigateSettings}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.actionButtonText}>
-              {strings.actions.settings}
-            </Text>
-          </TouchableOpacity>
+          />
         </View>
 
         <View style={styles.sectionContainer}>

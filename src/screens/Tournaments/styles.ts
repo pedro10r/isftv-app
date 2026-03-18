@@ -1,10 +1,9 @@
 import { StyleSheet } from "react-native";
 
 import { theme, Colors } from "@theme";
+import { TAB_BAR_OFFSET } from "@constants/layout";
 
 const { spacing, typography } = theme;
-
-const TAB_BAR_OFFSET = 96;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({

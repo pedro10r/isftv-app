@@ -54,7 +54,7 @@ export function TournamentCard({ data, onPress }: TournamentCardProps) {
 
       <View style={styles.footer}>
         {data.tournament_categories.map((category) => (
-          <View key={category.tournament_id} style={styles.categoryTag}>
+          <View key={category.id} style={styles.categoryTag}>
             <Text style={styles.categoryLabel}>{category.name}</Text>
           </View>
         ))}

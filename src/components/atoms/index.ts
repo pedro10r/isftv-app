@@ -5,3 +5,4 @@ export { Select } from "./Select";
 export { Switch } from "./Switch";
 export { StatusBadge } from "./StatusBadge";
 export { FilterPill } from "./FilterPill";
+export { OutlineButton } from "./OutlineButton";
