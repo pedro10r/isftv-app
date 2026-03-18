@@ -31,6 +31,7 @@ const darkColors = {
 
   white: "#ffffff",
   black: "#000000",
+  whatsapp_green: "#25D366",
 };
 
 const lightColors = {
@@ -66,6 +67,7 @@ const lightColors = {
 
   white: "#ffffff",
   black: "#000000",
+  whatsapp_green: "#25D366",
 };
 
 const spacing = {

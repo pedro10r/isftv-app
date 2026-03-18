@@ -18,6 +18,7 @@ export const NAV = {
   HOME_STACK: {
     HOME: "Home",
     CREATE_POST: "CreatePost",
+    OTHER_PROFILE: "OtherProfile",
   } satisfies Record<string, keyof HomeStackParamList>,
   TOURNAMENTS_STACK: {
     TOURNAMENTS: "Tournaments",

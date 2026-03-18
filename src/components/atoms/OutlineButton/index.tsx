@@ -8,17 +8,25 @@ import { createStyles } from "./styles";
 interface OutlineButtonProps extends TouchableOpacityProps {
   label: string;
   onPress: () => void;
+  color?: string;
 }
 
-export function OutlineButton({ label, onPress, ...rest }: OutlineButtonProps) {
+export function OutlineButton({
+  label,
+  onPress,
+  color,
+  style,
+  ...rest
+}: OutlineButtonProps) {
   const { colors } = useAppTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
+  const resolvedColor = color ?? colors.textPrimary;
+  const styles = useMemo(() => createStyles(resolvedColor), [resolvedColor]);
 
   return (
     <TouchableOpacity
       onPress={onPress}
       activeOpacity={0.7}
-      style={styles.button}
+      style={[styles.button, style]}
       {...rest}
     >
       <Text style={styles.label}>{label}</Text>

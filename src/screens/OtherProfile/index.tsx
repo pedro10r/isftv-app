@@ -4,27 +4,23 @@ import { ActivityIndicator, View } from "react-native";
 import { ProfileTemplate } from "@components/templates";
 import { useAppTheme } from "@theme/ThemeContext";
 
-import { useProfile } from "./hooks";
+import { useOtherProfile } from "./hooks";
 import { createStyles } from "./styles";
 
-export function Profile() {
+export function OtherProfile() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const {
     profile,
-    isLoadingProfile,
-    isUploadingMedia,
+    isLoading,
+    labels,
     avatarUrl,
     coverUrl,
-    labels,
-    handlePickAvatar,
-    handlePickCover,
-    handleNavigateEditProfile,
-    handleNavigateSettings,
-  } = useProfile();
+    handleCallWhatsApp,
+  } = useOtherProfile();
 
-  if (isLoadingProfile && !profile) {
+  if (isLoading && !profile) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={colors.primary} />
@@ -34,22 +30,18 @@ export function Profile() {
 
   return (
     <ProfileTemplate
-      isMe
+      isMe={false}
       fullName={labels.displayName}
       username={labels.displayUsername}
       bio={labels.displayBio}
       avatarUrl={avatarUrl}
       coverUrl={coverUrl}
+      onCallWhatsApp={handleCallWhatsApp}
       stats={{
         position: labels.displayPosition,
         height: labels.displayHeight,
         weight: labels.displayWeight,
       }}
-      isUploadingMedia={isUploadingMedia}
-      onPickAvatar={handlePickAvatar}
-      onPickCover={handlePickCover}
-      onEditProfile={handleNavigateEditProfile}
-      onSettings={handleNavigateSettings}
     />
   );
 }

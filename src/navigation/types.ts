@@ -8,6 +8,7 @@ import type { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 export type HomeStackParamList = {
   Home: undefined;
   CreatePost: undefined;
+  OtherProfile: { userId: string };
 };
 
 export type ProfileStackParamList = {

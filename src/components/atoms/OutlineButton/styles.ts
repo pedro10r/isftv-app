@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 
-import { theme, Colors } from "@theme";
+import { theme } from "@theme";
 
 const { spacing, radii, typography } = theme;
 
-export const createStyles = (colors: Colors) =>
+export const createStyles = (color: string) =>
   StyleSheet.create({
     button: {
       flex: 1,
@@ -13,12 +13,12 @@ export const createStyles = (colors: Colors) =>
       alignItems: "center",
       justifyContent: "center",
       borderWidth: 1,
-      borderColor: colors.textPrimary,
+      borderColor: color,
       backgroundColor: "transparent",
     },
     label: {
       fontSize: typography.fontSizes.regular,
       fontFamily: typography.fontFamily.medium,
-      color: colors.textPrimary,
+      color,
     },
   });

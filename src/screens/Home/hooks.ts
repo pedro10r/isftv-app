@@ -67,6 +67,9 @@ export const useHome = () => {
 
   const handleCreatePostPress = () => navigate(NAV.HOME_STACK.CREATE_POST);
 
+  const handleNavigateToOtherProfile = (authorId: string) =>
+    navigate(NAV.HOME_STACK.OTHER_PROFILE, { userId: authorId });
+
   return {
     posts,
     isLoading,
@@ -76,5 +79,6 @@ export const useHome = () => {
     handleRefresh,
     mapPostToUserPost,
     handleCreatePostPress,
+    handleNavigateToOtherProfile,
   };
 };

@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image, TouchableOpacity, Pressable } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
 import { UserPost } from "@models/feed";
@@ -10,25 +10,27 @@ import { createStyles } from "./styles";
 
 interface FeedUserPostProps {
   data: UserPost;
+  onAuthorPress?: () => void;
 }
 
-export function FeedUserPost({ data }: FeedUserPostProps) {
+export function FeedUserPost({ data, onAuthorPress }: FeedUserPostProps) {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <Pressable style={styles.header} onPress={onAuthorPress}>
         <Image
           source={{ uri: data.author.avatarUrl }}
           style={styles.avatar}
           resizeMode="cover"
         />
+
         <View style={styles.authorInfo}>
           <Text style={styles.authorName}>{data.author.name}</Text>
           <Text style={styles.timeAgo}>{formatTimeAgo(data.createdAt)}</Text>
         </View>
-      </View>
+      </Pressable>
 
       <Text style={styles.content}>{data.content}</Text>
 
