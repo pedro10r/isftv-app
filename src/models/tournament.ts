@@ -28,10 +28,7 @@ export interface TournamentOrganizer {
   avatar_url: string | null;
 }
 
-export type TournamentStatus =
-  | "Inscrições Abertas"
-  | "Em Andamento"
-  | "Finalizado";
+export type TournamentStatus = "OPEN" | "IN_PROGRESS" | "FINISHED";
 
 export interface Tournament {
   id: string;
