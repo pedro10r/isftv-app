@@ -23,11 +23,17 @@ export function TournamentCard({ data, onPress }: TournamentCardProps) {
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.card} onPress={onPress}>
       <View style={styles.imageWrapper}>
-        <Image
-          source={{ uri: data.poster_url! }}
-          style={styles.image}
-          resizeMode="cover"
-        />
+        {data.poster_url ? (
+          <Image
+            source={{ uri: data.poster_url }}
+            style={styles.image}
+            resizeMode="cover"
+          />
+        ) : (
+          <View style={[styles.image, styles.imagePlaceholder]}>
+            <Feather name="image" size={32} color={colors.placeholder} />
+          </View>
+        )}
 
         <View style={styles.badgeWrapper}>
           <StatusBadge status={data.status!} />

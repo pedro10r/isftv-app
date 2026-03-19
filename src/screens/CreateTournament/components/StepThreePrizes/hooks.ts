@@ -22,10 +22,10 @@ export function useStepThreePrizes() {
     end_date,
     contact_whatsapp,
     posterUri,
+    baseFee,
     categories,
     updateCategory,
     setField,
-    resetForm,
   } = useCreateTournamentStore(
     useShallow((state) => ({
       name: state.name,
@@ -35,10 +35,10 @@ export function useStepThreePrizes() {
       end_date: state.end_date,
       contact_whatsapp: state.contact_whatsapp,
       posterUri: state.posterUri,
+      baseFee: state.baseFee,
       categories: state.categories,
       updateCategory: state.updateCategory,
       setField: state.setField,
-      resetForm: state.resetForm,
     })),
   );
 
@@ -82,19 +82,16 @@ export function useStepThreePrizes() {
         end_date,
         contact_whatsapp,
         posterUri,
+        baseFee,
         organizerId,
         categories,
       });
 
-      Alert.alert(strings.success.alertTitle, strings.success.alertMessage, [
-        {
-          text: "OK",
-          onPress: () => {
-            resetForm();
-            goBack();
-          },
-        },
-      ]);
+      useCreateTournamentStore.getState().setField("isPublishedSuccess", true);
+      goBack();
+      setTimeout(() => useCreateTournamentStore.getState().resetForm(), 500);
+
+      Alert.alert(strings.success.alertTitle, strings.success.alertMessage);
     } catch (error) {
       Alert.alert("Erro", "Não foi possível publicar o campeonato.");
     } finally {

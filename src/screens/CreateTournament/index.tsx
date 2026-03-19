@@ -18,10 +18,10 @@ import { StepOneBasicInfo } from "./components/StepOneBasicInfo";
 import { StepTwoCategories } from "./components/StepTwoCategories";
 import { StepThreePrizes } from "./components/StepThreePrizes";
 
-import { useCreateTournament, TOTAL_STEPS } from "./hooks";
 import { StepRef } from "./types";
 import { strings } from "./strings";
 import { createStyles } from "./styles";
+import { useCreateTournament, useDraftGuard, TOTAL_STEPS } from "./hooks";
 
 type StepComponent = React.ForwardRefExoticComponent<
   React.RefAttributes<StepRef>
@@ -44,6 +44,8 @@ export function CreateTournament() {
 
   const stepRef = useRef<StepRef>(null);
   const { step, isSubmitting, handleBack } = useCreateTournament();
+
+  useDraftGuard();
 
   const StepComponent = STEPS[step];
 

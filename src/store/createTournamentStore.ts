@@ -12,6 +12,7 @@ export interface DraftCategory {
 interface CreateTournamentState {
   step: number;
   isSubmitting: boolean;
+  isPublishedSuccess: boolean;
   posterUri: string;
   name: string;
   venue_name: string;
@@ -50,6 +51,7 @@ interface CreateTournamentState {
 const initialState = {
   step: 1,
   isSubmitting: false,
+  isPublishedSuccess: false,
   posterUri: "",
   name: "",
   venue_name: "",

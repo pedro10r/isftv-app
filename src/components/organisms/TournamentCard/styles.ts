@@ -24,6 +24,11 @@ export const createStyles = (colors: Colors) =>
       width: "100%",
       height: IMAGE_HEIGHT,
     },
+    imagePlaceholder: {
+      backgroundColor: colors.surfaceDark,
+      alignItems: "center",
+      justifyContent: "center",
+    },
     badgeWrapper: {
       position: "absolute",
       top: spacing.s,
