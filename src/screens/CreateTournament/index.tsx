@@ -1,6 +1,12 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+  Easing,
+} from "react-native-reanimated";
 import Feather from "@expo/vector-icons/Feather";
 
 import { Button } from "@components/atoms";
@@ -31,6 +37,8 @@ export function CreateTournament() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
+  const [trackWidth, setTrackWidth] = useState(0);
+  const progressAnim = useSharedValue(0);
   const insets = useSafeAreaInsets();
   const { spacing } = theme;
 
@@ -41,6 +49,19 @@ export function CreateTournament() {
 
   const buttonLabel =
     step < TOTAL_STEPS ? strings.nextButton : strings.submitButton;
+
+  useEffect(() => {
+    if (trackWidth === 0) return;
+
+    progressAnim.value = withTiming((step / TOTAL_STEPS) * trackWidth, {
+      duration: 350,
+      easing: Easing.out(Easing.ease),
+    });
+  }, [step, trackWidth]);
+
+  const animatedFillStyle = useAnimatedStyle(() => ({
+    width: progressAnim.value,
+  }));
 
   return (
     <FormTemplate>
@@ -65,13 +86,11 @@ export function CreateTournament() {
           <View style={styles.backButton} />
         </View>
 
-        <View style={styles.progressTrack}>
-          <View
-            style={[
-              styles.progressFill,
-              { width: `${(step / TOTAL_STEPS) * 100}%` },
-            ]}
-          />
+        <View
+          style={styles.progressTrack}
+          onLayout={(e) => setTrackWidth(e.nativeEvent.layout.width)}
+        >
+          <Animated.View style={[styles.progressFill, animatedFillStyle]} />
         </View>
 
         <View style={styles.content}>
