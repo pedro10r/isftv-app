@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as ImagePicker from "expo-image-picker";
@@ -31,7 +32,7 @@ export function useStepOneBasicInfo() {
     })),
   );
 
-  const { control, handleSubmit } = useForm<StepOneFormData>({
+  const { control, handleSubmit, watch } = useForm<StepOneFormData>({
     resolver: zodResolver(stepOneSchema),
     defaultValues: {
       name,
@@ -42,6 +43,23 @@ export function useStepOneBasicInfo() {
       contact_whatsapp,
     },
   });
+
+  // Sync RHF → Zustand in real-time so the draft guard can detect dirty state
+  useEffect(() => {
+    const subscription = watch((values) => {
+      if (values.name !== undefined) setField("name", values.name);
+      if (values.venue_name !== undefined)
+        setField("venue_name", values.venue_name);
+      if (values.city !== undefined) setField("city", values.city);
+      if (values.start_date !== undefined)
+        setField("start_date", values.start_date);
+      if (values.end_date !== undefined) setField("end_date", values.end_date);
+      if (values.contact_whatsapp !== undefined)
+        setField("contact_whatsapp", values.contact_whatsapp);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, setField]);
 
   const handlePickImage = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({

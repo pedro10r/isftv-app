@@ -1,12 +1,12 @@
 import { useShallow } from "zustand/react/shallow";
 
-import { useTournamentsNavigation } from "@navigation/appNavigation";
 import { useCreateTournamentStore } from "@store/createTournamentStore";
+import { useDraftGuard } from "./useDraftGuard";
 
 export const TOTAL_STEPS = 3;
 
 export const useCreateTournament = () => {
-  const { goBack } = useTournamentsNavigation();
+  const { guardedGoBack } = useDraftGuard();
 
   const { step, prevStep, isSubmitting, isPublishedSuccess } =
     useCreateTournamentStore(
@@ -21,7 +21,7 @@ export const useCreateTournament = () => {
   const handleBack = () => {
     if (step > 1) return prevStep();
 
-    return goBack();
+    return guardedGoBack();
   };
 
   return {
