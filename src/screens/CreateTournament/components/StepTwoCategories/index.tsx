@@ -22,16 +22,16 @@ export const StepTwoCategories = forwardRef<StepRef, {}>((_, ref) => {
 
   const {
     baseFee,
-    setBaseFee,
     customCategoryName,
     setCustomCategoryName,
     categories,
     isSelected,
     handleToggleCategory,
     handleAddCustomCategory,
+    handleUpdateCategoryTime,
     removeCategory,
+    handleChangeFee,
     onSubmit,
-    handleChangeText,
   } = useStepTwoCategories();
 
   useImperativeHandle(ref, () => ({ submit: onSubmit }));
@@ -47,7 +47,7 @@ export const StepTwoCategories = forwardRef<StepRef, {}>((_, ref) => {
         <TextInput
           style={styles.feeInput}
           value={baseFee}
-          onChangeText={(text) => handleChangeText(text)}
+          onChangeText={handleChangeFee}
           placeholder={strings.fields.baseFee.placeholder}
           placeholderTextColor={colors.placeholder}
           keyboardType="numeric"
@@ -101,7 +101,10 @@ export const StepTwoCategories = forwardRef<StepRef, {}>((_, ref) => {
             <DraftCategoryCard
               key={category.id}
               name={category.name}
-              fee={category.fee}
+              startTime={category.startTime}
+              onTimeChange={(time) =>
+                handleUpdateCategoryTime(category.id, time)
+              }
               onRemove={() => removeCategory(category.id)}
             />
           ))

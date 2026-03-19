@@ -6,8 +6,12 @@ const { spacing, radii, typography } = theme;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
-    placeBlock: {
-      gap: spacing.s,
+    placeRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      paddingVertical: spacing.m,
+      gap: spacing.m,
     },
     placeLabel: {
       fontSize: typography.fontSizes.caption,
@@ -16,30 +20,24 @@ export const createStyles = (colors: Colors) =>
       textTransform: "uppercase",
       letterSpacing: 0.5,
     },
-    placeRow: {
-      flexDirection: "row",
-      alignItems: "center",
-      gap: spacing.m,
-    },
     cashInput: {
       flex: 1,
+      height: spacing.xxl,
       borderRadius: radii.m,
       paddingHorizontal: spacing.m,
-      paddingVertical: spacing.s,
-      fontSize: typography.fontSizes.body,
-      backgroundColor: colors.input,
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.regular,
+      backgroundColor: colors.surfaceDark,
       color: colors.textPrimary,
-    },
-    fullWidth: {
-      width: "100%",
+      textAlign: "right",
     },
     toggleItem: {
       alignItems: "center",
       gap: spacing.xs,
     },
     toggleLabel: {
-      fontSize: typography.fontSizes.caption,
-      fontFamily: typography.fontFamily.regular,
       color: colors.textSecondary,
+      fontSize: typography.fontSizes.caption,
+      fontFamily: typography.fontFamily.medium,
     },
   });

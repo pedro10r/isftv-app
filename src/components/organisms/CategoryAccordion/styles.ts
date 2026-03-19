@@ -7,15 +7,14 @@ const { spacing, radii, typography } = theme;
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
     card: {
-      borderRadius: radii.m,
-      borderWidth: 1,
-      borderColor: colors.border,
+      borderRadius: radii.l,
+      backgroundColor: colors.surface,
       overflow: "hidden",
       shadowColor: colors.black,
       shadowOffset: { width: 0, height: 2 },
-      shadowOpacity: 0.06,
-      shadowRadius: 4,
-      elevation: 2,
+      shadowOpacity: 0.08,
+      shadowRadius: 6,
+      elevation: 3,
     },
     cardHeader: {
       flexDirection: "row",
@@ -23,7 +22,6 @@ export const createStyles = (colors: Colors) =>
       justifyContent: "space-between",
       paddingHorizontal: spacing.m,
       paddingVertical: spacing.m,
-      backgroundColor: colors.surface,
     },
     cardHeaderActive: {
       backgroundColor: colors.surfaceDark,
@@ -35,13 +33,19 @@ export const createStyles = (colors: Colors) =>
     },
     cardBody: {
       paddingHorizontal: spacing.m,
-      paddingTop: spacing.s,
-      paddingBottom: spacing.m,
-      gap: spacing.m,
-      backgroundColor: colors.background,
+      paddingBottom: spacing.xs,
+      backgroundColor: colors.surface,
+    },
+    animatedBody: {
+      overflow: "hidden",
+    },
+    absoluteFullWidth: {
+      position: "absolute",
+      width: "100%",
+      top: 0,
     },
     divider: {
-      height: 1,
+      height: StyleSheet.hairlineWidth,
       backgroundColor: colors.border,
     },
   });

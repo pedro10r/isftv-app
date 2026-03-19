@@ -43,7 +43,7 @@ const lightColors = {
 
   background: "#f2f2f7",
   surface: "#ffffff",
-  surfaceDark: "#f2f2f7",
+  surfaceDark: "#e5e5ea",
   surfaceDarkVariant: "#e5e5ea",
 
   input: "#ffffff",

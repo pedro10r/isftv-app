@@ -5,7 +5,7 @@ import { Prizes } from "@models/tournament";
 export interface DraftCategory {
   id: string;
   name: string;
-  fee: string;
+  startTime: string;
   prizes: Prizes;
 }
 
@@ -19,6 +19,7 @@ interface CreateTournamentState {
   start_date: string;
   end_date: string;
   contact_whatsapp: string;
+  baseFee: string;
   categories: DraftCategory[];
 
   setField: <
@@ -56,6 +57,7 @@ const initialState = {
   start_date: "",
   end_date: "",
   contact_whatsapp: "",
+  baseFee: "",
   categories: [] as DraftCategory[],
 };
 

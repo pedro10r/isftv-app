@@ -20,17 +20,26 @@ export const DEFAULT_CATEGORIES = [
 ];
 
 export function useStepTwoCategories() {
-  const { categories, addCategory, removeCategory, nextStep } =
-    useCreateTournamentStore(
-      useShallow((state) => ({
-        categories: state.categories,
-        addCategory: state.addCategory,
-        removeCategory: state.removeCategory,
-        nextStep: state.nextStep,
-      })),
-    );
+  const {
+    baseFee,
+    setField,
+    categories,
+    addCategory,
+    updateCategory,
+    removeCategory,
+    nextStep,
+  } = useCreateTournamentStore(
+    useShallow((state) => ({
+      baseFee: state.baseFee,
+      setField: state.setField,
+      categories: state.categories,
+      addCategory: state.addCategory,
+      updateCategory: state.updateCategory,
+      removeCategory: state.removeCategory,
+      nextStep: state.nextStep,
+    })),
+  );
 
-  const [baseFee, setBaseFee] = useState("");
   const [customCategoryName, setCustomCategoryName] = useState("");
 
   const isSelected = (name: string) =>
@@ -47,7 +56,7 @@ export function useStepTwoCategories() {
     addCategory({
       id: Math.random().toString(),
       name,
-      fee: baseFee,
+      startTime: "",
       prizes: {},
     });
   };
@@ -59,11 +68,19 @@ export function useStepTwoCategories() {
     addCategory({
       id: Math.random().toString(),
       name: trimmed,
-      fee: baseFee,
+      startTime: "",
       prizes: {},
     });
-
     setCustomCategoryName("");
+  };
+
+  const handleUpdateCategoryTime = (id: string, time: string) => {
+    updateCategory(id, { startTime: time });
+  };
+
+  const handleChangeFee = (text: string) => {
+    const digits = text.replace(/\D/g, "");
+    setField("baseFee", digits ? maskCurrency(digits) : "");
   };
 
   const onSubmit = () => {
@@ -78,28 +95,17 @@ export function useStepTwoCategories() {
     nextStep();
   };
 
-  const handleChangeText = (text: string) => {
-    const numericText = text.replace(/\D/g, "");
-
-    if (!numericText) {
-      setBaseFee("");
-      return;
-    }
-
-    setBaseFee(maskCurrency(numericText));
-  };
-
   return {
     baseFee,
-    setBaseFee,
     customCategoryName,
     setCustomCategoryName,
     categories,
     isSelected,
     handleToggleCategory,
     handleAddCustomCategory,
+    handleUpdateCategoryTime,
     removeCategory,
+    handleChangeFee,
     onSubmit,
-    handleChangeText,
   };
 }

@@ -14,7 +14,6 @@ interface PrizeRowProps {
   onCashChange: (raw: number) => void;
   onTrophyChange: (value: boolean) => void;
   cashPlaceholder?: string;
-  trophyLabel?: string;
 }
 
 interface FourthPlaceRowProps {
@@ -24,7 +23,6 @@ interface FourthPlaceRowProps {
   onTextChange: (value: string) => void;
   onTrophyChange: (value: boolean) => void;
   placeholder?: string;
-  trophyLabel?: string;
 }
 
 export function PrizeRow({
@@ -34,7 +32,6 @@ export function PrizeRow({
   onCashChange,
   onTrophyChange,
   cashPlaceholder = "R$ 0,00",
-  trophyLabel = "Troféu",
 }: PrizeRowProps) {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
@@ -52,22 +49,20 @@ export function PrizeRow({
   };
 
   return (
-    <View style={styles.placeBlock}>
+    <View style={styles.placeRow}>
       <Text style={styles.placeLabel}>{label}</Text>
-      <View style={styles.placeRow}>
-        <TextInput
-          style={styles.cashInput}
-          value={cashValue}
-          onChangeText={(text) => handleChangeText(text)}
-          placeholder={cashPlaceholder}
-          placeholderTextColor={colors.placeholder}
-          keyboardType="numeric"
-        />
+      <TextInput
+        style={styles.cashInput}
+        value={cashValue}
+        onChangeText={(text) => handleChangeText(text)}
+        placeholder={cashPlaceholder}
+        placeholderTextColor={colors.placeholder}
+        keyboardType="numeric"
+      />
 
-        <View style={styles.toggleItem}>
-          <Text style={styles.toggleLabel}>{trophyLabel}</Text>
-          <Switch value={trophyValue} onValueChange={onTrophyChange} />
-        </View>
+      <View style={styles.toggleItem}>
+        <Text style={styles.toggleLabel}>Troféu</Text>
+        <Switch value={trophyValue} onValueChange={onTrophyChange} />
       </View>
     </View>
   );
@@ -80,28 +75,25 @@ export function FourthPlacePrizeRow({
   onTextChange,
   onTrophyChange,
   placeholder,
-  trophyLabel = "Troféu",
 }: FourthPlaceRowProps) {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   return (
-    <View style={styles.placeBlock}>
+    <View style={styles.placeRow}>
       <Text style={styles.placeLabel}>{label}</Text>
-      <View style={styles.placeRow}>
-        <TextInput
-          style={styles.cashInput}
-          value={textValue}
-          onChangeText={onTextChange}
-          placeholder={placeholder}
-          placeholderTextColor={colors.placeholder}
-          autoCapitalize="sentences"
-        />
+      <TextInput
+        style={styles.cashInput}
+        value={textValue}
+        onChangeText={onTextChange}
+        placeholder={placeholder}
+        placeholderTextColor={colors.placeholder}
+        autoCapitalize="sentences"
+      />
 
-        <View style={styles.toggleItem}>
-          <Text style={styles.toggleLabel}>{trophyLabel}</Text>
-          <Switch value={trophyValue} onValueChange={onTrophyChange} />
-        </View>
+      <View style={styles.toggleItem}>
+        <Text style={styles.toggleLabel}>Troféu</Text>
+        <Switch value={trophyValue} onValueChange={onTrophyChange} />
       </View>
     </View>
   );

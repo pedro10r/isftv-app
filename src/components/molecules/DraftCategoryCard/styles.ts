@@ -11,26 +11,33 @@ export const createStyles = (colors: Colors) =>
       alignItems: "center",
       justifyContent: "space-between",
       paddingHorizontal: spacing.m,
-      paddingVertical: spacing.m,
-      borderRadius: radii.m,
-      borderWidth: 1,
-      borderColor: colors.border,
+      paddingVertical: spacing.s + spacing.xs,
+      borderRadius: radii.l,
       backgroundColor: colors.surface,
     },
-    info: {
-      gap: spacing.xs,
-    },
     name: {
+      flex: 1,
       fontSize: typography.fontSizes.regular,
       fontFamily: typography.fontFamily.medium,
       color: colors.textPrimary,
     },
-    fee: {
-      fontSize: typography.fontSizes.caption,
+    controls: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.m,
+    },
+    timeInput: {
+      width: 65, // fixed component dimension
+      height: 36, // fixed component dimension
+      borderRadius: radii.m,
+      paddingHorizontal: spacing.xs,
+      fontSize: typography.fontSizes.regular,
       fontFamily: typography.fontFamily.regular,
-      color: colors.textSecondary,
+      backgroundColor: colors.surfaceDarkVariant,
+      color: colors.textPrimary,
+      textAlign: "center",
     },
     trashButton: {
-      padding: spacing.s,
+      padding: spacing.xs,
     },
   });

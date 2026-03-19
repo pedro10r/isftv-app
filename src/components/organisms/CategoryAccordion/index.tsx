@@ -79,12 +79,9 @@ export function CategoryAccordion({
         </Animated.View>
       </Pressable>
 
-      <Animated.View style={[animatedHeightStyle, { overflow: "hidden" }]}>
+      <Animated.View style={[animatedHeightStyle, styles.animatedBody]}>
         <View
-          style={[
-            styles.cardBody,
-            { position: "absolute", width: "100%", top: 0 },
-          ]}
+          style={[styles.cardBody, styles.absoluteFullWidth]}
           onLayout={(e) => {
             const height = e.nativeEvent.layout.height;
 
