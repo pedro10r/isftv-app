@@ -75,7 +75,7 @@ export const useTournamentDetails = () => {
     if (!tournament?.contact_whatsapp) return;
     const phone = tournament.contact_whatsapp.replace(/\D/g, "");
 
-    Linking.openURL(`https://wa.me/55${phone}`); // TODO: Open in Whatsapp App
+    Linking.openURL(`https://wa.me/55${phone}`);
   }, [tournament?.contact_whatsapp]);
 
   return {

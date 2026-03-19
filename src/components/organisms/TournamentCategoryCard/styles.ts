@@ -7,31 +7,38 @@ const { spacing, radii, typography } = theme;
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
     card: {
-      borderRadius: radii.m,
-      borderWidth: 1,
-      borderColor: colors.border,
+      borderRadius: radii.l,
+      backgroundColor: colors.surface,
       overflow: "hidden",
     },
     header: {
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "space-between",
-      paddingHorizontal: spacing.m,
-      paddingVertical: spacing.m,
-      backgroundColor: colors.surface,
+      padding: spacing.m,
     },
     name: {
+      flex: 1,
       fontSize: typography.fontSizes.regular,
       fontFamily: typography.fontFamily.medium,
       color: colors.textPrimary,
     },
-    fee: {
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.bold,
-      color: colors.primary,
+    timePill: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.xs,
+      backgroundColor: colors.surfaceDarkVariant,
+      paddingHorizontal: spacing.s,
+      paddingVertical: spacing.xs,
+      borderRadius: radii.xl,
+    },
+    timeText: {
+      fontSize: typography.fontSizes.caption,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textSecondary,
     },
     prizesContainer: {
-      backgroundColor: colors.background,
+      backgroundColor: colors.surfaceDark,
     },
     prizeRow: {
       flexDirection: "row",
@@ -45,8 +52,8 @@ export const createStyles = (colors: Colors) =>
       borderTopColor: colors.border,
     },
     prizeIconWrapper: {
-      width: 36,
-      height: 36,
+      width: spacing.xl + spacing.xs,
+      height: spacing.xl + spacing.xs,
       borderRadius: 18,
       alignItems: "center",
       justifyContent: "center",

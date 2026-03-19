@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Feather from "@expo/vector-icons/Feather";
 
 import { useAppTheme } from "@theme/ThemeContext";
 import { TournamentCategory, Prizes } from "@models/tournament";
-import { formatCurrency } from "@utils";
 import { formatPrizes } from "@screens/TournamentDetails/hooks";
 
 import { createStyles } from "./styles";
@@ -42,33 +42,39 @@ export function TournamentCategoryCard({
     <View style={styles.card}>
       <View style={styles.header}>
         <Text style={styles.name}>{category.name}</Text>
-        <Text style={styles.fee}>
-          {formatCurrency(category.registration_fee)}
-        </Text>
+
+        {category.start_time ? (
+          <View style={styles.timePill}>
+            <Feather name="clock" size={14} color={colors.textSecondary} />
+            <Text style={styles.timeText}>{category.start_time}</Text>
+          </View>
+        ) : null}
       </View>
 
       {prizeLines.length > 0 && (
-        <View style={styles.prizesContainer}>
-          {prizeLines.map((line, index) => {
-            const colorKey = PRIZE_COLOR_KEYS[index] ?? "fourth_place";
-            const { bg, icon } = prizeColorMap[colorKey];
+        <>
+          <View style={styles.prizesContainer}>
+            {prizeLines.map((line, index) => {
+              const colorKey = PRIZE_COLOR_KEYS[index] ?? "fourth_place";
+              const { bg, icon } = prizeColorMap[colorKey];
 
-            return (
-              <View
-                key={line.label}
-                style={[styles.prizeRow, index > 0 && styles.prizeRowBorder]}
-              >
+              return (
                 <View
-                  style={[styles.prizeIconWrapper, { backgroundColor: bg }]}
+                  key={line.label}
+                  style={[styles.prizeRow, index > 0 && styles.prizeRowBorder]}
                 >
-                  <Ionicons name="trophy-outline" size={16} color={icon} />
+                  <View
+                    style={[styles.prizeIconWrapper, { backgroundColor: bg }]}
+                  >
+                    <Ionicons name="trophy-outline" size={16} color={icon} />
+                  </View>
+                  <Text style={styles.prizePlaceText}>{line.label}</Text>
+                  <Text style={styles.prizeValueText}>{line.value}</Text>
                 </View>
-                <Text style={styles.prizePlaceText}>{line.label}</Text>
-                <Text style={styles.prizeValueText}>{line.value}</Text>
-              </View>
-            );
-          })}
-        </View>
+              );
+            })}
+          </View>
+        </>
       )}
     </View>
   );

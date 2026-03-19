@@ -14,7 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { MetaRow } from "@components/molecules";
 import { TournamentCategoryCard } from "@components/organisms";
 import { useAppTheme } from "@theme/ThemeContext";
-import { formatDateRange } from "@utils";
+import { formatCurrency, formatDateRange } from "@utils";
 
 import { createStyles } from "./styles";
 import { useTournamentDetails } from "./hooks";
@@ -96,6 +96,11 @@ export function TournamentDetails() {
             {tournament.profiles?.full_name && (
               <MetaRow icon="user" text={tournament.profiles.full_name} />
             )}
+
+            <MetaRow
+              icon="tag"
+              text={formatCurrency(tournament.registration_fee)}
+            />
           </View>
 
           {tournament.tournament_categories.length > 0 && (

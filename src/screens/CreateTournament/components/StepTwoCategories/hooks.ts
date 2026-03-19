@@ -84,6 +84,14 @@ export function useStepTwoCategories() {
   };
 
   const onSubmit = () => {
+    if (!baseFee) {
+      Alert.alert(
+        strings.validation.alertTitle,
+        strings.validation.feeAlertMessage,
+      );
+      return;
+    }
+
     if (categories.length === 0) {
       Alert.alert(
         strings.validation.alertTitle,

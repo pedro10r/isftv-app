@@ -19,5 +19,6 @@ export const strings = {
   validation: {
     alertTitle: "Atenção",
     alertMessage: "Selecione pelo menos uma categoria para continuar.",
+    feeAlertMessage: "Informe o valor base da inscrição para continuar.",
   },
 };

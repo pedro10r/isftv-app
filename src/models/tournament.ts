@@ -19,7 +19,7 @@ export interface TournamentCategory {
   id: string;
   tournament_id: string;
   name: string;
-  registration_fee: number;
+  start_time?: string;
   prizes: Prizes;
 }
 
@@ -33,6 +33,7 @@ export type TournamentStatus = "OPEN" | "IN_PROGRESS" | "FINISHED";
 export interface Tournament {
   id: string;
   name: string;
+  registration_fee: number;
   venue_name: string;
   poster_url: string | null;
   start_date: string; // ISO 8601 (YYYY-MM-DD)
