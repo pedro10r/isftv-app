@@ -4,7 +4,7 @@ export const strings = {
     description: "Informações e Regras",
   },
   footer: {
-    contactButton: "Falar com o Organizador",
+    contactButton: "Fazer Inscrição",
   },
   error: {
     message: "Não foi possível carregar o campeonato.",

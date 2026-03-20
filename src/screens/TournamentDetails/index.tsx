@@ -85,7 +85,7 @@ export function TournamentDetails() {
               icon="map-pin"
               text={
                 tournament.city
-                  ? `${tournament.venue_name} - ${tournament.city}`
+                  ? `${tournament.venue_name} – ${tournament.city}`
                   : tournament.venue_name
               }
             />

@@ -35,7 +35,12 @@ export default function App() {
   useEffect(() => {
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "TOKEN_REFRESHED" && !session) {
+        supabase.auth.signOut();
+        return;
+      }
+
       setSession(session);
     });
 

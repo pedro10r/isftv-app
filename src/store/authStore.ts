@@ -15,6 +15,7 @@ export const useAuthStore = create<AuthState>()((set) => ({
   isLoading: true,
   setSession: (session) => set({ session, isLoading: false }),
   signOut: async () => {
-    await supabase.auth.signOut();
+    // scope: 'local' signs out only this device, keeping other sessions active
+    await supabase.auth.signOut({ scope: "local" });
   },
 }));
