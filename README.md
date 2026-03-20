@@ -8,7 +8,6 @@ Aplicativo mobile para a comunidade de futevôlei brasileiro. Desenvolvido com E
 - [Instalação](#instalação)
 - [Tech Stack](#tech-stack)
 - [Arquitetura](#arquitetura)
-- [Banco de Dados](#banco-de-dados)
 - [Funcionalidades](#funcionalidades)
 - [Variáveis de Ambiente](#variáveis-de-ambiente)
 
@@ -38,20 +37,20 @@ npx expo run:android
 
 ## Tech Stack
 
-| Categoria        | Tecnologia                          |
-|------------------|-------------------------------------|
-| Framework        | Expo SDK 54                         |
-| Linguagem        | TypeScript                          |
-| Navegação        | React Navigation 7                  |
-| Server State     | TanStack React Query v5             |
-| Client State     | Zustand                             |
-| Formulários      | React Hook Form + Zod               |
-| Storage local    | MMKV (criptografado)                |
-| Animações        | React Native Reanimated             |
-| Autenticação     | Supabase Auth (Email/Senha)         |
-| Backend          | Supabase (Database + Storage)       |
-| Lista performática | @shopify/flash-list               |
-| Ícones           | @expo/vector-icons (Feather)        |
+| Categoria          | Tecnologia                    |
+| ------------------ | ----------------------------- |
+| Framework          | Expo SDK 54                   |
+| Linguagem          | TypeScript                    |
+| Navegação          | React Navigation 7            |
+| Server State       | TanStack React Query v5       |
+| Client State       | Zustand                       |
+| Formulários        | React Hook Form + Zod         |
+| Storage local      | MMKV (criptografado)          |
+| Animações          | React Native Reanimated       |
+| Autenticação       | Supabase Auth (Email/Senha)   |
+| Backend            | Supabase (Database + Storage) |
+| Lista performática | @shopify/flash-list           |
+| Ícones             | @expo/vector-icons (Feather)  |
 
 ---
 
@@ -59,48 +58,40 @@ npx expo run:android
 
 ### Divisão de responsabilidades de estado
 
-| Tipo de estado | Solução | Onde |
-|---|---|---|
-| Server state (feed, perfil) | TanStack React Query | `src/hooks/queries/` |
-| Client state (auth, tema) | Zustand | `src/store/` |
-| Form state | React Hook Form | local nos hooks de tela |
+| Tipo de estado              | Solução              | Onde                    |
+| --------------------------- | -------------------- | ----------------------- |
+| Server state (feed, perfil) | TanStack React Query | `src/hooks/queries/`    |
+| Client state (auth, tema)   | Zustand              | `src/store/`            |
+| Form state                  | React Hook Form      | local nos hooks de tela |
 
 ### Estrutura de pastas
 
 ```
 src/
-├── components/
-│   ├── atoms/            # Button, Switch, TextInput
-│   ├── molecules/        # EmptyListState, campos de form
-│   ├── organisms/        # FeedUserPost, FeedTournamentPromo, FloatingTabBar
-│   └── templates/        # ScreenTemplate, FormTemplate
+├── components/            # Atomic Design
+│   ├── atoms/
+│   ├── molecules/
+│   ├── organisms/
+│   └── templates/
 ├── hooks/
-│   └── queries/
-│       ├── useFeedQueries.ts     # useFeed, useCreatePost, useToggleLike
-│       └── useProfileQueries.ts  # useProfile, useUpdateProfile, useUploadProfileImage
-├── models/
-│   ├── feed.ts           # Post, UserPost, FeedItemType, AuthorType
-│   ├── profile.ts        # Profile, PlayingPosition
-│   └── tournament.ts     # Tournament, TournamentCategory
-├── navigation/           # Configuração de rotas e tipos
+│   └── queries/           # Hooks do React Query que consomem os services e gerenciam cache, loading e erros
+├── models/                # Tipos e interfaces TypeScript que representam as entidades do domínio
+├── navigation/            # Configuração de rotas e tipos
 ├── screens/
-│   ├── Home/             # Feed principal (FlashList + paginação infinita)
-│   ├── CreatePost/       # Criação de post com upload de imagem
-│   ├── Profile/          # Perfil do atleta
-│   ├── EditProfile/      # Edição de dados e posição
-│   ├── Championships/    # Listagem de torneios
-│   ├── Settings/         # Configurações da conta
+│   ├── Home/              # Feed principal (FlashList + paginação infinita)
+│   ├── CreatePost/        # Criação de post com upload de imagem
+│   ├── Profile/           # Perfil do atleta logado
+│   ├── OtherProfile/      # Perfil de outro atleta (somente leitura)
+│   ├── EditProfile/       # Edição de dados
+│   ├── Tournaments/       # Listagem de torneios
+│   ├── TournamentDetails/ # Detalhes e categorias de um torneio
+│   ├── CreateTournament/  # Criação de torneio com categorias e datas
 │   ├── Login/
 │   ├── Register/
-│   └── ForgotPassword/
 ├── services/
-│   ├── supabase/         # Cliente Supabase + MMKV storage adapter
-│   ├── feedService.ts    # getFeedPosts, createFeedPost, toggleFeedLike
-│   └── profileService.ts # getProfile, updateProfile, uploadImage
-├── store/
-│   ├── authStore.ts      # Sessão do usuário (Zustand)
-│   └── themeStore.ts     # Tema dark/light persistido (Zustand)
-└── theme/                # Cores, tipografia, espaçamentos, radii
+│   ├── supabase/          # Cliente Supabase + MMKV storage adapter
+├── store/                 # Estado global da aplicação com Zustand (auth, tema, fluxos multi-etapas)
+└── theme/                 # Cores, tipografia, espaçamentos, radii
 ```
 
 ### Fluxo de dados
@@ -113,77 +104,10 @@ Tela → hook de tela → React Query hook → Service → Supabase
 
 ---
 
-## Banco de Dados
-
-### Tabelas
-
-#### `public.profiles`
-Criada automaticamente via trigger no cadastro. Sincronizada com `auth.users`.
-
-| Coluna | Tipo |
-|---|---|
-| id | uuid (FK → auth.users) |
-| username | text |
-| full_name | text |
-| avatar_url | text |
-| cover_url | text |
-| bio | text |
-| playing_position | text |
-| height | numeric |
-| weight | numeric |
-| whatsapp | text |
-| created_at | timestamptz |
-
-#### `public.posts`
-
-| Coluna | Tipo |
-|---|---|
-| id | uuid PK |
-| author_id | uuid (FK → profiles, cascade) |
-| content | text |
-| media_url | text |
-| is_video | bool |
-| type | text |
-| reference_id | uuid |
-| created_at | timestamptz |
-
-#### `public.likes`
-
-| Coluna | Tipo |
-|---|---|
-| id | uuid PK |
-| post_id | uuid (FK → posts, cascade) |
-| user_id | uuid (FK → profiles, cascade) |
-| created_at | timestamptz |
-
-Unique constraint em `(post_id, user_id)` para evitar likes duplicados.
-
-#### `public.tournaments` e `public.tournament_categories`
-Torneios com categorias associadas.
-
-### Storage Buckets
-
-| Bucket | Uso |
-|---|---|
-| `profiles` | Avatares e fotos de capa |
-| `posts` | Imagens e vídeos dos posts |
-
-### RLS (Row Level Security)
-
-Todas as tabelas têm RLS ativado:
-
-| Operação | Regra |
-|---|---|
-| SELECT | Público — qualquer pessoa pode ler |
-| INSERT | Apenas o próprio usuário (`auth.uid() = user_id / author_id`) |
-| UPDATE | Apenas o próprio usuário |
-| DELETE | Apenas o próprio usuário |
-
----
-
 ## Funcionalidades
 
 ### Feed de Mídias
+
 - Listagem de posts com foto do autor, conteúdo e mídia
 - Scroll infinito com paginação via `.range()` do Supabase
 - Pull-to-refresh
@@ -191,23 +115,29 @@ Todas as tabelas têm RLS ativado:
 - Criação de post com texto e imagem (upload para o bucket `posts`)
 
 ### Perfil do Atleta
+
 - Avatar e foto de capa com upload direto da galeria
 - Informações esportivas: posição de jogo, altura, peso, WhatsApp
 - Edição de perfil completa
+- Visualização do perfil de outros atletas
 
 ### Autenticação
+
 - Login e cadastro com email/senha
 - Recuperação de senha por email
 - Sessão persistida com MMKV como storage adapter do Supabase
 
 ### Torneios
-- Listagem de torneios com categorias
+
+- Listagem de torneios com categorias e datas
+- Detalhes do torneio com categorias por nível e horários
+- Criação de torneio com fluxo multi-etapas (nome, descrição, categorias, datas)
 
 ---
 
 ## Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto:
+Crie um arquivo `.env` na raiz do projeto com base no `.env.example`:
 
 ```env
 EXPO_PUBLIC_SUPABASE_URL=your-supabase-url
