@@ -80,6 +80,7 @@ export function useCreatePost() {
 
       queryClient.setQueryData<InfiniteData<Post[]>>(FEED_QUERY_KEY, (old) => {
         if (!old) return old;
+
         return {
           ...old,
           pages: [[optimisticPost, ...old.pages[0]], ...old.pages.slice(1)],

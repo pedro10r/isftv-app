@@ -42,14 +42,16 @@ export function TournamentDetails() {
 
   if (isError || !tournament) {
     return (
-      <View style={[styles.container, styles.centered]}>
-        <Feather name="alert-circle" size={32} color={colors.error} />
-        <Text style={styles.errorText}>{strings.error.message}</Text>
+      <SafeAreaView style={styles.container} edges={["bottom"]}>
+        <View style={styles.error}>
+          <Feather name="alert-circle" size={32} color={colors.error} />
+          <Text style={styles.errorText}>{strings.error.message}</Text>
+        </View>
 
         <Pressable onPress={handleGoBack} style={styles.retryButton}>
           <Text style={styles.retryButtonText}>{strings.error.back}</Text>
         </Pressable>
-      </View>
+      </SafeAreaView>
     );
   }
 
@@ -83,7 +85,7 @@ export function TournamentDetails() {
               icon="map-pin"
               text={
                 tournament.city
-                  ? `${tournament.venue_name} — ${tournament.city}`
+                  ? `${tournament.venue_name} - ${tournament.city}`
                   : tournament.venue_name
               }
             />
@@ -102,6 +104,18 @@ export function TournamentDetails() {
               text={formatCurrency(tournament.registration_fee)}
             />
           </View>
+
+          {!!tournament.description && (
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>
+                {strings.sections.description}
+              </Text>
+
+              <Text style={styles.descriptionText}>
+                {tournament.description}
+              </Text>
+            </View>
+          )}
 
           {tournament.tournament_categories.length > 0 && (
             <View style={styles.section}>

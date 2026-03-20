@@ -19,6 +19,7 @@ export interface TournamentCategory {
   id: string;
   tournament_id: string;
   name: string;
+  date?: string; // ISO 8601 (YYYY-MM-DD)
   start_time?: string;
   prizes: Prizes;
 }
@@ -41,6 +42,7 @@ export interface Tournament {
   contact_whatsapp: string;
   organizer_id: string;
   city: string;
+  description?: string;
   status?: TournamentStatus;
   profiles: TournamentOrganizer | null;
   tournament_categories: TournamentCategory[];

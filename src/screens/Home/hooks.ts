@@ -33,6 +33,7 @@ export const useHome = () => {
 
   const handleRefresh = useCallback(async () => {
     setIsManualRefreshing(true);
+
     try {
       await refetch();
     } finally {

@@ -6,7 +6,19 @@ import { useTournaments as useTournamentsQuery } from "@hooks/queries/useTournam
 
 export const useTournaments = () => {
   const { navigate } = useTournamentsNavigation();
-  const { data: tournaments = [], isLoading } = useTournamentsQuery();
+  const { data: tournaments = [], isLoading, refetch } = useTournamentsQuery();
+
+  const [isManualRefreshing, setIsManualRefreshing] = useState(false);
+
+  const handleRefresh = useCallback(async () => {
+    setIsManualRefreshing(true);
+
+    try {
+      await refetch();
+    } finally {
+      setIsManualRefreshing(false);
+    }
+  }, [refetch]);
   const [activeFilter, setActiveFilter] = useState("Todos");
 
   const filteredTournaments = useMemo(() => {
@@ -36,10 +48,12 @@ export const useTournaments = () => {
 
   return {
     isLoading,
+    isManualRefreshing,
     activeFilter,
     filteredTournaments,
     handleFilterPress,
     handleCardPress,
     handleAddPress,
+    handleRefresh,
   };
 };

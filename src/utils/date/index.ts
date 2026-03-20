@@ -57,6 +57,16 @@ export function parseDateForDB(dateStr?: string) {
   return `${year}-${month}-${day}`;
 }
 
+export function formatWeekdayDate(isoDate?: string): string {
+  if (!isoDate) return "";
+
+  const [year, month, day] = isoDate.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
+  const weekday = date.toLocaleDateString("pt-BR", { weekday: "long" });
+
+  return `Dia ${day} - ${weekday.charAt(0).toUpperCase()}${weekday.slice(1)}`;
+}
+
 export function parseBrDate(value: string): Date | null {
   const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
 

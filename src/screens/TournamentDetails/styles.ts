@@ -13,6 +13,12 @@ export const createStyles = (colors: Colors) =>
       flex: 1,
       backgroundColor: colors.background,
     },
+    error: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      gap: spacing.l,
+    },
     scrollContent: {
       paddingBottom: FOOTER_HEIGHT + spacing.m,
     },
@@ -58,6 +64,12 @@ export const createStyles = (colors: Colors) =>
       fontSize: typography.fontSizes.body,
       fontFamily: typography.fontFamily.medium,
       color: colors.textPrimary,
+    },
+    descriptionText: {
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.regular,
+      color: colors.textSecondary,
+      lineHeight: typography.fontSizes.regular * 1.6,
     },
     footer: {
       position: "absolute",
@@ -106,11 +118,12 @@ export const createStyles = (colors: Colors) =>
       textAlign: "center",
     },
     retryButton: {
-      paddingHorizontal: spacing.l,
+      marginHorizontal: spacing.xxl,
       paddingVertical: spacing.s,
       borderRadius: radii.xl,
       borderWidth: 1,
       borderColor: colors.border,
+      alignItems: "center",
     },
     retryButtonText: {
       fontSize: typography.fontSizes.regular,

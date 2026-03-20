@@ -28,6 +28,7 @@ export const StepTwoCategories = forwardRef<StepRef, {}>((_, ref) => {
     isSelected,
     handleToggleCategory,
     handleAddCustomCategory,
+    handleUpdateCategoryDate,
     handleUpdateCategoryTime,
     removeCategory,
     handleChangeFee,
@@ -101,7 +102,11 @@ export const StepTwoCategories = forwardRef<StepRef, {}>((_, ref) => {
             <DraftCategoryCard
               key={category.id}
               name={category.name}
+              date={category.date}
               startTime={category.startTime}
+              onDateChange={(date) =>
+                handleUpdateCategoryDate(category.id, date)
+              }
               onTimeChange={(time) =>
                 handleUpdateCategoryTime(category.id, time)
               }

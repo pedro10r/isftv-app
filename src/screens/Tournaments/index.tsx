@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   FlatList,
   Pressable,
+  RefreshControl,
   Text,
   View,
 } from "react-native";
@@ -26,11 +27,13 @@ export function Tournaments() {
 
   const {
     isLoading,
+    isManualRefreshing,
     activeFilter,
     filteredTournaments,
     handleFilterPress,
     handleCardPress,
     handleAddPress,
+    handleRefresh,
   } = useTournaments();
 
   return (
@@ -67,6 +70,13 @@ export function Tournaments() {
         data={filteredTournaments}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={isManualRefreshing}
+            onRefresh={handleRefresh}
+            tintColor={colors.textPrimary}
+          />
+        }
         contentContainerStyle={[
           styles.listContent,
           !filteredTournaments.length && styles.listContentEmpty,

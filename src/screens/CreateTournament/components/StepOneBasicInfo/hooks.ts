@@ -15,6 +15,7 @@ export function useStepOneBasicInfo() {
     start_date,
     end_date,
     contact_whatsapp,
+    description,
     posterUri,
     setField,
     nextStep,
@@ -26,6 +27,7 @@ export function useStepOneBasicInfo() {
       start_date: state.start_date,
       end_date: state.end_date,
       contact_whatsapp: state.contact_whatsapp,
+      description: state.description,
       posterUri: state.posterUri,
       setField: state.setField,
       nextStep: state.nextStep,
@@ -41,6 +43,7 @@ export function useStepOneBasicInfo() {
       start_date,
       end_date,
       contact_whatsapp,
+      description,
     },
   });
 
@@ -56,6 +59,8 @@ export function useStepOneBasicInfo() {
       if (values.end_date !== undefined) setField("end_date", values.end_date);
       if (values.contact_whatsapp !== undefined)
         setField("contact_whatsapp", values.contact_whatsapp);
+      if (values.description !== undefined)
+        setField("description", values.description);
     });
 
     return () => subscription.unsubscribe();
@@ -81,6 +86,7 @@ export function useStepOneBasicInfo() {
     setField("start_date", data.start_date);
     setField("end_date", data.end_date);
     setField("contact_whatsapp", data.contact_whatsapp);
+    setField("description", data.description ?? "");
     nextStep();
   };
 

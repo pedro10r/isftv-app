@@ -46,6 +46,7 @@ export const stepOneSchema = z
         /^\(\d{2}\) \d{5}-\d{4}$/,
         "WhatsApp inválido — use (99) 99999-9999",
       ),
+    description: z.string().optional(),
   })
   .refine(
     (data) => {

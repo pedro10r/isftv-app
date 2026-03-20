@@ -5,6 +5,7 @@ import { Prizes } from "@models/tournament";
 export interface DraftCategory {
   id: string;
   name: string;
+  date: string;
   startTime: string;
   prizes: Prizes;
 }
@@ -21,6 +22,7 @@ interface CreateTournamentState {
   end_date: string;
   contact_whatsapp: string;
   baseFee: string;
+  description: string;
   categories: DraftCategory[];
 
   setField: <
@@ -60,6 +62,7 @@ const initialState = {
   end_date: "",
   contact_whatsapp: "",
   baseFee: "",
+  description: "",
   categories: [] as DraftCategory[],
 };
 
@@ -70,7 +73,12 @@ export const useCreateTournamentStore = create<CreateTournamentState>()(
     setField: (field, value) => set({ [field]: value }),
 
     addCategory: (category) =>
-      set((state) => ({ categories: [...state.categories, category] })),
+      set((state) => ({
+        categories: [
+          ...state.categories,
+          { ...category, date: category.date || state.start_date },
+        ],
+      })),
 
     updateCategory: (id, data) =>
       set((state) => ({

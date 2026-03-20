@@ -16,6 +16,7 @@ export interface CreateTournamentPayload {
   posterUri: string;
   organizerId: string;
   baseFee: string;
+  description: string;
   categories: DraftCategory[];
 }
 
@@ -85,6 +86,7 @@ export async function createTournament(
         contact_whatsapp: payload.contact_whatsapp,
         poster_url: posterPublicUrl ?? payload.posterUri,
         organizer_id: payload.organizerId,
+        description: payload.description || null,
         // strips mask ("R$ 150,00" → "15000") then converts cents to float (150.00)
         registration_fee:
           parseFloat(payload.baseFee.replace(/\D/g, "")) / 100 || 0,
@@ -97,6 +99,7 @@ export async function createTournament(
     const categoryRows = payload.categories.map((c) => ({
       tournament_id: tournament.id,
       name: c.name,
+      date: parseDateForDB(c.date) || null,
       start_time: c.startTime || null,
       prizes: c.prizes,
     }));

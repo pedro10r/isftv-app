@@ -107,6 +107,14 @@ export const StepOneBasicInfo = forwardRef<StepRef, {}>((_, ref) => {
         maxLength={15}
         transform={maskPhone}
       />
+
+      <TextInput
+        control={control}
+        name="description"
+        fieldName={strings.fields.description.label}
+        placeholder={strings.fields.description.placeholder}
+        multiline
+      />
     </ScrollView>
   );
 });

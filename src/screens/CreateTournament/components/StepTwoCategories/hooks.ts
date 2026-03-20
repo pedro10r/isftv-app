@@ -56,6 +56,7 @@ export function useStepTwoCategories() {
     addCategory({
       id: Math.random().toString(),
       name,
+      date: "",
       startTime: "",
       prizes: {},
     });
@@ -68,10 +69,15 @@ export function useStepTwoCategories() {
     addCategory({
       id: Math.random().toString(),
       name: trimmed,
+      date: "",
       startTime: "",
       prizes: {},
     });
     setCustomCategoryName("");
+  };
+
+  const handleUpdateCategoryDate = (id: string, date: string) => {
+    updateCategory(id, { date });
   };
 
   const handleUpdateCategoryTime = (id: string, time: string) => {
@@ -111,6 +117,7 @@ export function useStepTwoCategories() {
     isSelected,
     handleToggleCategory,
     handleAddCustomCategory,
+    handleUpdateCategoryDate,
     handleUpdateCategoryTime,
     removeCategory,
     handleChangeFee,

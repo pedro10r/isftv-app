@@ -7,35 +7,49 @@ const { spacing, radii, typography } = theme;
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
     card: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
+      flexDirection: "column",
+      gap: spacing.m,
       paddingHorizontal: spacing.m,
       paddingVertical: spacing.s + spacing.xs,
       borderRadius: radii.l,
       backgroundColor: colors.surface,
     },
     name: {
-      flex: 1,
-      fontSize: typography.fontSizes.regular,
+      fontSize: typography.fontSizes.body,
       fontFamily: typography.fontFamily.medium,
       color: colors.textPrimary,
     },
-    controls: {
+    bottomRow: {
       flexDirection: "row",
       alignItems: "center",
-      gap: spacing.m,
+      justifyContent: "space-between",
+    },
+    pill: {
+      flexDirection: "row",
+      alignItems: "center",
+      backgroundColor: colors.surfaceDarkVariant,
+      borderRadius: radii.m,
+      paddingHorizontal: spacing.m,
+      paddingVertical: spacing.s,
+      gap: radii.xl + radii.m,
+    },
+    pillGroup: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.xs,
+    },
+    pillInput: {
+      backgroundColor: "transparent",
+      color: colors.textPrimary,
+      fontFamily: typography.fontFamily.regular,
+      fontSize: typography.fontSizes.regular,
+      textAlign: "center",
+    },
+    dateInput: {
+      width: 90, // fixed component dimension — no theme token for this specific layout width
     },
     timeInput: {
-      width: 65, // fixed component dimension
-      height: 36, // fixed component dimension
-      borderRadius: radii.m,
-      paddingHorizontal: spacing.xs,
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.regular,
-      backgroundColor: colors.surfaceDarkVariant,
-      color: colors.textPrimary,
-      textAlign: "center",
+      width: 55, // fixed component dimension — no theme token for this specific layout width
     },
     trashButton: {
       padding: spacing.xs,

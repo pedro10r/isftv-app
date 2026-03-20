@@ -23,6 +23,7 @@ export function useStepThreePrizes() {
     contact_whatsapp,
     posterUri,
     baseFee,
+    description,
     categories,
     updateCategory,
     setField,
@@ -36,6 +37,7 @@ export function useStepThreePrizes() {
       contact_whatsapp: state.contact_whatsapp,
       posterUri: state.posterUri,
       baseFee: state.baseFee,
+      description: state.description,
       categories: state.categories,
       updateCategory: state.updateCategory,
       setField: state.setField,
@@ -83,6 +85,7 @@ export function useStepThreePrizes() {
         contact_whatsapp,
         posterUri,
         baseFee,
+        description,
         organizerId,
         categories,
       });

@@ -26,11 +26,22 @@ export const createStyles = (colors: Colors) =>
     timePill: {
       flexDirection: "row",
       alignItems: "center",
-      gap: spacing.xs,
       backgroundColor: colors.surfaceDarkVariant,
-      paddingHorizontal: spacing.s,
+      paddingHorizontal: spacing.s + spacing.xs,
       paddingVertical: spacing.xs,
       borderRadius: radii.xl,
+      gap: spacing.xs,
+    },
+    pillGroup: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.xs,
+    },
+    pillSeparator: {
+      width: 1,
+      height: spacing.xs + spacing.s,
+      backgroundColor: colors.border,
+      marginHorizontal: spacing.xs,
     },
     timeText: {
       fontSize: typography.fontSizes.caption,

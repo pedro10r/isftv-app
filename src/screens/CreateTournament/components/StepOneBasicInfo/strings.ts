@@ -28,6 +28,10 @@ export const strings = {
       label: "WhatsApp para contato",
       placeholder: "Ex: (16) 9999-9999",
     },
+    description: {
+      label: "Descrição / Regras (Opcional)",
+      placeholder: "Ex: Regras de desempate, formato de jogo...",
+    },
   },
 
   submit: "Próximo",

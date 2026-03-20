@@ -5,7 +5,8 @@ import Feather from "@expo/vector-icons/Feather";
 
 import { useAppTheme } from "@theme/ThemeContext";
 import { TournamentCategory, Prizes } from "@models/tournament";
-import { formatPrizes } from "@screens/TournamentDetails/hooks";
+import { formatPrizes } from "@utils";
+import { formatWeekdayDate } from "@utils";
 
 import { createStyles } from "./styles";
 
@@ -43,10 +44,31 @@ export function TournamentCategoryCard({
       <View style={styles.header}>
         <Text style={styles.name}>{category.name}</Text>
 
-        {category.start_time ? (
+        {category.date || category.start_time ? (
           <View style={styles.timePill}>
-            <Feather name="clock" size={14} color={colors.textSecondary} />
-            <Text style={styles.timeText}>{category.start_time}</Text>
+            {category.date && (
+              <View style={styles.pillGroup}>
+                <Feather
+                  name="calendar"
+                  size={13}
+                  color={colors.textSecondary}
+                />
+                <Text style={styles.timeText}>
+                  {formatWeekdayDate(category.date)}
+                </Text>
+              </View>
+            )}
+
+            {category.date && category.start_time && (
+              <View style={styles.pillSeparator} />
+            )}
+
+            {category.start_time && (
+              <View style={styles.pillGroup}>
+                <Feather name="clock" size={13} color={colors.textSecondary} />
+                <Text style={styles.timeText}>{category.start_time}</Text>
+              </View>
+            )}
           </View>
         ) : null}
       </View>
