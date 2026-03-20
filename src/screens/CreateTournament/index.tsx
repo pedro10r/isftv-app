@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState, useEffect } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
   useSharedValue,
@@ -38,7 +38,7 @@ export function CreateTournament() {
   const styles = useMemo(() => createStyles(colors), [colors]);
 
   const [trackWidth, setTrackWidth] = useState(0);
-  const progressAnim = useSharedValue(0);
+  const progressAnimation = useSharedValue(0);
   const insets = useSafeAreaInsets();
   const { spacing } = theme;
 
@@ -53,14 +53,14 @@ export function CreateTournament() {
   useEffect(() => {
     if (trackWidth === 0) return;
 
-    progressAnim.value = withTiming((step / TOTAL_STEPS) * trackWidth, {
+    progressAnimation.value = withTiming((step / TOTAL_STEPS) * trackWidth, {
       duration: 350,
       easing: Easing.out(Easing.ease),
     });
   }, [step, trackWidth]);
 
   const animatedFillStyle = useAnimatedStyle(() => ({
-    width: progressAnim.value,
+    width: progressAnimation.value,
   }));
 
   return (

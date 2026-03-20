@@ -48,6 +48,10 @@ export const createStyles = (colors: Colors) =>
     content: {
       flex: 1,
     },
+    contentContainer: {
+      // flexGrow: 1,
+      // paddingBottom: 120,
+    },
     footer: {
       paddingTop: spacing.m,
       backgroundColor: colors.background,
