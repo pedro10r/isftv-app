@@ -1,12 +1,7 @@
-import React, { useMemo, useRef, useState, useEffect } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import React, { useMemo, useRef } from "react";
+import { Pressable, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  Easing,
-} from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 import Feather from "@expo/vector-icons/Feather";
 
 import { Button } from "@components/atoms";
@@ -37,31 +32,18 @@ export function CreateTournament() {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
 
-  const [trackWidth, setTrackWidth] = useState(0);
-  const progressAnimation = useSharedValue(0);
-  const insets = useSafeAreaInsets();
-  const { spacing } = theme;
-
   const stepRef = useRef<StepRef>(null);
-  const { step, isSubmitting, handleBack } = useCreateTournament();
+  const insets = useSafeAreaInsets();
+
+  const { step, isSubmitting, handleBack, animatedFillStyle, setTrackWidth } =
+    useCreateTournament();
+
+  const { spacing } = theme;
 
   const StepComponent = STEPS[step];
 
   const buttonLabel =
     step < TOTAL_STEPS ? strings.nextButton : strings.submitButton;
-
-  useEffect(() => {
-    if (trackWidth === 0) return;
-
-    progressAnimation.value = withTiming((step / TOTAL_STEPS) * trackWidth, {
-      duration: 350,
-      easing: Easing.out(Easing.ease),
-    });
-  }, [step, trackWidth]);
-
-  const animatedFillStyle = useAnimatedStyle(() => ({
-    width: progressAnimation.value,
-  }));
 
   return (
     <FormTemplate>
