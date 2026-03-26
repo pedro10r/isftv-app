@@ -5,34 +5,90 @@ import { useForm } from "react-hook-form";
 
 import { useAuthNavigation } from "@navigation/appNavigation";
 import { supabase } from "@services/supabase";
+import { useAuthStore } from "@store/authStore";
 
-import { ForgotPasswordFormValues, forgotPasswordSchema } from "./schemas";
+import {
+  step1Schema,
+  step2Schema,
+  Step1FormValues,
+  Step2FormValues,
+} from "./schemas";
 import { strings } from "./strings";
 
 export const useForgotPassword = () => {
   const [isLoading, setIsLoading] = useState(false);
-
-  const { control, handleSubmit } = useForm<ForgotPasswordFormValues>({
-    resolver: zodResolver(forgotPasswordSchema),
-  });
+  const [step, setStep] = useState<1 | 2>(1);
+  const [email, setEmail] = useState("");
 
   const { goBack } = useAuthNavigation();
 
-  const onSubmit = async (data: ForgotPasswordFormValues) => {
+  const step1Form = useForm<Step1FormValues>({
+    resolver: zodResolver(step1Schema),
+    defaultValues: { email: "" },
+  });
+
+  const step2Form = useForm<Step2FormValues>({
+    resolver: zodResolver(step2Schema),
+    defaultValues: { otp: "", newPassword: "", confirmPassword: "" },
+  });
+
+  const onSubmitStep1 = async (data: Step1FormValues) => {
     try {
       setIsLoading(true);
 
       const { error } = await supabase.auth.resetPasswordForEmail(data.email);
 
       if (error) {
-        return Alert.alert(strings.auth.errorTitle, error.message);
+        return Alert.alert(strings.auth.errorTitle, strings.auth.errorSendCode);
       }
+
+      setEmail(data.email);
+      setStep(2);
+    } catch {
+      Alert.alert(strings.auth.errorTitle, strings.auth.errorSendCode);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const onSubmitStep2 = async (data: Step2FormValues) => {
+    try {
+      setIsLoading(true);
+
+      useAuthStore.getState().setIsRecoveringPassword(true);
+
+      const { error: otpError } = await supabase.auth.verifyOtp({
+        email,
+        token: data.otp,
+        type: "recovery",
+      });
+
+      if (otpError) {
+        return Alert.alert(
+          strings.auth.errorTitle,
+          strings.auth.errorInvalidOtp,
+        );
+      }
+
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: data.newPassword,
+      });
+
+      if (updateError) {
+        return Alert.alert(
+          strings.auth.errorTitle,
+          strings.auth.errorResetPassword,
+        );
+      }
+
+      await supabase.auth.signOut();
 
       Alert.alert(strings.auth.successTitle, strings.auth.successMessage, [
         { text: "OK", onPress: () => goBack() },
       ]);
     } catch {
-      Alert.alert(strings.auth.errorTitle, strings.auth.errorMessage);
+      useAuthStore.getState().setIsRecoveringPassword(false);
+      Alert.alert(strings.auth.errorTitle, strings.auth.errorResetPassword);
     } finally {
       setIsLoading(false);
     }
@@ -40,5 +96,19 @@ export const useForgotPassword = () => {
 
   const handleGoBack = () => goBack();
 
-  return { control, handleSubmit, onSubmit, handleGoBack, isLoading };
+  return {
+    step,
+    isLoading,
+    handleGoBack,
+    step1: {
+      control: step1Form.control,
+      handleSubmit: step1Form.handleSubmit,
+      onSubmit: onSubmitStep1,
+    },
+    step2: {
+      control: step2Form.control,
+      handleSubmit: step2Form.handleSubmit,
+      onSubmit: onSubmitStep2,
+    },
+  };
 };

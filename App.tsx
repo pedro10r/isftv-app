@@ -41,6 +41,17 @@ export default function App() {
         return;
       }
 
+      const { isRecoveringPassword, setIsRecoveringPassword } =
+        useAuthStore.getState();
+
+      if (isRecoveringPassword) {
+        if (event === "SIGNED_OUT") {
+          setIsRecoveringPassword(false);
+          setSession(null);
+        }
+        return;
+      }
+
       setSession(session);
     });
 

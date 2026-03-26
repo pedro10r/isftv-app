@@ -16,8 +16,7 @@ export const strings = {
   auth: {
     errorTitle: "Erro no Cadastro",
     errorMessage: "Não foi possível criar sua conta. Tente novamente.",
-    successTitle: "Sucesso",
-    successMessage:
-      "Conta criada! Verifique seu e-mail para confirmar o cadastro antes de fazer login.",
+    successTitle: "Conta criada com sucesso!",
+    successMessage: `Bem-vindo(a) ao isFTV.`,
   },
 };
