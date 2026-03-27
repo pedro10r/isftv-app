@@ -1,13 +1,13 @@
 export const strings = {
   stats: {
     positionLabel: "Posição",
-    heightLabel: "Altura",
-    weightLabel: "Peso",
+    cityLabel: "Cidade",
   },
   actions: {
     editProfile: "Editar Perfil",
     settings: "Configurações",
     callWhatsApp: "Chamar no WhatsApp",
+    seeDetails: "Ver Detalhes do Perfil",
   },
   sections: {
     media: "Mídias",

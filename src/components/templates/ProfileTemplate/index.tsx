@@ -10,7 +10,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import Feather from "@expo/vector-icons/Feather";
 
-import { EmptyListState, StatsCard } from "@components/molecules";
+import { EmptyListState } from "@components/molecules";
 import { OutlineButton } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { getInitials } from "@utils/getInitials";
@@ -20,8 +20,7 @@ import { strings } from "./strings";
 
 interface ProfileStats {
   position: string;
-  height: string;
-  weight: string;
+  city: string;
 }
 
 interface ProfileTemplateProps {
@@ -38,6 +37,7 @@ interface ProfileTemplateProps {
   onCallWhatsApp?: () => void;
   onPickAvatar?: () => void;
   onPickCover?: () => void;
+  onPressDetails?: () => void;
   renderMediaGrid?: () => ReactNode;
 }
 
@@ -55,6 +55,7 @@ export function ProfileTemplate({
   onCallWhatsApp,
   onPickAvatar,
   onPickCover,
+  onPressDetails,
   renderMediaGrid,
 }: ProfileTemplateProps) {
   const { colors } = useAppTheme();
@@ -130,17 +131,24 @@ export function ProfileTemplate({
 
         <View style={styles.profileInfoContainer}>
           <Text style={styles.profileName}>{fullName}</Text>
-          <Text style={styles.profileUsername}>{username}</Text>
           <Text style={styles.profileBio}>{bio}</Text>
         </View>
 
-        <StatsCard
-          items={[
-            { value: stats.position, label: strings.stats.positionLabel },
-            { value: stats.height, label: strings.stats.heightLabel },
-            { value: stats.weight, label: strings.stats.weightLabel },
-          ]}
-        />
+        <View style={styles.profileInfoContent}>
+          {stats.city !== "-" && (
+            <View style={styles.profileInfo}>
+              <Feather name="map-pin" size={12} color={colors.textSecondary} />
+              <Text style={styles.profileInfoText}>{stats.city}</Text>
+            </View>
+          )}
+
+          {stats.position !== "-" && (
+            <View style={styles.profileInfo}>
+              <Feather name="activity" size={12} color={colors.textSecondary} />
+              <Text style={styles.profileInfoText}>{stats.position}</Text>
+            </View>
+          )}
+        </View>
 
         <View style={styles.actionsRow}>
           {isMe ? (
@@ -155,11 +163,17 @@ export function ProfileTemplate({
               />
             </>
           ) : (
-            <OutlineButton
-              label={strings.actions.callWhatsApp}
-              onPress={onCallWhatsApp!}
-              color={colors.whatsapp_green}
-            />
+            <>
+              <OutlineButton
+                label={strings.actions.seeDetails}
+                onPress={onPressDetails!}
+              />
+              <OutlineButton
+                label={strings.actions.callWhatsApp}
+                onPress={onCallWhatsApp!}
+                color={colors.whatsapp_green}
+              />
+            </>
           )}
         </View>
 

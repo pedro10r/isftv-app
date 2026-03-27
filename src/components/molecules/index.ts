@@ -3,5 +3,3 @@ export { EmptyListState } from "./EmptyListState";
 export { MetaRow } from "./MetaRow";
 export { PrizeRow, FourthPlacePrizeRow } from "./PrizeRow";
 export { DraftCategoryCard } from "./DraftCategoryCard";
-export { StatsCard } from "./StatsCard";
-export type { StatItem } from "./StatsCard";

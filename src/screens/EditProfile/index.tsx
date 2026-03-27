@@ -6,7 +6,7 @@ import { theme } from "@theme";
 import { FormTemplate } from "@components/templates";
 import { Button, TextInput, Select } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
-import { maskHeight, maskUsername, maskWeight } from "@utils";
+import { maskHeight, maskPhone } from "@utils";
 
 import { useEditProfile } from "./hooks";
 import { strings } from "./strings";
@@ -51,16 +51,6 @@ export function EditProfile() {
         />
 
         <TextInput
-          fieldName={strings.form.labels.username}
-          control={control}
-          name="username"
-          placeholder={strings.form.placeholders.username}
-          autoCapitalize="none"
-          transform={maskUsername}
-          rawExtractor={(v) => v.replace(/^@/, "")}
-        />
-
-        <TextInput
           fieldName={strings.form.labels.bio}
           control={control}
           name="bio"
@@ -69,28 +59,43 @@ export function EditProfile() {
           numberOfLines={3}
         />
 
+        <TextInput
+          fieldName={strings.form.labels.height}
+          control={control}
+          name="height"
+          placeholder={strings.form.placeholders.height}
+          keyboardType="numeric"
+          maxLength={6}
+          transform={maskHeight}
+        />
+
+        <TextInput
+          fieldName={strings.form.labels.whatsapp}
+          control={control}
+          name="whatsapp"
+          placeholder={strings.form.placeholders.whatsapp}
+          keyboardType="phone-pad"
+          transform={maskPhone}
+        />
+
         <View style={styles.row}>
           <View style={styles.flexContainer}>
             <TextInput
-              fieldName={strings.form.labels.height}
+              fieldName={strings.form.labels.city}
               control={control}
-              name="height"
-              placeholder={strings.form.placeholders.height}
-              keyboardType="numeric"
-              maxLength={6}
-              transform={maskHeight}
+              name="city"
+              placeholder={strings.form.placeholders.city}
             />
           </View>
 
-          <View style={styles.flexContainer}>
+          <View style={styles.ufContainer}>
             <TextInput
-              fieldName={strings.form.labels.weight}
+              fieldName={strings.form.labels.uf}
               control={control}
-              name="weight"
-              placeholder={strings.form.placeholders.weight}
-              keyboardType="numeric"
-              maxLength={7}
-              transform={maskWeight}
+              name="uf"
+              placeholder={strings.form.placeholders.uf}
+              autoCapitalize="characters"
+              maxLength={2}
             />
           </View>
         </View>

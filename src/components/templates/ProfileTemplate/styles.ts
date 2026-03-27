@@ -3,11 +3,11 @@ import { StyleSheet } from "react-native";
 import { theme, Colors } from "@theme";
 import { TAB_BAR_OFFSET } from "@constants/layout";
 
-const { spacing, typography } = theme;
+const { spacing, typography, radii } = theme;
 
 const COVER_HEIGHT = 180;
-const AVATAR_SIZE = spacing.xxl * 2;
-const AVATAR_BORDER = spacing.xs / 2;
+const AVATAR_SIZE = spacing.xxl * 2.3;
+const AVATAR_BORDER = spacing.xs / 1.6;
 const FLOAT_BUTTON_SIZE = spacing.xl;
 
 export const createStyles = (colors: Colors) =>
@@ -40,7 +40,7 @@ export const createStyles = (colors: Colors) =>
       elevation: 2,
     },
     avatarWrapper: {
-      alignItems: "center",
+      paddingHorizontal: spacing.m,
       marginTop: -(AVATAR_SIZE / 2),
       marginBottom: spacing.s,
     },
@@ -85,8 +85,7 @@ export const createStyles = (colors: Colors) =>
       elevation: 2,
     },
     profileInfoContainer: {
-      alignItems: "center",
-      paddingHorizontal: spacing.l,
+      paddingHorizontal: spacing.m,
       gap: spacing.xs,
       marginBottom: spacing.m,
     },
@@ -95,17 +94,10 @@ export const createStyles = (colors: Colors) =>
       fontFamily: typography.fontFamily.bold,
       color: colors.textPrimary,
     },
-    profileUsername: {
-      fontSize: typography.fontSizes.regular,
-      fontFamily: typography.fontFamily.regular,
-      color: colors.textSecondary,
-    },
     profileBio: {
-      marginTop: spacing.s,
       fontSize: typography.fontSizes.body,
       fontFamily: typography.fontFamily.regular,
       color: colors.textSecondary,
-      textAlign: "center",
       lineHeight: spacing.l,
     },
     actionsRow: {
@@ -130,5 +122,20 @@ export const createStyles = (colors: Colors) =>
       alignItems: "center",
       justifyContent: "center",
       paddingVertical: spacing.xl,
+    },
+    profileInfoContent: {
+      gap: spacing.s,
+      paddingHorizontal: spacing.m,
+      marginBottom: spacing.s,
+    },
+    profileInfo: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: spacing.s,
+    },
+    profileInfoText: {
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.regular,
+      color: colors.textSecondary,
     },
   });

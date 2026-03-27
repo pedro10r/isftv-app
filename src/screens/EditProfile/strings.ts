@@ -6,17 +6,19 @@ export const strings = {
     button: "Salvar",
     labels: {
       name: "Nome",
-      username: "Nome de usuário",
       bio: "Bio",
       height: "Altura",
-      weight: "Peso",
+      whatsapp: "WhatsApp",
+      city: "Cidade",
+      uf: "UF",
     },
     placeholders: {
       name: "Seu nome completo",
-      username: "@seu.username",
       bio: "Fale um pouco sobre você...",
       height: "1,80 m",
-      weight: "78 kg",
+      whatsapp: "(11) 99999-9999",
+      city: "São Paulo",
+      uf: "SP",
     },
   },
 

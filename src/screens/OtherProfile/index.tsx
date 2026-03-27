@@ -41,8 +41,7 @@ export function OtherProfile() {
       onCallWhatsApp={handleCallWhatsApp}
       stats={{
         position: labels.displayPosition,
-        height: labels.displayHeight,
-        weight: labels.displayWeight,
+        city: labels.displayCity,
       }}
       renderMediaGrid={() => <ProfileMediaGrid userId={userId} />}
     />

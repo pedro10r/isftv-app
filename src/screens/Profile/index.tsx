@@ -44,8 +44,7 @@ export function Profile() {
       coverUrl={coverUrl}
       stats={{
         position: labels.displayPosition,
-        height: labels.displayHeight,
-        weight: labels.displayWeight,
+        city: labels.displayCity,
       }}
       isUploadingMedia={isUploadingMedia}
       onPickAvatar={handlePickAvatar}

@@ -9,6 +9,7 @@ export interface Profile {
   bio: string | null;
   playing_position: PlayingPosition | null;
   height: number | null;
-  weight: number | null;
+  city: string | null;
+  uf: string | null;
   whatsapp: string | null;
 }

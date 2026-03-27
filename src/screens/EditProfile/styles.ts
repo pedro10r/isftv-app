@@ -39,6 +39,9 @@ export const createStyles = (colors: Colors) =>
       flexDirection: "row",
       gap: spacing.m,
     },
+    ufContainer: {
+      width: 72,
+    },
     label: {
       fontSize: typography.fontSizes.caption,
       fontFamily: typography.fontFamily.light,

@@ -7,7 +7,7 @@ import { PlayingPosition } from "@models/profile";
 import { useProfileNavigation } from "@navigation/appNavigation";
 import { useAuthStore } from "@store/authStore";
 import { useProfile, useUpdateProfile } from "@hooks/queries/useProfileQueries";
-import { maskHeight, maskWeight, parseNumber } from "@utils";
+import { maskHeight, parseNumber } from "@utils";
 
 import { EditProfileFormValues, editProfileSchema } from "./schemas";
 import { strings } from "./strings";
@@ -29,10 +29,11 @@ export const useEditProfile = () => {
     resolver: zodResolver(editProfileSchema),
     defaultValues: {
       full_name: profile?.full_name ?? "",
-      username: profile?.username ?? "",
       bio: profile?.bio ?? "",
       height: profile?.height != null ? maskHeight(String(profile.height)) : "",
-      weight: profile?.weight != null ? maskWeight(String(profile.weight)) : "",
+      city: profile?.city ?? "",
+      uf: profile?.uf ?? "",
+      whatsapp: profile?.whatsapp ?? "",
     },
   });
 
@@ -44,11 +45,12 @@ export const useEditProfile = () => {
         userId,
         updates: {
           full_name: data.full_name,
-          username: data.username || null,
           bio: data.bio || null,
           playing_position: playingPosition,
           height: parseNumber(data.height),
-          weight: parseNumber(data.weight),
+          city: data.city || null,
+          uf: data.uf?.toUpperCase() || null,
+          whatsapp: data.whatsapp || null,
         },
       });
       Alert.alert(
