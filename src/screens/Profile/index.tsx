@@ -38,13 +38,17 @@ export function Profile() {
     <ProfileTemplate
       isMe
       fullName={labels.displayName}
-      username={labels.displayUsername}
       bio={labels.displayBio}
       avatarUrl={avatarUrl}
       coverUrl={coverUrl}
       stats={{
         position: labels.displayPosition,
         city: labels.displayCity,
+      }}
+      details={{
+        height: labels.displayHeight,
+        location: labels.displayLocation,
+        whatsapp: labels.displayWhatsApp,
       }}
       isUploadingMedia={isUploadingMedia}
       onPickAvatar={handlePickAvatar}

@@ -1,4 +1,4 @@
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useCallback, useMemo, useRef } from "react";
 import {
   ActivityIndicator,
   ScrollView,
@@ -9,8 +9,14 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import Feather from "@expo/vector-icons/Feather";
+import {
+  BottomSheetBackdrop,
+  BottomSheetBackdropProps,
+  BottomSheetModal,
+  BottomSheetScrollView,
+} from "@gorhom/bottom-sheet";
 
-import { EmptyListState } from "@components/molecules";
+import { DetailRow, EmptyListState } from "@components/molecules";
 import { OutlineButton } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { getInitials } from "@utils/getInitials";
@@ -23,13 +29,19 @@ interface ProfileStats {
   city: string;
 }
 
+interface ProfileDetails {
+  height: string;
+  location: string;
+  whatsapp: string;
+}
+
 interface ProfileTemplateProps {
   fullName: string;
-  username: string;
   bio: string;
   avatarUrl?: string;
   coverUrl?: string;
   stats: ProfileStats;
+  details: ProfileDetails;
   isMe: boolean;
   isUploadingMedia?: boolean;
   onEditProfile?: () => void;
@@ -37,17 +49,16 @@ interface ProfileTemplateProps {
   onCallWhatsApp?: () => void;
   onPickAvatar?: () => void;
   onPickCover?: () => void;
-  onPressDetails?: () => void;
   renderMediaGrid?: () => ReactNode;
 }
 
 export function ProfileTemplate({
   fullName,
-  username,
   bio,
   avatarUrl,
   coverUrl,
   stats,
+  details,
   isMe,
   isUploadingMedia = false,
   onEditProfile,
@@ -55,11 +66,42 @@ export function ProfileTemplate({
   onCallWhatsApp,
   onPickAvatar,
   onPickCover,
-  onPressDetails,
   renderMediaGrid,
 }: ProfileTemplateProps) {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
+  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+
+  const handlePresentDetails = useCallback(() => {
+    bottomSheetModalRef.current?.present();
+  }, []);
+
+  const renderBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        appearsOnIndex={0}
+        disappearsOnIndex={-1}
+      />
+    ),
+    [],
+  );
+
+  const sheetItems = [
+    {
+      label: strings.details.name,
+      value: fullName || strings.details.notInformed,
+    },
+    { label: strings.details.bio, value: bio || strings.details.notInformed },
+    {
+      label: strings.details.position,
+      value:
+        stats.position !== "-" ? stats.position : strings.details.notInformed,
+    },
+    { label: strings.details.height, value: details.height },
+    { label: strings.details.location, value: details.location },
+    { label: strings.details.whatsapp, value: details.whatsapp },
+  ];
 
   return (
     <SafeAreaView style={styles.container} edges={["bottom"]}>
@@ -166,7 +208,7 @@ export function ProfileTemplate({
             <>
               <OutlineButton
                 label={strings.actions.seeDetails}
-                onPress={onPressDetails!}
+                onPress={handlePresentDetails}
               />
               <OutlineButton
                 label={strings.actions.callWhatsApp}
@@ -191,6 +233,25 @@ export function ProfileTemplate({
           )}
         </View>
       </ScrollView>
+
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        snapPoints={["85%"]}
+        backdropComponent={renderBackdrop}
+        backgroundStyle={styles.sheetBackground}
+        handleIndicatorStyle={styles.sheetHandleIndicator}
+      >
+        <Text style={styles.sheetTitle}>{strings.details.title}</Text>
+
+        <BottomSheetScrollView contentContainerStyle={styles.sheetContent}>
+          {sheetItems.map((item, index) => (
+            <View key={item.label}>
+              {index > 0 && <View style={styles.sheetDivider} />}
+              <DetailRow label={item.label} value={item.value} />
+            </View>
+          ))}
+        </BottomSheetScrollView>
+      </BottomSheetModal>
     </SafeAreaView>
   );
 }

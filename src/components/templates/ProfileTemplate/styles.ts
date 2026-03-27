@@ -138,4 +138,27 @@ export const createStyles = (colors: Colors) =>
       fontFamily: typography.fontFamily.regular,
       color: colors.textSecondary,
     },
+    sheetBackground: {
+      backgroundColor: colors.surface,
+    },
+    sheetHandleIndicator: {
+      backgroundColor: colors.border,
+      width: spacing.xxl,
+    },
+    sheetContent: {
+      paddingHorizontal: spacing.m,
+      paddingBottom: spacing.xxl,
+    },
+    sheetTitle: {
+      fontSize: typography.fontSizes.h3,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.textPrimary,
+      marginBottom: spacing.m,
+      marginTop: spacing.xs,
+      marginHorizontal: spacing.m,
+    },
+    sheetDivider: {
+      height: StyleSheet.hairlineWidth,
+      backgroundColor: colors.border,
+    },
   });

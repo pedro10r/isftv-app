@@ -34,10 +34,15 @@ export const useOtherProfile = () => {
 
   const labels = {
     displayName: profile?.full_name ?? strings.profile.defaultName,
-    displayUsername: profile?.username ?? strings.profile.noUsername,
     displayBio: profile?.bio ?? strings.profile.noBio,
     displayPosition: profile?.playing_position ?? "-",
     displayCity: profile?.city ?? "-",
+    displayHeight: profile?.height ? `${profile.height} m` : "-",
+    displayLocation:
+      profile?.city && profile?.uf
+        ? `${profile.city}, ${profile.uf}`
+        : (profile?.city ?? "-"),
+    displayWhatsApp: profile?.whatsapp ?? "-",
   };
 
   return {

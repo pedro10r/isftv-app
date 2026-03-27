@@ -5,6 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import {
   useFonts,
   Inter_400Regular,
@@ -73,7 +74,9 @@ export default function App() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ThemeProvider>
           <SafeAreaProvider>
-            <RootNavigation />
+            <BottomSheetModalProvider>
+              <RootNavigation />
+            </BottomSheetModalProvider>
           </SafeAreaProvider>
         </ThemeProvider>
       </GestureHandlerRootView>
