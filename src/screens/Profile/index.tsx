@@ -17,9 +17,11 @@ export function Profile() {
     profile,
     isLoadingProfile,
     isUploadingMedia,
+    isRefreshing,
     avatarUrl,
     coverUrl,
     labels,
+    handleRefresh,
     handlePickAvatar,
     handlePickCover,
     handleNavigateEditProfile,
@@ -37,6 +39,8 @@ export function Profile() {
   return (
     <ProfileTemplate
       isMe
+      isRefreshing={isRefreshing}
+      onRefresh={handleRefresh}
       fullName={labels.displayName}
       bio={labels.displayBio}
       avatarUrl={avatarUrl}

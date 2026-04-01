@@ -1,7 +1,10 @@
+import { useState } from "react";
 import { Alert, Linking } from "react-native";
 import { useRoute, RouteProp } from "@react-navigation/native";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { HomeStackParamList } from "@navigation/types";
+import { useHomeNavigation } from "@navigation/appNavigation";
 import { useProfile } from "@hooks/queries/useProfileQueries";
 
 import { strings } from "./strings";
@@ -9,8 +12,23 @@ import { strings } from "./strings";
 export const useOtherProfile = () => {
   const { params } = useRoute<RouteProp<HomeStackParamList, "OtherProfile">>();
   const { userId } = params;
+  const { goBack } = useHomeNavigation();
+  const queryClient = useQueryClient();
 
-  const { data: profile, isLoading } = useProfile(userId);
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const { data: profile, isLoading, refetch } = useProfile(userId);
+
+  const handleGoBack = () => goBack();
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await Promise.all([
+      refetch(),
+      queryClient.invalidateQueries({ queryKey: ["user-posts", userId] }),
+    ]);
+    setIsRefreshing(false);
+  };
 
   const handleCallWhatsApp = async () => {
     if (!profile?.whatsapp) {
@@ -49,9 +67,12 @@ export const useOtherProfile = () => {
     userId,
     profile,
     isLoading,
+    isRefreshing,
     labels,
     avatarUrl: profile?.avatar_url ?? undefined,
     coverUrl: profile?.cover_url ?? undefined,
+    handleGoBack,
+    handleRefresh,
     handleCallWhatsApp,
   };
 };

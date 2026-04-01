@@ -5,6 +5,7 @@ import { Feather } from "@expo/vector-icons";
 
 import { Post } from "@models/feed";
 import { EmptyListState } from "@components/molecules";
+import { Skeleton } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { useUserPosts } from "@hooks/queries/useFeedQueries";
 
@@ -15,6 +16,7 @@ interface ProfileMediaGridProps {
 }
 
 const NUM_COLUMNS = 3;
+const SKELETON_COUNT = 12;
 
 export function ProfileMediaGrid({ userId }: ProfileMediaGridProps) {
   const { colors } = useAppTheme();
@@ -23,13 +25,16 @@ export function ProfileMediaGrid({ userId }: ProfileMediaGridProps) {
 
   const itemSize = Math.floor(width / NUM_COLUMNS);
 
-  const { data: posts = [] } = useUserPosts(userId);
+  const { data: posts = [], isLoading } = useUserPosts(userId);
 
-  const rowCount = Math.ceil(posts.length / NUM_COLUMNS);
+  const rowCount = Math.ceil(
+    (isLoading ? SKELETON_COUNT : posts.length) / NUM_COLUMNS,
+  );
+
   const containerHeight = rowCount * itemSize + GAP * rowCount;
 
   const renderItem = ({ item }: { item: Post }) => (
-    <View style={[styles.item, { width: itemSize, height: itemSize }]}>
+    <View style={{ width: itemSize, height: itemSize }}>
       <Image
         source={{ uri: item.media_url! }}
         style={styles.image}
@@ -43,6 +48,21 @@ export function ProfileMediaGrid({ userId }: ProfileMediaGridProps) {
       )}
     </View>
   );
+
+  if (isLoading) {
+    return (
+      <View style={styles.skeletonContainer}>
+        {Array.from({ length: SKELETON_COUNT }).map((_, index) => (
+          <Skeleton
+            key={index}
+            width={"32.99%"}
+            height={itemSize}
+            borderRadius={0}
+          />
+        ))}
+      </View>
+    );
+  }
 
   if (!posts.length) {
     return (

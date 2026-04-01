@@ -29,20 +29,6 @@ export const createStyles = (colors: Colors) =>
     heroPlaceholder: {
       backgroundColor: colors.surface,
     },
-    backButton: {
-      position: "absolute",
-      top: 50,
-      left: spacing.m,
-      zIndex: 10,
-    },
-    backButtonInner: {
-      width: 40,
-      height: 40,
-      borderRadius: 20,
-      backgroundColor: colors.overlay,
-      alignItems: "center",
-      justifyContent: "center",
-    },
     body: {
       paddingHorizontal: spacing.m,
       paddingTop: spacing.l,

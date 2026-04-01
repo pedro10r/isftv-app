@@ -3,9 +3,9 @@ import { StyleSheet } from "react-native";
 import { theme, Colors } from "@theme";
 import { TAB_BAR_OFFSET } from "@constants/layout";
 
-const { spacing, typography, radii } = theme;
+const { spacing, typography } = theme;
 
-const COVER_HEIGHT = 180;
+export const COVER_HEIGHT = 180;
 const AVATAR_SIZE = spacing.xxl * 2.3;
 const AVATAR_BORDER = spacing.xs / 1.6;
 const FLOAT_BUTTON_SIZE = spacing.xl;
@@ -78,6 +78,8 @@ export const createStyles = (colors: Colors) =>
       right: -spacing.xs,
       width: FLOAT_BUTTON_SIZE,
       height: FLOAT_BUTTON_SIZE,
+      borderWidth: AVATAR_BORDER / 1.5,
+      borderColor: colors.surface,
       borderRadius: FLOAT_BUTTON_SIZE / 2,
       alignItems: "center",
       justifyContent: "center",
@@ -108,10 +110,10 @@ export const createStyles = (colors: Colors) =>
       marginBottom: spacing.l,
     },
     sectionContainer: {
-      paddingHorizontal: spacing.m,
       marginTop: spacing.s,
     },
     sectionTitle: {
+      paddingHorizontal: spacing.m,
       fontSize: typography.fontSizes.h3,
       fontFamily: typography.fontFamily.bold,
       color: colors.textPrimary,

@@ -1,12 +1,16 @@
 import { ReactNode, useCallback, useMemo, useRef } from "react";
 import {
   ActivityIndicator,
+  RefreshControl,
   ScrollView,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { Image } from "expo-image";
 import Feather from "@expo/vector-icons/Feather";
 import {
@@ -17,7 +21,7 @@ import {
 } from "@gorhom/bottom-sheet";
 
 import { DetailRow, EmptyListState } from "@components/molecules";
-import { OutlineButton } from "@components/atoms";
+import { BackButtonFloater, OutlineButton } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { getInitials } from "@utils/getInitials";
 
@@ -44,6 +48,9 @@ interface ProfileTemplateProps {
   details: ProfileDetails;
   isMe: boolean;
   isUploadingMedia?: boolean;
+  isRefreshing?: boolean;
+  onRefresh?: () => void;
+  onGoBack?: () => void;
   onEditProfile?: () => void;
   onSettings?: () => void;
   onCallWhatsApp?: () => void;
@@ -61,6 +68,9 @@ export function ProfileTemplate({
   details,
   isMe,
   isUploadingMedia = false,
+  isRefreshing = false,
+  onRefresh,
+  onGoBack,
   onEditProfile,
   onSettings,
   onCallWhatsApp,
@@ -71,6 +81,7 @@ export function ProfileTemplate({
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const { top: topInset } = useSafeAreaInsets();
 
   const handlePresentDetails = useCallback(() => {
     bottomSheetModalRef.current?.present();
@@ -104,12 +115,23 @@ export function ProfileTemplate({
   ];
 
   return (
-    <SafeAreaView style={styles.container} edges={["bottom"]}>
+    <SafeAreaView style={styles.container} edges={["left"]}>
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          onRefresh ? (
+            <RefreshControl
+              progressViewOffset={topInset}
+              refreshing={isRefreshing}
+              onRefresh={onRefresh}
+            />
+          ) : undefined
+        }
       >
         <View style={styles.coverWrapper}>
+          {onGoBack && <BackButtonFloater onPress={onGoBack} />}
+
           {coverUrl ? (
             <Image
               source={{ uri: coverUrl }}

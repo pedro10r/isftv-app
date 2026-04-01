@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Alert } from "react-native";
+import { useQueryClient } from "@tanstack/react-query";
 
 import { useProfileNavigation } from "@navigation/appNavigation";
 import { NAV } from "@navigation/routes";
@@ -13,11 +15,14 @@ import { strings } from "./strings";
 
 export const useProfile = () => {
   const { navigate } = useProfileNavigation();
+  const queryClient = useQueryClient();
 
   const session = useAuthStore((state) => state.session);
   const userId = session?.user.id;
 
-  const { data: profile, isLoading: isLoadingProfile } =
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const { data: profile, isLoading: isLoadingProfile, refetch } =
     useProfileQuery(userId);
   const { mutateAsync: uploadImage, isPending: isUploadingMedia } =
     useUploadProfileImage();
@@ -56,6 +61,15 @@ export const useProfile = () => {
     }
   };
 
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await Promise.all([
+      refetch(),
+      queryClient.invalidateQueries({ queryKey: ["user-posts", userId] }),
+    ]);
+    setIsRefreshing(false);
+  };
+
   const handleNavigateEditProfile = () =>
     navigate(NAV.PROFILE_STACK.EDIT_PROFILE);
 
@@ -82,9 +96,11 @@ export const useProfile = () => {
     profile,
     isLoadingProfile,
     isUploadingMedia,
+    isRefreshing,
     avatarUrl: profile?.avatar_url ?? undefined,
     coverUrl: profile?.cover_url ?? undefined,
     labels,
+    handleRefresh,
     handlePickAvatar,
     handlePickCover,
     handleNavigateEditProfile,

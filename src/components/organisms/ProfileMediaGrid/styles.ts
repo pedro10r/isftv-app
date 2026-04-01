@@ -1,16 +1,15 @@
 import { StyleSheet } from "react-native";
 
-import { Colors } from "@theme";
+import { Colors, theme } from "@theme";
+
+const { spacing } = theme;
 
 export const GAP = 1;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
     container: {
-      backgroundColor: colors.background,
-    },
-    item: {
-      padding: GAP / 2,
+      gap: GAP,
     },
     image: {
       width: "100%",
@@ -23,6 +22,11 @@ export const createStyles = (colors: Colors) =>
       justifyContent: "center",
     },
     emptyWrapper: {
-      paddingVertical: 32,
+      paddingVertical: spacing.xl,
+    },
+    skeletonContainer: {
+      gap: 2,
+      flexDirection: "row",
+      flexWrap: "wrap",
     },
   });

@@ -12,6 +12,7 @@ import Feather from "@expo/vector-icons/Feather";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { MetaRow } from "@components/molecules";
+import { BackButtonFloater } from "@components/atoms";
 import { TournamentCategoryCard } from "@components/organisms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { formatCurrency, formatDateRange } from "@utils";
@@ -57,11 +58,7 @@ export function TournamentDetails() {
 
   return (
     <SafeAreaView style={styles.container} edges={["bottom"]}>
-      <Pressable style={styles.backButton} onPress={handleGoBack}>
-        <View style={styles.backButtonInner}>
-          <Feather name="chevron-left" size={24} color={colors.white} />
-        </View>
-      </Pressable>
+      <BackButtonFloater onPress={handleGoBack} />
 
       <ScrollView
         showsVerticalScrollIndicator={false}

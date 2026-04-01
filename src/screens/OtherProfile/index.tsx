@@ -16,9 +16,12 @@ export function OtherProfile() {
     userId,
     profile,
     isLoading,
+    isRefreshing,
     labels,
     avatarUrl,
     coverUrl,
+    handleGoBack,
+    handleRefresh,
     handleCallWhatsApp,
   } = useOtherProfile();
 
@@ -33,6 +36,9 @@ export function OtherProfile() {
   return (
     <ProfileTemplate
       isMe={false}
+      isRefreshing={isRefreshing}
+      onRefresh={handleRefresh}
+      onGoBack={handleGoBack}
       fullName={labels.displayName}
       bio={labels.displayBio}
       avatarUrl={avatarUrl}

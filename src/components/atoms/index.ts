@@ -6,3 +6,5 @@ export { Switch } from "./Switch";
 export { StatusBadge } from "./StatusBadge";
 export { FilterPill } from "./FilterPill";
 export { OutlineButton } from "./OutlineButton";
+export { Skeleton } from "./Skeleton";
+export { BackButtonFloater } from "./BackButtonFloater";
