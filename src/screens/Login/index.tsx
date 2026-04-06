@@ -63,7 +63,7 @@ export function Login() {
               <SimpleButton
                 label={strings.login.buttonForgot}
                 onPress={handleForgotPasswordNavigation}
-                size="small"
+                size="medium"
               />
             </View>
           </View>
