@@ -42,6 +42,7 @@ export interface Tournament {
   contact_whatsapp: string;
   organizer_id: string;
   city: string;
+  state?: string;
   description?: string;
   status?: TournamentStatus;
   profiles: TournamentOrganizer | null;

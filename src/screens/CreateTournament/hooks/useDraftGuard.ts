@@ -16,6 +16,7 @@ export function useDraftGuard() {
       state.posterUri.length > 0 ||
       state.venue_name.trim().length > 0 ||
       state.city.trim().length > 0 ||
+      state.state.trim().length > 0 ||
       state.start_date.length > 0 ||
       state.end_date.length > 0 ||
       state.contact_whatsapp.length > 0 ||

@@ -25,6 +25,7 @@ export const stepOneSchema = z
     name: z.string().min(3, "Nome deve ter pelo menos 3 caracteres"),
     venue_name: z.string().min(3, "Local deve ter pelo menos 3 caracteres"),
     city: z.string().min(3, "Cidade deve ter pelo menos 3 caracteres"),
+    state: z.string().length(2, "UF deve ter 2 caracteres"),
     start_date: z
       .string()
       .regex(/^\d{2}\/\d{2}\/\d{4}$/, "Data inválida (DD/MM/AAAA)")

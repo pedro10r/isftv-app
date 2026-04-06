@@ -19,7 +19,7 @@ import { formatCurrency, formatDateRange } from "@utils";
 
 import { createStyles } from "./styles";
 import { useTournamentDetails } from "./hooks";
-import { strings } from "./strings";
+import { formatLocation, strings } from "./strings";
 
 export function TournamentDetails() {
   const { colors } = useAppTheme();
@@ -71,7 +71,9 @@ export function TournamentDetails() {
             resizeMode="cover"
           />
         ) : (
-          <View style={[styles.heroImage, styles.heroPlaceholder]} />
+          <View style={[styles.heroImage, styles.heroPlaceholder]}>
+            <Feather name="image" size={48} color={colors.placeholder} />
+          </View>
         )}
 
         <View style={styles.body}>
@@ -80,11 +82,11 @@ export function TournamentDetails() {
           <View style={styles.metaGroup}>
             <MetaRow
               icon="map-pin"
-              text={
-                tournament.city
-                  ? `${tournament.venue_name} – ${tournament.city}`
-                  : tournament.venue_name
-              }
+              text={formatLocation(
+                tournament.venue_name,
+                tournament.city,
+                tournament.state,
+              )}
             />
 
             <MetaRow

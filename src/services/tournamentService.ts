@@ -10,6 +10,7 @@ export interface CreateTournamentPayload {
   name: string;
   venue_name: string;
   city: string;
+  state: string;
   start_date: string;
   end_date: string;
   contact_whatsapp: string;
@@ -81,6 +82,7 @@ export async function createTournament(
         name: payload.name,
         venue_name: payload.venue_name,
         city: payload.city,
+        state: payload.state,
         start_date: parseDateForDB(payload.start_date),
         end_date: parseDateForDB(payload.end_date),
         contact_whatsapp: payload.contact_whatsapp,

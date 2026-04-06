@@ -14,7 +14,11 @@ export const strings = {
     },
     city: {
       label: "Cidade",
-      placeholder: "Ex: São Paulo - SP",
+      placeholder: "Ex: São Paulo",
+    },
+    state: {
+      label: "UF",
+      placeholder: "SP",
     },
     startDate: {
       label: "Data de início",
@@ -30,7 +34,7 @@ export const strings = {
     },
     description: {
       label: "Descrição / Regras (Opcional)",
-      placeholder: "Ex: Regras de desempate, formato de jogo...",
+      placeholder: "Ex: Informações sobre local, uniforme, regras, etc...",
     },
   },
 

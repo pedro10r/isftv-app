@@ -12,6 +12,7 @@ export function useStepOneBasicInfo() {
     name,
     venue_name,
     city,
+    state,
     start_date,
     end_date,
     contact_whatsapp,
@@ -24,6 +25,7 @@ export function useStepOneBasicInfo() {
       name: state.name,
       venue_name: state.venue_name,
       city: state.city,
+      state: state.state,
       start_date: state.start_date,
       end_date: state.end_date,
       contact_whatsapp: state.contact_whatsapp,
@@ -40,6 +42,7 @@ export function useStepOneBasicInfo() {
       name,
       venue_name,
       city,
+      state,
       start_date,
       end_date,
       contact_whatsapp,
@@ -54,6 +57,7 @@ export function useStepOneBasicInfo() {
       if (values.venue_name !== undefined)
         setField("venue_name", values.venue_name);
       if (values.city !== undefined) setField("city", values.city);
+      if (values.state !== undefined) setField("state", values.state);
       if (values.start_date !== undefined)
         setField("start_date", values.start_date);
       if (values.end_date !== undefined) setField("end_date", values.end_date);
@@ -83,6 +87,7 @@ export function useStepOneBasicInfo() {
     setField("name", data.name);
     setField("venue_name", data.venue_name);
     setField("city", data.city);
+    setField("state", data.state);
     setField("start_date", data.start_date);
     setField("end_date", data.end_date);
     setField("contact_whatsapp", data.contact_whatsapp);

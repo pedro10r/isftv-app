@@ -18,6 +18,7 @@ interface CreateTournamentState {
   name: string;
   venue_name: string;
   city: string;
+  state: string;
   start_date: string;
   end_date: string;
   contact_whatsapp: string;
@@ -58,6 +59,7 @@ const initialState = {
   name: "",
   venue_name: "",
   city: "",
+  state: "",
   start_date: "",
   end_date: "",
   contact_whatsapp: "",

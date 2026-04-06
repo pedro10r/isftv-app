@@ -1,8 +1,9 @@
 import { forwardRef, useImperativeHandle, useMemo } from "react";
+import { Controller } from "react-hook-form";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 
-import { TextInput } from "@components/atoms";
+import { TextInput, UFSelect } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { maskDate, maskPhone } from "@utils";
 
@@ -65,13 +66,32 @@ export const StepOneBasicInfo = forwardRef<StepRef, {}>((_, ref) => {
         autoCapitalize="words"
       />
 
-      <TextInput
-        control={control}
-        name="city"
-        fieldName={strings.fields.city.label}
-        placeholder={strings.fields.city.placeholder}
-        autoCapitalize="words"
-      />
+      <View style={styles.cityRow}>
+        <View style={styles.cityField}>
+          <TextInput
+            control={control}
+            name="city"
+            fieldName={strings.fields.city.label}
+            placeholder={strings.fields.city.placeholder}
+            autoCapitalize="words"
+          />
+        </View>
+
+        <View style={styles.stateField}>
+          <Controller
+            control={control}
+            name="state"
+            render={({ field, fieldState }) => (
+              <UFSelect
+                value={field.value || null}
+                onValueChange={field.onChange}
+                fieldName={strings.fields.state.label}
+                error={fieldState.error?.message}
+              />
+            )}
+          />
+        </View>
+      </View>
 
       <View style={styles.dateRow}>
         <View style={styles.dateField}>

@@ -40,4 +40,14 @@ export const createStyles = (colors: Colors) =>
     dateField: {
       flex: 1,
     },
+    cityRow: {
+      flexDirection: "row",
+      gap: spacing.m,
+    },
+    cityField: {
+      flex: 3,
+    },
+    stateField: {
+      flex: 1,
+    },
   });

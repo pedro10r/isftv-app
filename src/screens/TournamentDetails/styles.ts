@@ -28,6 +28,9 @@ export const createStyles = (colors: Colors) =>
     },
     heroPlaceholder: {
       backgroundColor: colors.surface,
+      alignItems: "center",
+      justifyContent: "center",
+      paddingTop: spacing.l,
     },
     body: {
       paddingHorizontal: spacing.m,
