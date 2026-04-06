@@ -3,10 +3,14 @@ import { useCallback, useMemo, useState } from "react";
 import { NAV } from "@navigation/routes";
 import { useTournamentsNavigation } from "@navigation/appNavigation";
 import { useTournaments as useTournamentsQuery } from "@hooks/queries/useTournamentQueries";
+import { useAuthStore } from "@store/authStore";
 
 export const useTournaments = () => {
   const { navigate } = useTournamentsNavigation();
   const { data: tournaments = [], isLoading, refetch } = useTournamentsQuery();
+  const canCreateTournament = useAuthStore(
+    (s) => s.role === "organizer" || s.role === "admin",
+  );
 
   const [isManualRefreshing, setIsManualRefreshing] = useState(false);
 
@@ -49,6 +53,7 @@ export const useTournaments = () => {
   return {
     isLoading,
     isManualRefreshing,
+    canCreateTournament,
     activeFilter,
     filteredTournaments,
     handleFilterPress,

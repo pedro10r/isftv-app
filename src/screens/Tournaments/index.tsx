@@ -28,6 +28,7 @@ export function Tournaments() {
   const {
     isLoading,
     isManualRefreshing,
+    canCreateTournament,
     activeFilter,
     filteredTournaments,
     handleFilterPress,
@@ -40,13 +41,16 @@ export function Tournaments() {
     <ScreenTemplate>
       <View style={styles.header}>
         <Text style={styles.title}>{strings.title}</Text>
-        <Pressable
-          onPress={handleAddPress}
-          style={styles.addButton}
-          hitSlop={8}
-        >
-          <Feather name="plus" size={24} color={colors.textPrimary} />
-        </Pressable>
+
+        {canCreateTournament && (
+          <Pressable
+            onPress={handleAddPress}
+            style={styles.addButton}
+            hitSlop={8}
+          >
+            <Feather name="plus" size={24} color={colors.textPrimary} />
+          </Pressable>
+        )}
       </View>
 
       <FlatList

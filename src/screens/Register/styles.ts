@@ -50,6 +50,18 @@ export const createStyles = (colors: Colors) =>
       justifyContent: "center",
       gap: spacing.xs,
     },
+    roleSection: {
+      gap: spacing.m,
+    },
+    roleQuestion: {
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.medium,
+      color: colors.textPrimary,
+    },
+    roleRow: {
+      flexDirection: "row",
+      gap: spacing.m,
+    },
     decoration: {
       borderBottomWidth: 0.5,
       borderBottomColor: colors.primary,

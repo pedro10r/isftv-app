@@ -14,6 +14,7 @@ export const useRegister = () => {
 
   const { control, handleSubmit } = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
+    defaultValues: { role: "player" },
   });
 
   const { goBack } = useAuthNavigation();
@@ -26,7 +27,7 @@ export const useRegister = () => {
         email: data.email,
         password: data.password,
         options: {
-          data: { full_name: data.name },
+          data: { full_name: data.name, role: data.role },
         },
       });
 

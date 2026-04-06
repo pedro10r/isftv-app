@@ -42,7 +42,7 @@ export default function App() {
         return;
       }
 
-      const { isRecoveringPassword, setIsRecoveringPassword } =
+      const { isRecoveringPassword, setIsRecoveringPassword, setRole } =
         useAuthStore.getState();
 
       if (isRecoveringPassword) {
@@ -54,6 +54,20 @@ export default function App() {
       }
 
       setSession(session);
+
+      if (!session?.user.id) {
+        setRole(null);
+        return;
+      }
+
+      supabase
+        .from("profiles")
+        .select("role")
+        .eq("id", session.user.id)
+        .single()
+        .then(({ data }) => {
+          setRole(data?.role ?? "player");
+        });
     });
 
     return () => subscription.unsubscribe();

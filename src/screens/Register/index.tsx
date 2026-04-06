@@ -1,9 +1,10 @@
 import { useMemo } from "react";
+import { Controller } from "react-hook-form";
 import { Text, View, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { FormTemplate } from "@components/templates";
-import { Button, SimpleButton, TextInput } from "@components/atoms";
+import { Button, FilterPill, SimpleButton, TextInput } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { theme } from "@theme";
 
@@ -71,6 +72,31 @@ export function Register() {
               showPasswordToggle
             />
           </View>
+
+          <Controller
+            control={control}
+            name="role"
+            render={({ field }) => (
+              <View style={styles.roleSection}>
+                <Text style={styles.roleQuestion}>
+                  {strings.register.roleQuestion}
+                </Text>
+
+                <View style={styles.roleRow}>
+                  <FilterPill
+                    label={strings.register.rolePlayer}
+                    isActive={field.value === "player"}
+                    onPress={() => field.onChange("player")}
+                  />
+                  <FilterPill
+                    label={strings.register.roleOrganizer}
+                    isActive={field.value === "organizer"}
+                    onPress={() => field.onChange("organizer")}
+                  />
+                </View>
+              </View>
+            )}
+          />
         </View>
       </ScrollView>
 

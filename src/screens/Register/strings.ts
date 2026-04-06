@@ -2,6 +2,9 @@ export const strings = {
   register: {
     title: "Criar conta",
     subtitle: "Preencha os campos abaixo para criar sua conta.",
+    roleQuestion: "Como você deseja usar o app?",
+    rolePlayer: "Sou Jogador",
+    roleOrganizer: "Sou Organizador / Arena",
     nameLabel: "Nome",
     namePlaceholder: "Nome completo",
     emailLabel: "Email",
