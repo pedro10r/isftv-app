@@ -40,7 +40,7 @@ export const createStyles = (colors: Colors) =>
       gap: spacing.m,
     },
     ufContainer: {
-      width: 72,
+      width: spacing.xxl * 2.2,
     },
     label: {
       fontSize: typography.fontSizes.caption,

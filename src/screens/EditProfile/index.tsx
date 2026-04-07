@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { View, Text, ScrollView } from "react-native";
+import { Controller } from "react-hook-form";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { theme } from "@theme";
 
 import { FormTemplate } from "@components/templates";
-import { Button, TextInput, Select } from "@components/atoms";
+import { Button, TextInput, Select, UFSelect } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { maskHeight, maskPhone } from "@utils";
 
@@ -89,13 +90,17 @@ export function EditProfile() {
           </View>
 
           <View style={styles.ufContainer}>
-            <TextInput
-              fieldName={strings.form.labels.uf}
+            <Controller
               control={control}
               name="uf"
-              placeholder={strings.form.placeholders.uf}
-              autoCapitalize="characters"
-              maxLength={2}
+              render={({ field, fieldState }) => (
+                <UFSelect
+                  value={field.value || null}
+                  onValueChange={field.onChange}
+                  fieldName={strings.form.labels.uf}
+                  error={fieldState.error?.message}
+                />
+              )}
             />
           </View>
         </View>

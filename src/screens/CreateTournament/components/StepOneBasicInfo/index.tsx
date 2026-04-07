@@ -3,9 +3,9 @@ import { Controller } from "react-hook-form";
 import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import Feather from "@expo/vector-icons/Feather";
 
-import { TextInput, UFSelect } from "@components/atoms";
+import { TextInput, UFSelect, DatePickerInput } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
-import { maskDate, maskPhone } from "@utils";
+import { maskPhone } from "@utils";
 
 import { StepRef } from "../../types";
 import { createStyles } from "./styles";
@@ -95,25 +95,35 @@ export const StepOneBasicInfo = forwardRef<StepRef, {}>((_, ref) => {
 
       <View style={styles.dateRow}>
         <View style={styles.dateField}>
-          <TextInput
+          <Controller
             control={control}
             name="start_date"
-            fieldName={strings.fields.startDate.label}
-            placeholder={strings.fields.startDate.placeholder}
-            keyboardType="numeric"
-            maxLength={10}
-            transform={maskDate}
+            render={({ field, fieldState }) => (
+              <DatePickerInput
+                value={field.value}
+                onChange={field.onChange}
+                fieldName={strings.fields.startDate.label}
+                placeholder={strings.fields.startDate.placeholder}
+                minimumDate={new Date()}
+                error={fieldState.error?.message}
+              />
+            )}
           />
         </View>
+
         <View style={styles.dateField}>
-          <TextInput
+          <Controller
             control={control}
             name="end_date"
-            fieldName={strings.fields.endDate.label}
-            placeholder={strings.fields.endDate.placeholder}
-            keyboardType="numeric"
-            maxLength={10}
-            transform={maskDate}
+            render={({ field, fieldState }) => (
+              <DatePickerInput
+                value={field.value}
+                onChange={field.onChange}
+                fieldName={strings.fields.endDate.label}
+                placeholder={strings.fields.endDate.placeholder}
+                error={fieldState.error?.message}
+              />
+            )}
           />
         </View>
       </View>

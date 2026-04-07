@@ -67,6 +67,13 @@ export function formatWeekdayDate(isoDate?: string): string {
   return `Dia ${day} - ${weekday.charAt(0).toUpperCase()}${weekday.slice(1)}`;
 }
 
+export function formatBrDate(date: Date): string {
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+
 export function parseBrDate(value: string): Date | null {
   const match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
 
