@@ -6,6 +6,9 @@ const { spacing, radii, typography } = theme;
 
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
+    swipeContainer: {
+      position: "relative",
+    },
     card: {
       flexDirection: "column",
       gap: spacing.m,
@@ -37,21 +40,5 @@ export const createStyles = (colors: Colors) =>
       flexDirection: "row",
       alignItems: "center",
       gap: spacing.xs,
-    },
-    pillInput: {
-      backgroundColor: "transparent",
-      color: colors.textPrimary,
-      fontFamily: typography.fontFamily.regular,
-      fontSize: typography.fontSizes.regular,
-      textAlign: "center",
-    },
-    dateInput: {
-      width: 90, // fixed component dimension — no theme token for this specific layout width
-    },
-    timeInput: {
-      width: 55, // fixed component dimension — no theme token for this specific layout width
-    },
-    trashButton: {
-      padding: spacing.xs,
     },
   });

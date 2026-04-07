@@ -1,11 +1,13 @@
 import { useMemo } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
-import Feather from "@expo/vector-icons/Feather";
+import { Text, View } from "react-native";
+import { GestureDetector } from "react-native-gesture-handler";
+import Animated from "react-native-reanimated";
 
 import { DatePickerInput, TimePickerInput } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 
 import { createStyles } from "./styles";
+import { useSwipe } from "./useSwipe";
 
 interface DraftCategoryCardProps {
   name: string;
@@ -26,42 +28,42 @@ export function DraftCategoryCard({
 }: DraftCategoryCardProps) {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
+  const { gesture, cardAnimatedStyle, renderDeleteAction } = useSwipe(
+    onRemove,
+    colors,
+  );
 
   return (
-    <View style={styles.card}>
-      <View style={styles.bottomRow}>
-        <Text style={styles.name} numberOfLines={1}>
-          {name}
-        </Text>
+    <View style={styles.swipeContainer}>
+      {renderDeleteAction()}
 
-        <TouchableOpacity
-          style={styles.trashButton}
-          onPress={onRemove}
-          activeOpacity={0.7}
-        >
-          <Feather name="trash-2" size={18} color={colors.error} />
-        </TouchableOpacity>
-      </View>
+      <GestureDetector gesture={gesture}>
+        <Animated.View style={[styles.card, cardAnimatedStyle]}>
+          <Text style={styles.name} numberOfLines={1}>
+            {name}
+          </Text>
 
-      <View style={styles.pill}>
-        <View style={styles.pillGroup}>
-          <DatePickerInput
-            value={date}
-            onChange={onDateChange}
-            placeholder="DD/MM/AAAA"
-            size="compact"
-          />
-        </View>
+          <View style={styles.pill}>
+            <View style={styles.pillGroup}>
+              <DatePickerInput
+                value={date}
+                onChange={onDateChange}
+                placeholder="DD/MM/AAAA"
+                size="compact"
+              />
+            </View>
 
-        <View style={styles.pillGroup}>
-          <TimePickerInput
-            value={startTime}
-            onChange={onTimeChange}
-            placeholder="00:00"
-            size="compact"
-          />
-        </View>
-      </View>
+            <View style={styles.pillGroup}>
+              <TimePickerInput
+                value={startTime}
+                onChange={onTimeChange}
+                placeholder="00:00"
+                size="compact"
+              />
+            </View>
+          </View>
+        </Animated.View>
+      </GestureDetector>
     </View>
   );
 }
