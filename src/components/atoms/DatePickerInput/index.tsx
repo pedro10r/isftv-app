@@ -64,7 +64,7 @@ export function DatePickerInput({
           <DateTimePicker
             value={tempDate}
             mode="date"
-            display="calendar"
+            display="spinner"
             onChange={(_, selected) => {
               setShow(false);
               if (selected) onChange(formatBrDate(selected));
