@@ -10,7 +10,6 @@ export const createStyles = (colors: Colors) =>
       position: "relative",
     },
     card: {
-      flexDirection: "column",
       gap: spacing.m,
       paddingHorizontal: spacing.m,
       paddingVertical: spacing.s + spacing.xs,
@@ -30,11 +29,10 @@ export const createStyles = (colors: Colors) =>
     pill: {
       flexDirection: "row",
       alignItems: "center",
+      justifyContent: "space-evenly",
       backgroundColor: colors.surfaceDarkVariant,
       borderRadius: radii.m,
-      paddingHorizontal: spacing.m,
       paddingVertical: spacing.s,
-      gap: radii.xl + radii.m,
     },
     pillGroup: {
       flexDirection: "row",
