@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { View, Text, TouchableOpacity, Pressable } from "react-native";
 import { Image } from "expo-image";
-import { Feather } from "@expo/vector-icons";
+import { Feather, FontAwesome } from "@expo/vector-icons";
 
 import { UserPost } from "@models/feed";
 import { formatTimeAgo } from "@utils";
@@ -66,25 +66,21 @@ export function FeedUserPost({ data, onAuthorPress }: FeedUserPostProps) {
           activeOpacity={0.7}
           onPress={data.onLikePress}
         >
-          <Feather
-            name="heart"
-            size={20}
+          <FontAwesome
+            name={data.isLiked ? "heart" : "heart-o"}
+            size={22}
             color={data.isLiked ? colors.error : colors.textSecondary}
           />
           <Text style={styles.actionCount}>{data.likes}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.actionButton} activeOpacity={0.7}>
-          <Feather
-            name="message-circle"
-            size={20}
+          <FontAwesome
+            name="comment-o"
+            size={22}
             color={colors.textSecondary}
           />
           <Text style={styles.actionCount}>{data.comments}</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.actionButton} activeOpacity={0.7}>
-          <Feather name="send" size={20} color={colors.textSecondary} />
         </TouchableOpacity>
       </View>
     </View>

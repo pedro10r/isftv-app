@@ -83,7 +83,7 @@ export const createStyles = (colors: Colors) =>
     actionButton: {
       flexDirection: "row",
       alignItems: "center",
-      gap: spacing.xs,
+      gap: spacing.s,
     },
     actionCount: {
       fontSize: typography.fontSizes.regular,
