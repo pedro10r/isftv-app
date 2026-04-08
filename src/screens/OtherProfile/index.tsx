@@ -1,17 +1,9 @@
-import { useMemo } from "react";
-import { ActivityIndicator, View } from "react-native";
-
-import { ProfileTemplate } from "@components/templates";
+import { ProfileTemplate, ProfileTemplateLoading } from "@components/templates";
 import { ProfileMediaGrid } from "@components/organisms";
-import { useAppTheme } from "@theme/ThemeContext";
 
 import { useOtherProfile } from "./hooks";
-import { createStyles } from "./styles";
 
 export function OtherProfile() {
-  const { colors } = useAppTheme();
-  const styles = useMemo(() => createStyles(colors), [colors]);
-
   const {
     userId,
     profile,
@@ -26,11 +18,7 @@ export function OtherProfile() {
   } = useOtherProfile();
 
   if (isLoading && !profile) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color={colors.primary} />
-      </View>
-    );
+    return <ProfileTemplateLoading />;
   }
 
   return (
