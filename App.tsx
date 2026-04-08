@@ -18,8 +18,7 @@ const queryClient = new QueryClient();
 
 import { RootNavigation } from "./src/navigation";
 import { ThemeProvider } from "./src/theme/ThemeContext";
-import { supabase } from "./src/services/supabase";
-import { useAuthStore } from "./src/store/authStore";
+import { useAuthListener } from "./src/hooks/useAuthListener";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,47 +30,7 @@ export default function App() {
     Inter_300Light,
   });
 
-  const setSession = useAuthStore((state) => state.setSession);
-
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "TOKEN_REFRESHED" && !session) {
-        supabase.auth.signOut();
-        return;
-      }
-
-      const { isRecoveringPassword, setIsRecoveringPassword, setRole } =
-        useAuthStore.getState();
-
-      if (isRecoveringPassword) {
-        if (event === "SIGNED_OUT") {
-          setIsRecoveringPassword(false);
-          setSession(null);
-        }
-        return;
-      }
-
-      setSession(session);
-
-      if (!session?.user.id) {
-        setRole(null);
-        return;
-      }
-
-      supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", session.user.id)
-        .single()
-        .then(({ data }) => {
-          setRole(data?.role ?? "player");
-        });
-    });
-
-    return () => subscription.unsubscribe();
-  }, [setSession]);
+  useAuthListener();
 
   useEffect(() => {
     if (fontsLoaded || fontError) {

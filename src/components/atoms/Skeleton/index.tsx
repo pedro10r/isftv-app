@@ -30,6 +30,7 @@ export function Skeleton({
     () => createStyles(colors, borderRadius),
     [colors, borderRadius],
   );
+
   const translateX = useSharedValue(-1);
 
   useEffect(() => {
