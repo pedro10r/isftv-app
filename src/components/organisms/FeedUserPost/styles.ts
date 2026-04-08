@@ -2,6 +2,8 @@ import { StyleSheet } from "react-native";
 
 import { theme, Colors } from "@theme";
 
+const AVATAR_SIZE = 48;
+
 const { spacing, typography, radii } = theme;
 
 export const createStyles = (colors: Colors) =>
@@ -18,10 +20,20 @@ export const createStyles = (colors: Colors) =>
       marginBottom: spacing.s,
     },
     avatar: {
-      width: 48,
-      height: 48,
-      borderRadius: 24,
+      width: AVATAR_SIZE,
+      height: AVATAR_SIZE,
+      borderRadius: radii.xl,
       backgroundColor: colors.border,
+    },
+    avatarInitials: {
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: colors.surfaceDarkVariant,
+    },
+    avatarInitialsText: {
+      fontSize: typography.fontSizes.regular,
+      fontFamily: typography.fontFamily.bold,
+      color: colors.textPrimary,
     },
     authorInfo: {
       marginLeft: spacing.s,
@@ -36,7 +48,7 @@ export const createStyles = (colors: Colors) =>
       fontSize: typography.fontSizes.caption,
       fontFamily: typography.fontFamily.regular,
       color: colors.textSecondary,
-      marginTop: 2,
+      marginTop: spacing.xs,
     },
     content: {
       fontSize: typography.fontSizes.body,
@@ -58,7 +70,7 @@ export const createStyles = (colors: Colors) =>
     },
     playOverlay: {
       ...StyleSheet.absoluteFillObject,
-      backgroundColor: "rgba(0,0,0,0.35)",
+      backgroundColor: colors.overlay,
       alignItems: "center",
       justifyContent: "center",
     },
