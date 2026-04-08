@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
 import { View, Text, Pressable, Platform, Modal } from "react-native";
+import Animated from "react-native-reanimated";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import Feather from "@expo/vector-icons/Feather";
 
 import { useAppTheme } from "@theme/ThemeContext";
+import { usePickerAnimation } from "@hooks/usePickerAnimation";
 import { createStyles } from "./styles";
 
 function formatTime(date: Date): string {
@@ -41,6 +43,8 @@ export function TimePickerInput({
 
   const [show, setShow] = useState(false);
   const [tempTime, setTempTime] = useState<Date>(new Date());
+
+  const { overlayStyle, contentStyle, mounted } = usePickerAnimation(show);
 
   return (
     <View>
@@ -84,44 +88,49 @@ export function TimePickerInput({
         {Platform.OS === "ios" && (
           <Modal
             transparent
-            animationType="slide"
-            visible={show}
+            animationType="none"
+            visible={mounted}
             onRequestClose={() => setShow(false)}
           >
-            <Pressable
-              style={styles.modalOverlay}
-              onPress={() => setShow(false)}
-            >
-              <Pressable style={styles.modalContent} onPress={() => {}}>
-                <View style={styles.modalHeader}>
-                  <Pressable onPress={() => setShow(false)}>
-                    <Text style={styles.modalCancel}>Cancelar</Text>
-                  </Pressable>
+            <Animated.View style={[styles.modalOverlay, overlayStyle]}>
+              <Pressable
+                style={styles.modalOverlay}
+                onPress={() => setShow(false)}
+              >
+                <Animated.View
+                  style={[styles.modalContent, contentStyle]}
+                  onStartShouldSetResponder={() => true}
+                >
+                  <View style={styles.modalHeader}>
+                    <Pressable onPress={() => setShow(false)}>
+                      <Text style={styles.modalCancel}>Cancelar</Text>
+                    </Pressable>
 
-                  <Pressable
-                    onPress={() => {
-                      onChange(formatTime(tempTime));
-                      setShow(false);
+                    <Pressable
+                      onPress={() => {
+                        onChange(formatTime(tempTime));
+                        setShow(false);
+                      }}
+                    >
+                      <Text style={styles.modalConfirm}>Confirmar</Text>
+                    </Pressable>
+                  </View>
+
+                  <DateTimePicker
+                    value={tempTime}
+                    mode="time"
+                    display="spinner"
+                    is24Hour
+                    onChange={(_, selected) => {
+                      if (selected) setTempTime(selected);
                     }}
-                  >
-                    <Text style={styles.modalConfirm}>Confirmar</Text>
-                  </Pressable>
-                </View>
-
-                <DateTimePicker
-                  value={tempTime}
-                  mode="time"
-                  display="spinner"
-                  is24Hour
-                  onChange={(_, selected) => {
-                    if (selected) setTempTime(selected);
-                  }}
-                  themeVariant={isDarkMode ? "dark" : "light"}
-                  locale="pt-BR"
-                  style={styles.picker}
-                />
+                    themeVariant={isDarkMode ? "dark" : "light"}
+                    locale="pt-BR"
+                    style={styles.picker}
+                  />
+                </Animated.View>
               </Pressable>
-            </Pressable>
+            </Animated.View>
           </Modal>
         )}
       </View>

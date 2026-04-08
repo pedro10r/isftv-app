@@ -21,6 +21,7 @@ const darkColors = {
   warning: "#FF9500",
   switchTrackOff: "#3a3a3c",
   overlay: "rgba(0,0,0,0.5)",
+  overlayLight: "rgba(0,0,0,0.3)",
 
   tabBarBackground: "#1c2225",
   tabBarIndicator: "#2a3135",
@@ -57,6 +58,7 @@ const lightColors = {
   warning: "#FF9500",
   switchTrackOff: "#e5e5ea",
   overlay: "rgba(0,0,0,0.5)",
+  overlayLight: "rgba(0,0,0,0.3)",
 
   tabBarBackground: "#ffffff",
   tabBarIndicator: "#e5e5ea",

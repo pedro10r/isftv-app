@@ -48,7 +48,7 @@ export const createStyles = (colors: Colors) =>
     modalOverlay: {
       flex: 1,
       justifyContent: "flex-end",
-      backgroundColor: colors.overlay,
+      backgroundColor: colors.overlayLight,
     },
     modalContent: {
       backgroundColor: colors.surfaceDark,
@@ -76,5 +76,6 @@ export const createStyles = (colors: Colors) =>
     },
     picker: {
       width: "100%",
+      alignSelf: "center",
     },
   });
