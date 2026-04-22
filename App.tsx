@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import {
   useFonts,
@@ -14,11 +14,11 @@ import {
   Inter_300Light,
 } from "@expo-google-fonts/inter";
 
-const queryClient = new QueryClient();
-
+import { queryClient } from "@lib/queryClient";
 import { RootNavigation } from "./src/navigation";
 import { ThemeProvider } from "./src/theme/ThemeContext";
 import { useAuthListener } from "@features/auth/hooks";
+import { ErrorBoundary } from "@shared/components/ErrorBoundary";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -45,13 +45,15 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <ThemeProvider>
-          <SafeAreaProvider>
-            <BottomSheetModalProvider>
-              <RootNavigation />
-            </BottomSheetModalProvider>
-          </SafeAreaProvider>
-        </ThemeProvider>
+        <SafeAreaProvider>
+          <ThemeProvider>
+            <ErrorBoundary>
+              <BottomSheetModalProvider>
+                <RootNavigation />
+              </BottomSheetModalProvider>
+            </ErrorBoundary>
+          </ThemeProvider>
+        </SafeAreaProvider>
       </GestureHandlerRootView>
     </QueryClientProvider>
   );
