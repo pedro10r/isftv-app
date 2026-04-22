@@ -56,50 +56,72 @@ npx expo run:android
 
 ## Arquitetura
 
+O projeto segue uma variação do **Feature-Sliced Design** — organizado por domínio de negócio em vez de tipo de arquivo. Cada feature é autossuficiente e contém suas próprias telas, serviços, queries e estado.
+
 ### Divisão de responsabilidades de estado
 
-| Tipo de estado              | Solução              | Onde                    |
-| --------------------------- | -------------------- | ----------------------- |
-| Server state (feed, perfil) | TanStack React Query | `src/hooks/queries/`    |
-| Client state (auth, tema)   | Zustand              | `src/store/`            |
-| Form state                  | React Hook Form      | local nos hooks de tela |
+| Tipo de estado              | Solução              | Onde                        |
+| --------------------------- | -------------------- | --------------------------- |
+| Server state (feed, perfil) | TanStack React Query | `src/features/*/queries.ts` |
+| Client state (auth, tema)   | Zustand              | `src/features/*/store.ts`   |
+| Form state                  | React Hook Form      | local nos hooks de tela     |
 
 ### Estrutura de pastas
 
 ```
 src/
+├── features/
+│   ├── auth/
+│   │   ├── screens/{Login, Register, ForgotPassword}/
+│   │   ├── hooks.ts
+│   │   ├── services.ts
+│   │   └── store.ts               # Estado global da aplicação com Zustand (auth, fluxos multi-etapas)
+│   ├── feed/
+│   │   ├── screens/
+│   │   │   ├── Home/              # Feed principal (FlashList + paginação infinita)
+│   │   │   └── CreatePost/        # Criação de post com upload de imagem
+│   │   ├── types.ts               # Tipos e interfaces TypeScript que representam as entidades do domínio
+│   │   ├── services.ts
+│   │   └── queries.ts             # Hooks do React Query que consomem os services e gerenciam cache, loading e erros
+│   ├── profile/
+│   │   ├── screens/
+│   │   │   ├── Profile/           # Perfil do atleta logado
+│   │   │   ├── OtherProfile/      # Perfil de outro atleta (somente leitura)
+│   │   │   ├── EditProfile/       # Edição de dados
+│   │   │   └── Settings/
+│   │   ├── types.ts               # Tipos e interfaces TypeScript que representam as entidades do domínio
+│   │   ├── services.ts
+│   │   └── queries.ts             # Hooks do React Query que consomem os services e gerenciam cache, loading e erros
+│   └── tournaments/
+│       ├── screens/
+│       │   ├── Tournaments/       # Listagem de torneios
+│       │   ├── TournamentDetails/ # Detalhes e categorias de um torneio
+│       │   └── CreateTournament/  # Criação de torneio com categorias e datas
+│       ├── types.ts               # Tipos e interfaces TypeScript que representam as entidades do domínio
+│       ├── services.ts
+│       ├── queries.ts             # Hooks do React Query que consomem os services e gerenciam cache, loading e erros
+│       └── store.ts               # Estado global da aplicação com Zustand (auth, fluxos multi-etapas)
+├── shared/
+│   └── queryKeys.ts
 ├── components/            # Atomic Design
 │   ├── atoms/
 │   ├── molecules/
 │   ├── organisms/
 │   └── templates/
-├── hooks/
-│   └── queries/           # Hooks do React Query que consomem os services e gerenciam cache, loading e erros
-├── models/                # Tipos e interfaces TypeScript que representam as entidades do domínio
 ├── navigation/            # Configuração de rotas e tipos
-├── screens/
-│   ├── Home/              # Feed principal (FlashList + paginação infinita)
-│   ├── CreatePost/        # Criação de post com upload de imagem
-│   ├── Profile/           # Perfil do atleta logado
-│   ├── OtherProfile/      # Perfil de outro atleta (somente leitura)
-│   ├── EditProfile/       # Edição de dados
-│   ├── Tournaments/       # Listagem de torneios
-│   ├── TournamentDetails/ # Detalhes e categorias de um torneio
-│   ├── CreateTournament/  # Criação de torneio com categorias e datas
-│   ├── Login/
-│   ├── Register/
 ├── services/
-│   ├── supabase/          # Cliente Supabase + MMKV storage adapter
-├── store/                 # Estado global da aplicação com Zustand (auth, tema, fluxos multi-etapas)
+│   └── supabase/          # Cliente Supabase + MMKV storage adapter
+├── store/
+│   └── themeStore.ts      # Estado global da aplicação com Zustand (tema)
 └── theme/                 # Cores, tipografia, espaçamentos, radii
 ```
 
 ### Fluxo de dados
 
-Toda comunicação com o Supabase passa pelos arquivos em `src/services/`. Os React Query hooks em `src/hooks/queries/` consomem esses serviços e gerenciam cache, loading e erros. As telas nunca chamam o Supabase diretamente.
+Toda comunicação com o Supabase é isolada nos `services.ts` de cada feature. Os React Query hooks em `queries.ts` consomem esses serviços e gerenciam cache, loading e erros. As telas nunca chamam o Supabase diretamente.
 
 ```
-Tela → hook de tela → React Query hook → Service → Supabase
+Tela → hook de tela → queries.ts → services.ts → Supabase
 ```
 
 ---
