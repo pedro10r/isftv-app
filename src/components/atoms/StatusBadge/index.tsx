@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { View, Text } from "react-native";
 
-import { TournamentStatus } from "@models/tournament";
+import { TournamentStatus } from "@features/tournaments/types";
 import { useAppTheme } from "@theme/ThemeContext";
 import { createStyles } from "./styles";
 

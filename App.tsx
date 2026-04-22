@@ -18,7 +18,7 @@ const queryClient = new QueryClient();
 
 import { RootNavigation } from "./src/navigation";
 import { ThemeProvider } from "./src/theme/ThemeContext";
-import { useAuthListener } from "./src/hooks/useAuthListener";
+import { useAuthListener } from "@features/auth/hooks";
 
 SplashScreen.preventAutoHideAsync();
 

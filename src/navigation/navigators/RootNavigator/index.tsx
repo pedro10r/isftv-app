@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NAV } from "@navigation/routes";
 import { RootStackParamList } from "@navigation/types";
 import { AuthStackNavigator } from "@navigation/stacks/AuthStackNavigator";
-import { useAuthStore } from "@store/authStore";
+import { useAuthStore } from "@features/auth/store";
 import { TabNavigator } from "../TabNavigator";
 
 const { Navigator, Screen } = createNativeStackNavigator<RootStackParamList>();

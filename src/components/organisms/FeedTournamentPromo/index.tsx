@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-import { TournamentPromo } from "@models/feed";
+import { TournamentPromo } from "@features/feed/types";
 import { useAppTheme } from "@theme/ThemeContext";
 
 import { strings } from "./strings";

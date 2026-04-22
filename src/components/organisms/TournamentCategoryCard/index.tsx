@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Feather from "@expo/vector-icons/Feather";
 
 import { useAppTheme } from "@theme/ThemeContext";
-import { TournamentCategory, Prizes } from "@models/tournament";
+import { TournamentCategory, Prizes } from "@features/tournaments/types";
 import { formatPrizes } from "@utils";
 import { formatWeekdayDate } from "@utils";
 

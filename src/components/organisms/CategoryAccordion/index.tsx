@@ -9,8 +9,8 @@ import Feather from "@expo/vector-icons/Feather";
 
 import { PrizeRow, FourthPlacePrizeRow } from "@components/molecules";
 import { useAppTheme } from "@theme/ThemeContext";
-import { DraftCategory } from "@store/createTournamentStore";
-import { PrizeTier } from "@models/tournament";
+import { DraftCategory } from "@features/tournaments/store";
+import { PrizeTier } from "@features/tournaments/types";
 import { maskCurrency } from "@utils";
 
 import { createStyles } from "./styles";

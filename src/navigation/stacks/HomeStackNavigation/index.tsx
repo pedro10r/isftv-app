@@ -3,9 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeStackParamList } from "@navigation/types";
 import { NAV } from "@navigation/routes";
 
-import { Home } from "@screens/Home";
-import { CreatePost } from "@screens/CreatePost";
-import { OtherProfile } from "@screens/OtherProfile";
+import { Home } from "@features/feed/screens/Home";
+import { CreatePost } from "@features/feed/screens/CreatePost";
+import { OtherProfile } from "@features/profile/screens/OtherProfile";
 import { useNavigation } from "@react-navigation/native";
 
 const { Navigator, Screen } = createNativeStackNavigator<HomeStackParamList>();

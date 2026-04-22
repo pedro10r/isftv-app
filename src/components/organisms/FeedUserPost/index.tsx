@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Pressable } from "react-native";
 import { Image } from "expo-image";
 import { Feather, FontAwesome } from "@expo/vector-icons";
 
-import { UserPost } from "@models/feed";
+import { UserPost } from "@features/feed/types";
 import { formatTimeAgo } from "@utils";
 import { getInitials } from "@utils/getInitials";
 import { useAppTheme } from "@theme/ThemeContext";

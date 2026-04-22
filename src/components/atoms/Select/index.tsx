@@ -5,7 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { useAppTheme } from "@theme/ThemeContext";
 import { createStyles } from "./styles";
 import { strings } from "./strings";
-import { PlayingPosition } from "@models/profile";
+import { PlayingPosition } from "@features/profile/types";
 
 interface SelectProps {
   value: PlayingPosition | null;

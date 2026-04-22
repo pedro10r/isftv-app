@@ -3,9 +3,9 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { TournamentsStackParamList } from "@navigation/types";
 import { NAV } from "@navigation/routes";
-import { Tournaments } from "@screens/Tournaments";
-import { CreateTournament } from "@screens/CreateTournament";
-import { TournamentDetails } from "@screens/TournamentDetails";
+import { Tournaments } from "@features/tournaments/screens/Tournaments";
+import { CreateTournament } from "@features/tournaments/screens/CreateTournament";
+import { TournamentDetails } from "@features/tournaments/screens/TournamentDetails";
 
 const { Navigator, Screen } =
   createNativeStackNavigator<TournamentsStackParamList>();

@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-import { Tournament } from "@models/tournament";
+import { Tournament } from "@features/tournaments/types";
 import { StatusBadge } from "@components/atoms/StatusBadge";
 import { useAppTheme } from "@theme/ThemeContext";
 import { formatDateRange } from "@utils";

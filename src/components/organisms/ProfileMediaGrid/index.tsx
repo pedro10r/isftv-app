@@ -3,11 +3,11 @@ import { View, Image, useWindowDimensions } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Feather } from "@expo/vector-icons";
 
-import { Post } from "@models/feed";
+import { Post } from "@features/feed/types";
 import { EmptyListState } from "@components/molecules";
 import { Skeleton } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
-import { useUserPosts } from "@hooks/queries/useFeedQueries";
+import { useUserPosts } from "@features/feed/queries";
 
 import { GAP, createStyles } from "./styles";
 

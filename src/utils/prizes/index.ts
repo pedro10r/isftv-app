@@ -1,4 +1,4 @@
-import { Prizes } from "@models/tournament";
+import { Prizes } from "@features/tournaments/types";
 import { formatCurrency } from "@utils/currency";
 
 export interface FormattedPrizeLine {
