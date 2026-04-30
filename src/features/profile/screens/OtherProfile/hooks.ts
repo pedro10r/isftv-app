@@ -5,6 +5,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { HomeStackParamList } from "@navigation/types";
 import { useHomeNavigation } from "@navigation/appNavigation";
+import { NAV } from "@navigation/routes";
 import { useProfile } from "@features/profile/queries";
 
 import { strings } from "./strings";
@@ -12,7 +13,7 @@ import { strings } from "./strings";
 export const useOtherProfile = () => {
   const { params } = useRoute<RouteProp<HomeStackParamList, "OtherProfile">>();
   const { userId } = params;
-  const { goBack } = useHomeNavigation();
+  const { goBack, navigate } = useHomeNavigation();
   const queryClient = useQueryClient();
 
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -20,6 +21,10 @@ export const useOtherProfile = () => {
   const { data: profile, isLoading, refetch } = useProfile(userId);
 
   const handleGoBack = () => goBack();
+
+  const handleNavigateProfilePosts = (_postId: string, index: number) => {
+    navigate(NAV.HOME_STACK.PROFILE_POSTS, { userId, initialIndex: index });
+  };
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
@@ -74,5 +79,6 @@ export const useOtherProfile = () => {
     handleGoBack,
     handleRefresh,
     handleCallWhatsApp,
+    handleNavigateProfilePosts,
   };
 };

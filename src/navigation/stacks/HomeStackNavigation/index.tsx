@@ -6,6 +6,7 @@ import { NAV } from "@navigation/routes";
 import { Home } from "@features/feed/screens/Home";
 import { CreatePost } from "@features/feed/screens/CreatePost";
 import { OtherProfile } from "@features/profile/screens/OtherProfile";
+import { ProfilePosts } from "@features/profile/screens/ProfilePosts";
 import { useNavigation } from "@react-navigation/native";
 
 const { Navigator, Screen } = createNativeStackNavigator<HomeStackParamList>();
@@ -27,6 +28,11 @@ export function HomeStackNavigation() {
       <Screen name={NAV.HOME_STACK.HOME} component={Home} />
       <Screen name={NAV.HOME_STACK.CREATE_POST} component={CreatePost} />
       <Screen name={NAV.HOME_STACK.OTHER_PROFILE} component={OtherProfile} />
+      <Screen
+        name={NAV.HOME_STACK.PROFILE_POSTS}
+        component={ProfilePosts}
+        options={{ animation: "slide_from_bottom" }}
+      />
     </Navigator>
   );
 }

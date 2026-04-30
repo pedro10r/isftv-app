@@ -75,6 +75,11 @@ export const useProfile = () => {
 
   const handleNavigateSettings = () => navigate(NAV.PROFILE_STACK.SETTINGS);
 
+  const handleNavigateProfilePosts = (_postId: string, index: number) => {
+    if (!userId) return;
+    navigate(NAV.PROFILE_STACK.PROFILE_POSTS, { userId, initialIndex: index });
+  };
+
   const labels = {
     displayName:
       profile?.full_name ?? session?.user?.user_metadata?.full_name ?? "",
@@ -105,5 +110,6 @@ export const useProfile = () => {
     handlePickCover,
     handleNavigateEditProfile,
     handleNavigateSettings,
+    handleNavigateProfilePosts,
   };
 };

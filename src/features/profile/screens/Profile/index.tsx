@@ -26,6 +26,7 @@ export function Profile() {
     handlePickCover,
     handleNavigateEditProfile,
     handleNavigateSettings,
+    handleNavigateProfilePosts,
   } = useProfile();
 
   if (isLoadingProfile && !profile) {
@@ -60,7 +61,14 @@ export function Profile() {
       onEditProfile={handleNavigateEditProfile}
       onSettings={handleNavigateSettings}
       renderMediaGrid={
-        userId ? () => <ProfileMediaGrid userId={userId} /> : undefined
+        userId
+          ? () => (
+              <ProfileMediaGrid
+                userId={userId}
+                onPostPress={handleNavigateProfilePosts}
+              />
+            )
+          : undefined
       }
     />
   );

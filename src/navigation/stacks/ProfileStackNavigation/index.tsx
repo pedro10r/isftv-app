@@ -7,6 +7,7 @@ import { NAV } from "@navigation/routes";
 import { Profile } from "@features/profile/screens/Profile";
 import { EditProfile } from "@features/profile/screens/EditProfile";
 import { Settings } from "@features/profile/screens/Settings";
+import { ProfilePosts } from "@features/profile/screens/ProfilePosts";
 
 const { Navigator, Screen } =
   createNativeStackNavigator<ProfileStackParamList>();
@@ -28,6 +29,11 @@ export function ProfileStackNavigation() {
       <Screen name={NAV.PROFILE_STACK.PROFILE} component={Profile} />
       <Screen name={NAV.PROFILE_STACK.EDIT_PROFILE} component={EditProfile} />
       <Screen name={NAV.PROFILE_STACK.SETTINGS} component={Settings} />
+      <Screen
+        name={NAV.PROFILE_STACK.PROFILE_POSTS}
+        component={ProfilePosts}
+        options={{ animation: "slide_from_bottom" }}
+      />
     </Navigator>
   );
 }

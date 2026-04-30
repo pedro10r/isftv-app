@@ -15,6 +15,7 @@ export function OtherProfile() {
     handleGoBack,
     handleRefresh,
     handleCallWhatsApp,
+    handleNavigateProfilePosts,
   } = useOtherProfile();
 
   if (isLoading && !profile) {
@@ -41,7 +42,12 @@ export function OtherProfile() {
         location: labels.displayLocation,
         whatsapp: labels.displayWhatsApp,
       }}
-      renderMediaGrid={() => <ProfileMediaGrid userId={userId} />}
+      renderMediaGrid={() => (
+        <ProfileMediaGrid
+          userId={userId}
+          onPostPress={handleNavigateProfilePosts}
+        />
+      )}
     />
   );
 }

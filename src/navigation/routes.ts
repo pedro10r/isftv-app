@@ -19,6 +19,7 @@ export const NAV = {
     HOME: "Home",
     CREATE_POST: "CreatePost",
     OTHER_PROFILE: "OtherProfile",
+    PROFILE_POSTS: "ProfilePosts",
   } satisfies Record<string, keyof HomeStackParamList>,
   TOURNAMENTS_STACK: {
     TOURNAMENTS: "Tournaments",
@@ -29,6 +30,7 @@ export const NAV = {
     PROFILE: "Profile",
     EDIT_PROFILE: "EditProfile",
     SETTINGS: "Settings",
+    PROFILE_POSTS: "ProfilePosts",
   } satisfies Record<string, keyof ProfileStackParamList>,
   AUTH_STACK: {
     LOGIN: "Login",

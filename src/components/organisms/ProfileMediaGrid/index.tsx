@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { View, Image, useWindowDimensions } from "react-native";
+import { Pressable, View, Image, useWindowDimensions } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { Feather } from "@expo/vector-icons";
 
@@ -13,12 +13,13 @@ import { GAP, createStyles } from "./styles";
 
 interface ProfileMediaGridProps {
   userId: string;
+  onPostPress?: (postId: string, index: number) => void;
 }
 
 const NUM_COLUMNS = 3;
 const SKELETON_COUNT = 12;
 
-export function ProfileMediaGrid({ userId }: ProfileMediaGridProps) {
+export function ProfileMediaGrid({ userId, onPostPress }: ProfileMediaGridProps) {
   const { colors } = useAppTheme();
   const styles = useMemo(() => createStyles(colors), [colors]);
   const { width } = useWindowDimensions();
@@ -33,8 +34,11 @@ export function ProfileMediaGrid({ userId }: ProfileMediaGridProps) {
 
   const containerHeight = rowCount * itemSize + GAP * rowCount;
 
-  const renderItem = ({ item }: { item: Post }) => (
-    <View style={{ width: itemSize, height: itemSize }}>
+  const renderItem = ({ item, index }: { item: Post; index: number }) => (
+    <Pressable
+      onPress={() => onPostPress?.(item.id, index)}
+      style={{ width: itemSize, height: itemSize }}
+    >
       <Image
         source={{ uri: item.media_url! }}
         style={styles.image}
@@ -46,7 +50,7 @@ export function ProfileMediaGrid({ userId }: ProfileMediaGridProps) {
           <Feather name="play" size={28} color="white" />
         </View>
       )}
-    </View>
+    </Pressable>
   );
 
   if (isLoading) {

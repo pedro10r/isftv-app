@@ -9,12 +9,14 @@ export type HomeStackParamList = {
   Home: undefined;
   CreatePost: undefined;
   OtherProfile: { userId: string };
+  ProfilePosts: { userId: string; initialIndex: number };
 };
 
 export type ProfileStackParamList = {
   Profile: undefined;
   EditProfile: undefined;
   Settings: undefined;
+  ProfilePosts: { userId: string; initialIndex: number };
 };
 
 export type TournamentsStackParamList = {
