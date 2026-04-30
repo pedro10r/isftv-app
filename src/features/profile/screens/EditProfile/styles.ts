@@ -62,4 +62,16 @@ export const createStyles = (colors: Colors) =>
     footer: {
       paddingTop: spacing.m,
     },
+    switchRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    switchLabel: {
+      flex: 1,
+      fontSize: typography.fontSizes.body,
+      fontFamily: typography.fontFamily.regular,
+      color: colors.textPrimary,
+      paddingRight: spacing.m,
+    },
   });

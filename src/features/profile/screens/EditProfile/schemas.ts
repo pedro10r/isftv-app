@@ -18,6 +18,7 @@ export const editProfileSchema = z.object({
     .optional()
     .or(z.literal("")),
   whatsapp: z.string().optional().or(z.literal("")),
+  organizer_type: z.enum(["person", "arena"]).optional(),
 });
 
 export type EditProfileFormValues = z.infer<typeof editProfileSchema>;

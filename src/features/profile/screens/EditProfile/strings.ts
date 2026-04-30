@@ -11,6 +11,7 @@ export const strings = {
       whatsapp: "WhatsApp",
       city: "Cidade",
       uf: "UF",
+      isArena: "Este perfil é de uma Arena/Complexo Esportivo?",
     },
     placeholders: {
       name: "Seu nome completo",

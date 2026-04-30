@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Alert } from "react-native";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { PlayingPosition } from "@features/profile/types";
@@ -22,6 +22,8 @@ export const useEditProfile = () => {
   const { mutateAsync: updateProfile, isPending: isUpdatingProfile } =
     useUpdateProfile();
 
+  const isOrganizer = profile?.role === "organizer";
+
   const [playingPosition, setPlayingPosition] =
     useState<PlayingPosition | null>(profile?.playing_position ?? null);
 
@@ -34,8 +36,12 @@ export const useEditProfile = () => {
       city: profile?.city ?? "",
       uf: profile?.uf ?? "",
       whatsapp: profile?.whatsapp ?? "",
+      organizer_type: profile?.organizer_type ?? "person",
     },
   });
+
+  const watchedOrganizerType = useWatch({ control, name: "organizer_type" });
+  const isArena = isOrganizer && watchedOrganizerType === "arena";
 
   const onSubmit = async (data: EditProfileFormValues) => {
     if (!userId) return;
@@ -46,8 +52,11 @@ export const useEditProfile = () => {
         updates: {
           full_name: data.full_name,
           bio: data.bio || null,
-          playing_position: playingPosition,
-          height: parseNumber(data.height),
+          organizer_type: isOrganizer
+            ? (data.organizer_type ?? "person")
+            : null,
+          playing_position: isArena ? null : playingPosition,
+          height: isArena ? null : parseNumber(data.height),
           city: data.city || null,
           uf: data.uf?.toUpperCase() || null,
           whatsapp: data.whatsapp || null,
@@ -71,5 +80,7 @@ export const useEditProfile = () => {
     playingPosition,
     setPlayingPosition,
     isUpdatingProfile,
+    isOrganizer,
+    isArena,
   };
 };

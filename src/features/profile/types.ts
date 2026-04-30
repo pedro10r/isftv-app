@@ -1,5 +1,6 @@
 export type UserRole = "player" | "organizer" | "admin";
 export type PlayingPosition = "Direita" | "Esquerda" | "Ambos";
+export type OrganizerType = "person" | "arena";
 
 export interface Profile {
   id: string;
@@ -14,4 +15,5 @@ export interface Profile {
   uf: string | null;
   whatsapp: string | null;
   role: UserRole;
+  organizer_type: OrganizerType | null;
 }

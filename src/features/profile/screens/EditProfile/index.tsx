@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { theme } from "@theme";
 
 import { FormTemplate } from "@components/templates";
-import { Button, TextInput, Select, UFSelect } from "@components/atoms";
+import { Button, TextInput, Select, UFSelect, Switch } from "@components/atoms";
 import { useAppTheme } from "@theme/ThemeContext";
 import { maskHeight, maskPhone } from "@utils";
 
@@ -28,6 +28,8 @@ export function EditProfile() {
     playingPosition,
     setPlayingPosition,
     isUpdatingProfile,
+    isOrganizer,
+    isArena,
   } = useEditProfile();
 
   return (
@@ -42,6 +44,27 @@ export function EditProfile() {
           <Text style={styles.title}>{strings.form.title}</Text>
           <Text style={styles.subtitle}>{strings.form.subtitle}</Text>
         </View>
+
+        {isOrganizer && (
+          <View style={styles.switchRow}>
+            <Text style={styles.switchLabel}>
+              {strings.form.labels.isArena}
+            </Text>
+
+            <Controller
+              control={control}
+              name="organizer_type"
+              render={({ field }) => (
+                <Switch
+                  value={field.value === "arena"}
+                  onValueChange={(val) =>
+                    field.onChange(val ? "arena" : "person")
+                  }
+                />
+              )}
+            />
+          </View>
+        )}
 
         <TextInput
           fieldName={strings.form.labels.name}
@@ -60,15 +83,17 @@ export function EditProfile() {
           numberOfLines={3}
         />
 
-        <TextInput
-          fieldName={strings.form.labels.height}
-          control={control}
-          name="height"
-          placeholder={strings.form.placeholders.height}
-          keyboardType="numeric"
-          maxLength={6}
-          transform={maskHeight}
-        />
+        {!isArena && (
+          <TextInput
+            fieldName={strings.form.labels.height}
+            control={control}
+            name="height"
+            placeholder={strings.form.placeholders.height}
+            keyboardType="numeric"
+            maxLength={6}
+            transform={maskHeight}
+          />
+        )}
 
         <TextInput
           fieldName={strings.form.labels.whatsapp}
@@ -105,7 +130,9 @@ export function EditProfile() {
           </View>
         </View>
 
-        <Select value={playingPosition} onValueChange={setPlayingPosition} />
+        {!isArena && (
+          <Select value={playingPosition} onValueChange={setPlayingPosition} />
+        )}
       </ScrollView>
 
       <View
