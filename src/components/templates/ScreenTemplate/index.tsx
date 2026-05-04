@@ -29,16 +29,14 @@ export function ScreenTemplate({
       {showBackButton && (
         <View style={styles.header}>
           <Pressable style={styles.backButton} onPress={onBack}>
-            <Feather
-              name="arrow-left"
-              size={24}
-              color={colors.textPrimary}
-            />
+            <Feather name="arrow-left" size={24} color={colors.textPrimary} />
           </Pressable>
+
           {title && <Text style={styles.headerTitle}>{title}</Text>}
           {title && <View style={styles.headerSpacer} />}
         </View>
       )}
+
       <View style={[styles.content, style]}>{children}</View>
     </SafeAreaView>
   );
