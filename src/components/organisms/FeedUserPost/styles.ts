@@ -9,8 +9,6 @@ const { spacing, typography, radii } = theme;
 export const createStyles = (colors: Colors) =>
   StyleSheet.create({
     container: {
-      backgroundColor: colors.surface,
-      paddingHorizontal: spacing.m,
       paddingVertical: spacing.m,
       borderRadius: radii.m,
     },

@@ -29,7 +29,7 @@ export function ProfilePosts() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
         <Pressable style={styles.backButton} onPress={goBack} hitSlop={8}>
-          <Feather name="chevron-left" size={24} color={colors.textPrimary} />
+          <Feather name="arrow-left" size={24} color={colors.textPrimary} />
         </Pressable>
 
         <View style={styles.headerInfo}>
@@ -42,6 +42,7 @@ export function ProfilePosts() {
       <FlatList
         ref={listRef}
         data={posts}
+        contentContainerStyle={styles.contentContainer}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <FeedUserPost data={item} />}
         showsVerticalScrollIndicator={false}

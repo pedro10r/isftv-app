@@ -12,10 +12,12 @@ export const createStyles = (colors: Colors) =>
       flex: 1,
       backgroundColor: colors.background,
     },
+    contentContainer: {
+      paddingHorizontal: spacing.m,
+    },
     header: {
       flexDirection: "row",
       alignItems: "center",
-      paddingHorizontal: spacing.m,
       paddingVertical: spacing.s,
       borderBottomWidth: StyleSheet.hairlineWidth,
       borderBottomColor: colors.border,
