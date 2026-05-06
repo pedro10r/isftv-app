@@ -1,5 +1,5 @@
 import { ProfileTemplate, ProfileTemplateLoading } from "@components/templates";
-import { ProfileMediaGrid } from "@components/organisms";
+import { ImageViewerModal, ProfileMediaGrid } from "@components/organisms";
 
 import { useOtherProfile } from "./hooks";
 
@@ -16,6 +16,9 @@ export function OtherProfile() {
     handleRefresh,
     handleCallWhatsApp,
     handleNavigateProfilePosts,
+    viewingImageUrl,
+    handleViewAvatar,
+    handleCloseImageViewer,
   } = useOtherProfile();
 
   if (isLoading && !profile) {
@@ -23,31 +26,41 @@ export function OtherProfile() {
   }
 
   return (
-    <ProfileTemplate
-      isMe={false}
-      isRefreshing={isRefreshing}
-      onRefresh={handleRefresh}
-      onGoBack={handleGoBack}
-      fullName={labels.displayName}
-      bio={labels.displayBio}
-      avatarUrl={avatarUrl}
-      coverUrl={coverUrl}
-      onCallWhatsApp={handleCallWhatsApp}
-      stats={{
-        position: labels.displayPosition,
-        city: labels.displayCity,
-      }}
-      details={{
-        height: labels.displayHeight,
-        location: labels.displayLocation,
-        whatsapp: labels.displayWhatsApp,
-      }}
-      renderMediaGrid={() => (
-        <ProfileMediaGrid
-          userId={userId}
-          onPostPress={handleNavigateProfilePosts}
-        />
-      )}
-    />
+    <>
+      <ProfileTemplate
+        isMe={false}
+        isRefreshing={isRefreshing}
+        onRefresh={handleRefresh}
+        onGoBack={handleGoBack}
+        fullName={labels.displayName}
+        bio={labels.displayBio}
+        avatarUrl={avatarUrl}
+        coverUrl={coverUrl}
+        onAvatarPress={handleViewAvatar}
+        onCallWhatsApp={handleCallWhatsApp}
+        stats={{
+          position: labels.displayPosition,
+          city: labels.displayCity,
+        }}
+        details={{
+          height: labels.displayHeight,
+          location: labels.displayLocation,
+          whatsapp: labels.displayWhatsApp,
+        }}
+        renderMediaGrid={() => (
+          <ProfileMediaGrid
+            userId={userId}
+            onPostPress={handleNavigateProfilePosts}
+          />
+        )}
+      />
+
+      <ImageViewerModal
+        visible={!!viewingImageUrl}
+        imageUrl={viewingImageUrl ?? undefined}
+        onClose={handleCloseImageViewer}
+        circular
+      />
+    </>
   );
 }

@@ -21,9 +21,13 @@ export const useProfile = () => {
   const userId = session?.user.id;
 
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [viewingImageUrl, setViewingImageUrl] = useState<string | null>(null);
 
-  const { data: profile, isLoading: isLoadingProfile, refetch } =
-    useProfileQuery(userId);
+  const {
+    data: profile,
+    isLoading: isLoadingProfile,
+    refetch,
+  } = useProfileQuery(userId);
   const { mutateAsync: uploadImage, isPending: isUploadingMedia } =
     useUploadProfileImage();
 
@@ -75,6 +79,12 @@ export const useProfile = () => {
 
   const handleNavigateSettings = () => navigate(NAV.PROFILE_STACK.SETTINGS);
 
+  const handleViewAvatar = () => {
+    if (profile?.avatar_url) setViewingImageUrl(profile.avatar_url);
+  };
+
+  const handleCloseImageViewer = () => setViewingImageUrl(null);
+
   const handleNavigateProfilePosts = (_postId: string, index: number) => {
     if (!userId) return;
     navigate(NAV.PROFILE_STACK.PROFILE_POSTS, { userId, initialIndex: index });
@@ -111,5 +121,8 @@ export const useProfile = () => {
     handleNavigateEditProfile,
     handleNavigateSettings,
     handleNavigateProfilePosts,
+    viewingImageUrl,
+    handleViewAvatar,
+    handleCloseImageViewer,
   };
 };

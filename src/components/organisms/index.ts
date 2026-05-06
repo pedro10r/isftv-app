@@ -5,3 +5,4 @@ export { FeedTournamentPromo } from "./FeedTournamentPromo";
 export { CategoryAccordion } from "./CategoryAccordion";
 export { TournamentCategoryCard } from "./TournamentCategoryCard";
 export { ProfileMediaGrid } from "./ProfileMediaGrid";
+export { ImageViewerModal } from "./ImageViewerModal";

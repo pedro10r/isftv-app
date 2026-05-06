@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { ActivityIndicator, View } from "react-native";
 
 import { ProfileTemplate } from "@components/templates";
-import { ProfileMediaGrid } from "@components/organisms";
+import { ImageViewerModal, ProfileMediaGrid } from "@components/organisms";
 import { useAppTheme } from "@theme/ThemeContext";
 
 import { useProfile } from "./hooks";
@@ -27,6 +27,9 @@ export function Profile() {
     handleNavigateEditProfile,
     handleNavigateSettings,
     handleNavigateProfilePosts,
+    viewingImageUrl,
+    handleViewAvatar,
+    handleCloseImageViewer,
   } = useProfile();
 
   if (isLoadingProfile && !profile) {
@@ -38,38 +41,48 @@ export function Profile() {
   }
 
   return (
-    <ProfileTemplate
-      isMe
-      isRefreshing={isRefreshing}
-      onRefresh={handleRefresh}
-      fullName={labels.displayName}
-      bio={labels.displayBio}
-      avatarUrl={avatarUrl}
-      coverUrl={coverUrl}
-      stats={{
-        position: labels.displayPosition,
-        city: labels.displayCity,
-      }}
-      details={{
-        height: labels.displayHeight,
-        location: labels.displayLocation,
-        whatsapp: labels.displayWhatsApp,
-      }}
-      isUploadingMedia={isUploadingMedia}
-      onPickAvatar={handlePickAvatar}
-      onPickCover={handlePickCover}
-      onEditProfile={handleNavigateEditProfile}
-      onSettings={handleNavigateSettings}
-      renderMediaGrid={
-        userId
-          ? () => (
-              <ProfileMediaGrid
-                userId={userId}
-                onPostPress={handleNavigateProfilePosts}
-              />
-            )
-          : undefined
-      }
-    />
+    <>
+      <ProfileTemplate
+        isMe
+        isRefreshing={isRefreshing}
+        onRefresh={handleRefresh}
+        fullName={labels.displayName}
+        bio={labels.displayBio}
+        avatarUrl={avatarUrl}
+        coverUrl={coverUrl}
+        stats={{
+          position: labels.displayPosition,
+          city: labels.displayCity,
+        }}
+        details={{
+          height: labels.displayHeight,
+          location: labels.displayLocation,
+          whatsapp: labels.displayWhatsApp,
+        }}
+        isUploadingMedia={isUploadingMedia}
+        onPickAvatar={handlePickAvatar}
+        onPickCover={handlePickCover}
+        onAvatarPress={handleViewAvatar}
+        onEditProfile={handleNavigateEditProfile}
+        onSettings={handleNavigateSettings}
+        renderMediaGrid={
+          userId
+            ? () => (
+                <ProfileMediaGrid
+                  userId={userId}
+                  onPostPress={handleNavigateProfilePosts}
+                />
+              )
+            : undefined
+        }
+      />
+
+      <ImageViewerModal
+        visible={!!viewingImageUrl}
+        imageUrl={viewingImageUrl ?? undefined}
+        onClose={handleCloseImageViewer}
+        circular
+      />
+    </>
   );
 }

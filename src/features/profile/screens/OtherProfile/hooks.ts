@@ -17,10 +17,17 @@ export const useOtherProfile = () => {
   const queryClient = useQueryClient();
 
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [viewingImageUrl, setViewingImageUrl] = useState<string | null>(null);
 
   const { data: profile, isLoading, refetch } = useProfile(userId);
 
   const handleGoBack = () => goBack();
+
+  const handleViewAvatar = () => {
+    if (profile?.avatar_url) setViewingImageUrl(profile.avatar_url);
+  };
+
+  const handleCloseImageViewer = () => setViewingImageUrl(null);
 
   const handleNavigateProfilePosts = (_postId: string, index: number) => {
     navigate(NAV.HOME_STACK.PROFILE_POSTS, { userId, initialIndex: index });
@@ -79,6 +86,9 @@ export const useOtherProfile = () => {
     handleGoBack,
     handleRefresh,
     handleCallWhatsApp,
+    viewingImageUrl,
+    handleViewAvatar,
+    handleCloseImageViewer,
     handleNavigateProfilePosts,
   };
 };

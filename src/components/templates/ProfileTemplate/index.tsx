@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useMemo, useRef } from "react";
 import {
   ActivityIndicator,
+  Pressable,
   RefreshControl,
   ScrollView,
   Text,
@@ -56,6 +57,8 @@ interface ProfileTemplateProps {
   onCallWhatsApp?: () => void;
   onPickAvatar?: () => void;
   onPickCover?: () => void;
+  onAvatarPress?: () => void;
+  onCoverPress?: () => void;
   renderMediaGrid?: () => ReactNode;
 }
 
@@ -76,6 +79,8 @@ export function ProfileTemplate({
   onCallWhatsApp,
   onPickAvatar,
   onPickCover,
+  onAvatarPress,
+  onCoverPress,
   renderMediaGrid,
 }: ProfileTemplateProps) {
   const { colors } = useAppTheme();
@@ -133,11 +138,13 @@ export function ProfileTemplate({
           {onGoBack && <BackButtonFloater onPress={onGoBack} />}
 
           {coverUrl ? (
-            <Image
-              source={{ uri: coverUrl }}
-              style={styles.coverImage}
-              contentFit="cover"
-            />
+            <Pressable onPress={onCoverPress} disabled={!onCoverPress}>
+              <Image
+                source={{ uri: coverUrl }}
+                style={styles.coverImage}
+                contentFit="cover"
+              />
+            </Pressable>
           ) : (
             <View style={styles.coverImage} />
           )}
@@ -160,21 +167,23 @@ export function ProfileTemplate({
 
         <View style={styles.avatarWrapper}>
           <View style={styles.avatarRelative}>
-            <View style={styles.avatarOuter}>
-              {avatarUrl ? (
-                <Image
-                  source={{ uri: avatarUrl }}
-                  style={styles.avatarImage}
-                  contentFit="cover"
-                />
-              ) : (
-                <View style={styles.avatarInitials}>
-                  <Text style={styles.avatarInitialsText}>
-                    {getInitials(fullName)}
-                  </Text>
-                </View>
-              )}
-            </View>
+            <Pressable onPress={onAvatarPress} disabled={!onAvatarPress}>
+              <View style={styles.avatarOuter}>
+                {avatarUrl ? (
+                  <Image
+                    source={{ uri: avatarUrl }}
+                    style={styles.avatarImage}
+                    contentFit="cover"
+                  />
+                ) : (
+                  <View style={styles.avatarInitials}>
+                    <Text style={styles.avatarInitialsText}>
+                      {getInitials(fullName)}
+                    </Text>
+                  </View>
+                )}
+              </View>
+            </Pressable>
 
             {isMe && (
               <TouchableOpacity
